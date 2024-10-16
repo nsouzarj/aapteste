@@ -97,6 +97,7 @@ while pagina_atual >= 1:
     # print(f"REGISTROS TOTAIS: {reg}")
     # break
 
+
 print("CRIANDO A PLANILHDA DO EXCEL.") 
 # Criando uma nova planilha Excel e definindo os cabeçalhos
 workbook = Workbook()
