@@ -7,6 +7,9 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 from openpyxl import Workbook
 import pandas as pd
+import re
+import locale
+from datetime import datetime
 
 # Configurando opções do Chrome
 chrome_options = Options()
@@ -15,23 +18,97 @@ chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-gpu")  # Desativa a aceleração de hardware
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-
 # Caminho para o ChromeDriver
 chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe"
-
 # Inicializando o ChromeDriver
 service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service, options=chrome_options)
-
 # Inicializando um conjunto para armazenar links únicos
 links_imoveis = set()
-
 # Número da página inicial
 pagina_atual = 1
-
 cont = 0 
-
+# PAgina por scrol de tela
 pagina_tela = 0
+
+""" Array que contem os tipso de movel """
+tipos_imoveis = [
+    "Apartamento",
+    "Studio",
+    "Kitnet",
+    "Casa",
+    "Sobrado",
+    "Casa de Condomínio",
+    "Casa de Vila",
+    "Cobertura",
+    "Flat",
+    "Loft",
+    "Terreno / Lote / Condomínio",
+    "Fazenda / Sítio / Chácara",
+    "Loja / Salão / Ponto Comercial",
+    "Conjunto Comercial / Sala",
+    "Casa Comercial",
+    "Hotel / Motel / Pousada",
+    "Andar / Laje Corporativa",
+    "Prédio Inteiro",
+    "Terrenos / Lotes Comerciais",
+    "Galpão / Depósito / Armazém",
+    "Garagem"
+]
+
+""" Rerona o tipo do imovel"""
+def encontrar_tipo_imovel(descricao, tipos_imoveis):
+    for indice, tipo in enumerate(tipos_imoveis):
+        if tipo.lower() in descricao.lower():  # Ignora maiúsculas/minúsculas
+            return tipo  # Retorna o tipo encontrado
+    return None  
+
+
+""" Esta funcao trata a localizacao do imovel separando por partes"""
+def separar_endereco(endereco):
+    # Usando expressões regulares para separar os componentes do endereço
+    padrao = r'^(.*?)(?:,\s*(\d+))?\s*-\s*(.*?),\s*(.*?)-\s*(\w{2})$'
+    resultado = re.match(padrao, endereco)
+
+    if resultado:
+        logradouro = resultado.group(1).strip()
+        numero = resultado.group(2) if resultado.group(2) else None  # Se não houver número, retorna None
+        bairro = resultado.group(3).strip()
+        cidade = resultado.group(4).strip()
+        estado = resultado.group(5).strip()
+        
+        # Retornando cada parte do endereço
+        yield logradouro
+        yield numero
+        yield bairro
+        yield cidade
+        yield estado
+    else:
+        yield None 
+        
+#Funcao que moreov parte do texto 
+def remover_parte_texto(texto, parte_a_remover):
+    """Remove a parte especificada da string e retorna o restante."""
+    return texto.replace(parte_a_remover, "").strip()   
+
+# Formata data em extendo
+def extrair_e_formatar_data(texto):
+    # Definindo a localidade para português
+    locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')  # Pode ser necessário ajustar dependendo do sistema
+
+    # Usando expressão regular para encontrar a data no formato "26 de junho de 2024"
+    padrao = r'(\d{1,2} de \w+ de \d{4})'
+    resultado = re.search(padrao, texto)
+
+    if resultado:
+        # Extraindo a data encontrada
+        data_str = resultado.group(1)
+        # Convertendo a data para o formato desejado
+        data_formatada = datetime.strptime(data_str, '%d de %B de %Y').strftime('%d/%m/%Y')
+        return data_formatada
+    else:
+        return None  # Retorna None se não encontrar a data
+     
 
 # Coletando links dos imóveis
 while pagina_atual >= 1:
@@ -41,18 +118,15 @@ while pagina_atual >= 1:
     service = Service(chrome_driver_path)
     driver = webdriver.Chrome(service=service, options=chrome_options)
     # Montando a URL com o número da página atual
-    link_nova_lina = f"https://www.zapimoveis.com.br/venda/casas/mg+nova-lima/4-quartos/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Minas%20Gerais,Nova%20Lima,,,,,city,BR%3EMinas%20Gerais%3ENULL%3ENova%20Lima,-19.984906,-43.846963,&tipos=casa_residencial&pagina=1&amenities=Piscina%20privativa&banheiros=4&quartos=4&vagas=4"
-    
-    url = link_nova_lina
+    link_nova_lina = f"https://www.zapimoveis.com.br/venda/casas/mg+nova-lima/varanda/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Minas%20Gerais,Nova%20Lima,,,,,city,BR%3EMinas%20Gerais%3ENULL%3ENova%20Lima,-19.984906,-43.846963,&tipos=casa_residencial&pagina={pagina_atual}&amenities=Varanda/Sacada,Piscina"
     # url = f"https://www.zapimoveis.com.br/venda/imoveis/rj+rio-de-janeiro/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Rio%20de%20Janeiro,Rio%20de%20Janeiro,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3ERio%20de%20Janeiro,-22.906847,-43.172897,&pagina={pagina_atual}"
-
-    # Acessando a URL
+    url=link_nova_lina     # Acessando a URL
     print(f"Acessando a URL: {url}")
     driver.get(url)
 
     # Espera até que os imóveis estejam carregados
-    WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[1]/div/a/div/div[1]/div[2]')))
-    print("Elemento de verificação encontrado. Iniciando a coleta de links.")
+   ## WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[1]/div/a/div/div[1]/div[2]')))
+   ## print("Elemento de verificação encontrado. Iniciando a coleta de links.")
 
     # Seleciona todos os cards de imóveis na página
     imoveis = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div') 
@@ -64,12 +138,53 @@ while pagina_atual >= 1:
         print("Nenhum imóvel encontrado na página.")
         break
     # Pagina os registro em cadas pagina ate 106 no maximo
-    while pagina_tela < 106:
-        driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1]) 
-        time.sleep(2)  # Espera um pouco para que novos imóveis sejam carregados            
-        pagina_tela = pagina_tela + len(imoveis)
-        print(f"PAGINANDO REGISTROS: {pagina_tela}")
+    a=0
+    print(f"PAGINANDO REGISTROS: {pagina_atual}")
+      
+    for i in range(105):
+            cont = i + 1
+           
+            try:
+                try:
+                   botao = WebDriverWait(driver, 10).until(
+                        EC.presence_of_element_located((By.XPATH,  f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div[1]/div[2]/div[2]/div[2]/button'))
+                                                                  
+                    )
+                   cont = i + 1  
+                except Exception:
+                     print(f"Eelemento nao encontrado")   
+                     link = driver.find_element(By.XPATH,  f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
+                     valor = driver.find_element(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a/div/div[1]/div[2]/div[2]/div[1]/p[1]') 
+                     descricao = driver.find_element(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a/div/div[1]/div[2]/div[1]/h2/span[1]') 
+                     links_imoveis.add(link.get_attribute('href')) 
+                     print(f"LINK: {a} - {link.get_attribute('href')}")
+                     print(f"VALOR: {valor.text} ")
+                     a = a + 1
+                     driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])
+                     time.sleep(2)
+                     pagina_tela = pagina_tela + len(imoveis)
+                     
+                    
+               
+                
+                if a == 15:
+                    driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1]) 
+                    a = 0    
+                    time.sleep(2)  # Espera um pouco para que novos imóveis sejam carregados            
+                    pagina_tela = pagina_tela + len(imoveis)
+            
+            except Exception as e:
+                print(f"Erro ao encontrar o link para o elemento  {cont} {e}" )
+                break
+            if cont==105:
+                pagina_atual=pagina_atual+1
+                break    
+
+
+        
+        
     # Aqui comecao o loop de busca dos link para adciona no arrei    
+    """ 
     while registro < 106:
         try:
             # Extraindo o link de cada imóvel           
@@ -79,31 +194,37 @@ while pagina_atual >= 1:
             link = driver.find_element(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{registro}]/div/a')
             links_imoveis.add(link.get_attribute('href'))  # Adicionando o link à lista
             print(f"Link: {link.get_attribute('href')}")
+            
+            if cont==16:
+                driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1]) 
+                time.sleep(2)  # Espera um pouco para que novos imóveis sejam carregados            
+                pagina_tela = pagina_tela + len(imoveis)
+                print(f"PAGINANDO REGISTROS: {pagina_tela}")
+                cont=0
+                
+            
         except Exception:
             print("IMÓVEL EM ANÚNCIO OU LINK NAO ENCONTRADO ")  
+            cont=cont+1
     
     print(f"Pagina atual: {pagina_atual}")
-                
+    pagina_atual += 1  
+    """                    
     # Incrementa o número da página
-    if registro == 106 and pagina_atual == 1:
-        reg = len(links_imoveis)
-        print(f"REGISTROS TOTAIS: {reg}")
-        break
-    else:
-        pagina_atual += 1  
-        
+
+             
     # if pagina_atual == 6:
     # reg=len(links_imoveis)
     # print(f"REGISTROS TOTAIS: {reg}")
     # break
-
 
 print("CRIANDO A PLANILHDA DO EXCEL.") 
 # Criando uma nova planilha Excel e definindo os cabeçalhos
 workbook = Workbook()
 sheet = workbook.active
 sheet.title = "Imóveis"
-cabecalhos = ["Título", "Preço", "Condomínio", "IPTU", "Área", "Endereço", "Link"]
+cabecalhos = ["data_inclusao", "tipo_imovel", "cep_endereco", "logradouro_endereco", "numero_endereço", "bairro_endereco", "uf_endereco","cidade_endereco","dormitorios",
+              "suites","vagas","area_util","vlr_venda","vlr_aluguel","vlr_condominio","vlr_iptu","anunciante","link","codigo_imovel"]
 sheet.append(cabecalhos)  # Adiciona os cabeçalhos à planilha
 
 # Coletando detalhes de cada imóvel
@@ -115,54 +236,100 @@ for link in links_imoveis:
     time.sleep(3)  # Espera a página carregar
 
     try:
-        # Aguardando até que o elemento de preço esteja presente
-        preco = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '//p[@data-testid="price-info-value"]')))
-        if preco.text != "Sob consulta":
-            address = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
-            condo_fee = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
+        
+        address = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
+        area = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//span[@data-cy="ldp-propertyFeatures-txt"]')))
+        title = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
+     
+        # PEga tipo de valor "vnda" "aliguel"
+        tipo_valor=WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="business-type-info"]')))   
+        if tipo_valor.text == "Venda":
+            valor_venda = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//p[@data-testid="price-info-value"]')))    
+            valor_venda_limpo=valor_venda.text;
+            valor_aluguel_limpo=""
+            #valor_venda = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, ' /html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div/div[1]/div[1]/p[2]')))
+            if valor_venda.text != "Sob consulta":
+           
+                condo_fee = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
+                if not condo_fee.text:
+                   condo_fee = "Isento"  # Assinala um valor padrão se vazio
+                iptu = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="iptu-price"]')))
+                if not iptu.text:
+                   iptu = "Isento"  # Assinala um valor padrão se vazio
+               
+               
+                if isinstance(condo_fee, str):  # Verifica se condo_fee é uma string
+                    condo_fee = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
+                else:
+                    condo_fee = condo_fee.text  # Obtém o texto se for um WebElement
+             
+                if isinstance(iptu, str):  # Verifica se iptu é uma string
+                    iptu = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
+                else:
+                    iptu = iptu.text    
+           
+            
+        elif tipo_valor.text == "Aluguel":
+            valor_aluguel = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, ' /html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div/div[1]/div[1]/p[2]')))
+            valor_aluguel_limpo=valor_aluguel.text
+            valor_venda_limpo=""
+            
+            condo_fee = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
             if not condo_fee.text:
-                condo_fee = "Isento"  # Assinala um valor padrão se vazio
-            iptu = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="iptu-price"]')))
+               condo_fee = "Isento"  # Assinala um valor padrão se vazio
+            
+            iptu = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="iptu-price"]')))
             if not iptu.text:
-                iptu = "Isento"  # Assinala um valor padrão se vazio
-            area = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '//span[@data-cy="ldp-propertyFeatures-txt"]')))
-            title = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
-        else:
-            address = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
-            iptu = "Isento"
-            condo_fee = "Isento"
-            area = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '//span[@data-cy="ldp-propertyFeatures-txt"]')))
-            title = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
+               iptu = "Isento"  # Assinala um valor padrão se vazio
+            
+            
+            if isinstance(condo_fee, str):  # Verifica se condo_fee é uma string
+               condo_fee = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
+            else:
+               condo_fee = condo_fee.text  # Obtém o texto se for um WebElement
+             
+            if isinstance(iptu, str):  # Verifica se iptu é uma string
+               iptu = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
+            else:
+               iptu = iptu.text    
+
+    
+       
+        # Clic    
         
         # Verificando se condo_fee e iptu têm valores
-        if isinstance(condo_fee, str):  # Verifica se condo_fee é uma string
-            condo_fee = "N/A"  # Assinala um valor padrão se vazio
-        else:
-            condo_fee = condo_fee.text  # Obtém o texto se for um WebElement
-
-        if isinstance(iptu, str):  # Verifica se iptu é uma string
-            iptu = "N/A"  # Assinala um valor padrão se vazio
-        else:
-            iptu = iptu.text  # Obtém o texto se for um WebElement
-
+        # Obtém o texto se for um WebElement
         # Imprimindo os detalhes coletados
-        print(f"Link: {link}")
-        # print(f"Endereço: {address.text}")
-        # print(f"Preço: {preco.text}")
-        # print(f"Taxa de Condomínio: {condo_fee}")
-        # print(f"IPTU: {iptu}")
-        # print(f"Área: {area.text}")
-        # print(f"Título: {title.text}")
-     
-        # Adicionando os detalhes à planilha
-        sheet.append([title.text, preco.text, condo_fee, iptu, area.text, address.text, link])
-
+        
+        # Traz a data em extendo e trasnforma em formato MM/DD/YYYy
+        data_extenso = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[4]/span[2]')))  
+        data_cadastro = extrair_e_formatar_data(data_extenso.text)
+        area_num = remover_parte_texto(area.text, "m²")
+        # Click the button at the specified XPath
+      
+        button = WebDriverWait(driver1, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
+        button.click()  
+        # Traz o anunciante do imovel 
+        anunciante_do_imovel = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[1]/div/p[1]')))
+        # Zap 
+        zap_do_anunciante = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
+        # Imprime na tela o link         
+      
+        
+        logradouro, numero, bairro, cidade, estado = separar_endereco(address.text)
+        tipo_movel=encontrar_tipo_imovel(title.text,tipos_imoveis)
+        parte_zap = remover_parte_texto(zap_do_anunciante.text, "No Zap: ")
+    
+      
+        time.sleep(2) 
+        # Aqui adicona na planilha crianda
+        sheet.append([data_cadastro,tipo_movel,"cep", logradouro, numero,bairro,estado,cidade, "00","00","00",area_num,valor_venda_limpo,valor_aluguel_limpo, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])
+        
     except Exception as e:
-        print(f"Erro ao coletar detalhes do imóvel: {e.__traceback__}")
+        print(f"Erro ao coletar detalhes do imóvel: {e}")
 
 # Criando um DataFrame vazio com os cabeçalhos
 df = pd.DataFrame(columns=cabecalhos)
-
 # Salvando o DataFrame em um arquivo Excel
 df.to_excel("imoveis.xlsx", index=False)
 workbook.save("imoveis.xlsx")
