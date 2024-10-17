@@ -1,0 +1,32 @@
+[
+    {
+        "cep": "91790-072",
+        "logradouro": "Rua Domingos Jos\u00e9 Poli",
+        "complemento": "",
+        "unidade": "",
+        "bairro": "Restinga",
+        "localidade": "Porto Alegre",
+        "uf": "RS",
+        "estado": "Rio Grande do Sul",
+        "regiao": "Sul",
+        "ibge": "4314902",
+        "gia": "",
+        "ddd": "51",
+        "siafi": "8801"
+    },
+    {
+        "cep": "90420-200",
+        "logradouro": "Rua Domingos Jos\u00e9 de Almeida",
+        "complemento": "",
+        "unidade": "",
+        "bairro": "Rio Branco",
+        "localidade": "Porto Alegre",
+        "uf": "RS",
+        "estado": "Rio Grande do Sul",
+        "regiao": "Sul",
+        "ibge": "4314902",
+        "gia": "",
+        "ddd": "51",
+        "siafi": "8801"
+    }
+]

@@ -20,9 +20,11 @@ chrome_options.add_argument("--disable-gpu")  # Desativa a aceleração de hardw
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
 # Caminho para o ChromeDriver
 chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe"
+
 # Inicializando o ChromeDriver
 service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service, options=chrome_options)
+
 # Inicializando um conjunto para armazenar links únicos
 links_imoveis = set()
 # Número da página inicial
@@ -30,7 +32,7 @@ pagina_atual = 1
 cont = 0 
 # PAgina por scrol de tela
 pagina_tela = 0
-contador_geral=0;
+contador_geral = 0;
 
 """ Array que contem os tipso de movel """
 tipos_imoveis = [
@@ -149,6 +151,7 @@ def extrair_e_formatar_data(texto):
             return None
     else:
         return None  # Retorna None se não encontrar a data
+
 # Coletando links dos imóveis
 
 while pagina_atual >= 1:
@@ -223,6 +226,7 @@ cabecalhos = ["data_inclusao", "tipo_imovel", "cep_endereco", "logradouro_endere
 sheet.append(cabecalhos)  # Adiciona os cabeçalhos à planilha
 #links_imoveis.add("https://www.zapimoveis.com.br/imovel/venda-casa-4-quartos-com-piscina-balneario-agua-limpa-nova-lima-mg-400m2-id-2734702856/")
 # Coletando detalhes de cada imóvel
+registro_atual = 0
 for link in links_imoveis:
     # Inicializando o ChromeDriver
     service1 = Service(chrome_driver_path)
@@ -325,14 +329,19 @@ for link in links_imoveis:
         time.sleep(2) 
         # Aqui adicona na planilha crianda
         sheet.append([data_cadastro,tipo_movel,"cep", logradouro, numero,bairro,estado,cidade, "00","00","00",area_num,valor_venda_limpo,valor_aluguel_limpo, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])
+        registro_atual += 1
+
+        # Salva a planilha a cada 100 registros
+        if registro_atual % 100 == 0:
+            workbook.save("imoveis.xlsx")
+            print(f"Planilha salva com sucesso! (Registro {registro_atual})")
+
     except Exception as e:
         print(f"Erro ao coletar detalhes do imóvel: {e}")
 
-# Criando um DataFrame vazio com os cabeçalhos
-df = pd.DataFrame(columns=cabecalhos)
-# Salvando o DataFrame em um arquivo Excel
-df.to_excel("imoveis.xlsx", index=False)
+# Salva a planilha final (novamente, para garantir que todos os dados estão salvos)
 workbook.save("imoveis.xlsx")
 print("Planilha Excel criada com sucesso!")
+
 # Fechando o driver
 driver.quit()

@@ -1,39 +1,85 @@
-import re
+import requests
+import json
 
-def parse_address(address):
-    # Substitui o hífen por uma vírgula para facilitar a separação
-    address = address.replace("-", ",")
-    
-    # Regex pattern para capturar os componentes do endereço
-    pattern = r'^(?P<logradouro>[^,]+),?\s*(?P<numero>\d*)?\s*,?\s*(?P<bairro>[^,]*)?,?\s*(?P<cidade>[^,]+?)\s*,\s*(?P<estado>[A-Z]{2})$'
-    
-    # Tenta fazer o match do endereço com o padrão
-    match = re.match(pattern, address.strip())
-    
-    if match:
-        logradouro = match.group("logradouro").strip() if match.group("logradouro") else "inexistente"
-        numero = match.group("numero").strip() if match.group("numero") else "inexistente"
-        bairro = match.group("bairro").strip() if match.group("bairro") else "inexistente"
-        cidade = match.group("cidade").strip() if match.group("cidade") else "inexistente"
-        estado = match.group("estado").strip() if match.group("estado") else "inexistente"
-       
-        if cidade=='':
-           cidade = bairro
-           bairro=''   
-        # Retorna como uma tupla
-        return (logradouro, numero, bairro, cidade, estado)
+def get_ceps_por_logradouro(logradouro, numero, cidade, estado):
+  """
+  Busca CEPs de um logradouro e retorna o mais próximo, considerando o número.
+
+  Args:
+    logradouro: O nome do logradouro a ser pesquisado.
+    numero: O número do logradouro.
+    cidade: A cidade do logradouro.
+    estado: O estado do logradouro.
+
+  Returns:
+    Um dicionário contendo o CEP mais próximo do logradouro.
+  """
+
+  # Faz a requisição à API do ViaCEP
+  url = f"https://viacep.com.br/ws/{estado}/{cidade}/{logradouro}/json/"
+  response = requests.get(url)
+
+  # Verifica se a requisição foi bem-sucedida
+  if response.status_code == 200:
+    # Carrega os dados da resposta em JSON
+    ceps = response.json()
+
+    # Mostra o JSON na tela
+    print(json.dumps(ceps, indent=4))  # Formata o JSON para melhor visualização
+
+    # Se houver mais de um CEP, encontra o mais próximo
+    if isinstance(ceps, list):
+      # Encontra o CEP mais próximo com base no número
+      cep_mais_proximo = encontrar_cep_mais_proximo(ceps, numero)
     else:
-        return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente")
+      cep_mais_proximo = ceps
 
-# Exemplo de endereço no novo formato
-address = "Balneario Água Limpa, Nova Lima - MG"
+    return cep_mais_proximo
+  else:
+    return None
 
-# Analisando o endereço e imprimindo o resultado
-parsed = parse_address(address)
-logradouro, numero, bairro, cidade, estado = parsed
+def encontrar_cep_mais_proximo(ceps, numero):
+  """
+  Encontrar o CEP mais próximo com base no número do logradouro.
 
-print(f"Logradouro: {logradouro}")
-print(f"Número: {numero}")
-print(f"Bairro: {bairro}")
-print(f"Cidade: {cidade}")
-print(f"Estado: {estado}")
+  Args:
+    ceps: A lista de CEPs retornados pela API.
+    numero: O número do logradouro.
+
+  Returns:
+    O CEP mais próximo com base no número do logradouro.
+  """
+
+  cep_mais_proximo = None
+  menor_diferenca = float('inf')
+  for cep in ceps:
+    # Verifica se o complemento está presente e converte para inteiro
+    complemento = cep.get('complemento')
+    if complemento:
+      try:
+        complemento_int = int(complemento)
+      except ValueError:
+        # Se o complemento não for um número inteiro, ignora
+        continue
+
+      # Calcula a diferença absoluta entre o número e o complemento
+      diferenca = abs(numero - complemento_int)
+      
+      # Atualiza o CEP mais próximo se a diferença for menor
+      if diferenca < menor_diferenca:
+        menor_diferenca = diferenca
+        cep_mais_proximo = cep
+
+  return cep_mais_proximo
+
+# Exemplo de uso
+logradouro = "Rua do Humaitá"
+numero = 52
+cidade = "Rio de Janeiro"
+estado = "RJ"
+cep_mais_proximo = get_ceps_por_logradouro(logradouro, numero, cidade, estado)
+
+if cep_mais_proximo:
+  print(f"CEP mais próximo de {logradouro} {numero}, {cidade}, {estado}: {cep_mais_proximo['cep']}")
+else:
+  print(f"Nenhum CEP encontrado para {logradouro} {numero}, {cidade}, {estado}.")
