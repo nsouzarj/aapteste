@@ -111,18 +111,19 @@ def extrair_e_formatar_data(texto):
      
 
 # Coletando links dos imóveis
-while pagina_atual >= 1:
+while pagina_atual >= 1:  # Loop principal para as páginas
     registro = 0
-   
+    #https://www.zapimoveis.com.br/venda/casas/mg+nova-lima/varanda/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Minas%20Gerais,Nova%20Lima,,,,,city,BR%3EMinas%20Gerais%3ENULL%3ENova%20Lima,-19.984906,-43.846963,&tipos=casa_residencial&pagina={pagina_atual}&amenities=Varanda/Sacada,Piscina&vagas=4
     # Inicializando o ChromeDriver
     service = Service(chrome_driver_path)
     driver = webdriver.Chrome(service=service, options=chrome_options)
     # Montando a URL com o número da página atual
-    link_nova_lina = f"https://www.zapimoveis.com.br/venda/casas/mg+nova-lima/varanda/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Minas%20Gerais,Nova%20Lima,,,,,city,BR%3EMinas%20Gerais%3ENULL%3ENova%20Lima,-19.984906,-43.846963,&tipos=casa_residencial&pagina={pagina_atual}&amenities=Varanda/Sacada,Piscina"
+    link_nova_lina = f"https://www.zapimoveis.com.br/venda/casas/mg+nova-lima/varanda/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Minas%20Gerais,Nova%20Lima,,,,,city,BR%3EMinas%20Gerais%3ENULL%3ENova%20Lima,-19.984906,-43.846963,&tipos=casa_residencial&pagina={pagina_atual}&amenities=Varanda/Sacada,Piscina&vagas=4"
     # url = f"https://www.zapimoveis.com.br/venda/imoveis/rj+rio-de-janeiro/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Rio%20de%20Janeiro,Rio%20de%20Janeiro,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3ERio%20de%20Janeiro,-22.906847,-43.172897,&pagina={pagina_atual}"
     url=link_nova_lina     # Acessando a URL
     print(f"Acessando a URL: {url}")
     driver.get(url)
+    print((f" PAGINA ATUAL: {pagina_atual} "))
 
     # Espera até que os imóveis estejam carregados
    ## WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[1]/div/a/div/div[1]/div[2]')))
@@ -141,82 +142,45 @@ while pagina_atual >= 1:
     a=0
     print(f"PAGINANDO REGISTROS: {pagina_atual}")
       
-    for i in range(105):
-            cont = i + 1
-           
-            try:
-                try:
-                   botao = WebDriverWait(driver, 10).until(
-                        EC.presence_of_element_located((By.XPATH,  f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div[1]/div[2]/div[2]/div[2]/button'))
-                                                                  
-                    )
-                   cont = i + 1  
-                except Exception:
-                     print(f"Eelemento nao encontrado")   
-                     link = driver.find_element(By.XPATH,  f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
-                     valor = driver.find_element(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a/div/div[1]/div[2]/div[2]/div[1]/p[1]') 
-                     descricao = driver.find_element(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a/div/div[1]/div[2]/div[1]/h2/span[1]') 
-                     links_imoveis.add(link.get_attribute('href')) 
-                     print(f"LINK: {a} - {link.get_attribute('href')}")
-                     print(f"VALOR: {valor.text} ")
-                     a = a + 1
-                     driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])
-                     time.sleep(2)
-                     pagina_tela = pagina_tela + len(imoveis)
-                     
-                    
-               
-                
-                if a == 15:
-                    driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1]) 
-                    a = 0    
-                    time.sleep(2)  # Espera um pouco para que novos imóveis sejam carregados            
-                    pagina_tela = pagina_tela + len(imoveis)
-            
-            except Exception as e:
-                print(f"Erro ao encontrar o link para o elemento  {cont} {e}" )
-                break
-            if cont==105:
-                pagina_atual=pagina_atual+1
-                break    
-
-
+    for i in range(1, 106):  # Começa de 1 e vai até 105
+        cont = i  # Agora cont começa de 1
         
-        
-    # Aqui comecao o loop de busca dos link para adciona no arrei    
-    """ 
-    while registro < 106:
         try:
-            # Extraindo o link de cada imóvel           
-            registro = registro + 1
-            cont = cont + 1
-            print(f"REGISTRO: {registro}")
-            link = driver.find_element(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{registro}]/div/a')
-            links_imoveis.add(link.get_attribute('href'))  # Adicionando o link à lista
-            print(f"Link: {link.get_attribute('href')}")
+            # Tenta encontrar o botão
+            try:
+                botao = WebDriverWait(driver, 8).until(
+                    EC.presence_of_element_located((By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div[1]/div[2]/div[2]/div[2]/button'))
+                )
+            except Exception:
+                print(f"Elemento não encontrado, coletando link mesmo assim.")   
             
-            if cont==16:
-                driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1]) 
-                time.sleep(2)  # Espera um pouco para que novos imóveis sejam carregados            
-                pagina_tela = pagina_tela + len(imoveis)
-                print(f"PAGINANDO REGISTROS: {pagina_tela}")
-                cont=0
-                
-            
-        except Exception:
-            print("IMÓVEL EM ANÚNCIO OU LINK NAO ENCONTRADO ")  
-            cont=cont+1
-    
-    print(f"Pagina atual: {pagina_atual}")
-    pagina_atual += 1  
-    """                    
-    # Incrementa o número da página
+            # Verifica se o elemento do link existe antes de tentar acessá-lo
+            link_element = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
+            if link_element:  # Se o elemento foi encontrado
+                link = link_element[0]
+                links_imoveis.add(link.get_attribute('href')) 
+                print(f"LINK: {i} - {link.get_attribute('href')}")
+            else:
+                print(f"Link não encontrado para o elemento {cont}.")
+                continue  # Pula para a próxima iteração se o link não for encontrado
 
-             
-    # if pagina_atual == 6:
-    # reg=len(links_imoveis)
-    # print(f"REGISTROS TOTAIS: {reg}")
-    # break
+            valor = driver.find_element(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a/div/div[1]/div[2]/div[2]/div[1]/p[1]') 
+            descricao = driver.find_element(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a/div/div[1]/div[2]/div[1]/h2/span[1]') 
+            print(f"VALOR: {valor.text} ")
+            a += 1
+            driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])
+            time.sleep(2)
+            pagina_tela += len(imoveis)
+
+            # Verifica se já coletou 105 registros para rolar a página
+            if a == 105:
+                print("Coletou 105 registros, passando para a próxima página.")
+                pagina_atual += 1  # Incrementa o número da página
+                break  # Sai do loop para reiniciar a coleta na nova página
+
+        except Exception as e:
+            print(f"Erro ao encontrar o link para o elemento {cont}: {e}")
+            break                  
 
 print("CRIANDO A PLANILHDA DO EXCEL.") 
 # Criando uma nova planilha Excel e definindo os cabeçalhos
@@ -267,7 +231,6 @@ for link in links_imoveis:
                     iptu = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
                 else:
                     iptu = iptu.text    
-           
             
         elif tipo_valor.text == "Aluguel":
             valor_aluguel = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, ' /html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div/div[1]/div[1]/p[2]')))
@@ -292,14 +255,6 @@ for link in links_imoveis:
                iptu = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
             else:
                iptu = iptu.text    
-
-    
-       
-        # Clic    
-        
-        # Verificando se condo_fee e iptu têm valores
-        # Obtém o texto se for um WebElement
-        # Imprimindo os detalhes coletados
         
         # Traz a data em extendo e trasnforma em formato MM/DD/YYYy
         data_extenso = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[4]/span[2]')))  
@@ -314,17 +269,14 @@ for link in links_imoveis:
         # Zap 
         zap_do_anunciante = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
         # Imprime na tela o link         
-      
         
         logradouro, numero, bairro, cidade, estado = separar_endereco(address.text)
         tipo_movel=encontrar_tipo_imovel(title.text,tipos_imoveis)
         parte_zap = remover_parte_texto(zap_do_anunciante.text, "No Zap: ")
     
-      
         time.sleep(2) 
         # Aqui adicona na planilha crianda
         sheet.append([data_cadastro,tipo_movel,"cep", logradouro, numero,bairro,estado,cidade, "00","00","00",area_num,valor_venda_limpo,valor_aluguel_limpo, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])
-        
     except Exception as e:
         print(f"Erro ao coletar detalhes do imóvel: {e}")
 
@@ -333,8 +285,6 @@ df = pd.DataFrame(columns=cabecalhos)
 # Salvando o DataFrame em um arquivo Excel
 df.to_excel("imoveis.xlsx", index=False)
 workbook.save("imoveis.xlsx")
-
 print("Planilha Excel criada com sucesso!")
-
 # Fechando o driver
 driver.quit()
