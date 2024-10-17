@@ -1,25 +1,39 @@
 import re
-import locale
-from datetime import datetime
 
-def extrair_e_formatar_data(texto):
-    # Definindo a localidade para português
-    locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')  # Pode ser necessário ajustar dependendo do sistema
-
-    # Usando expressão regular para encontrar a data no formato "26 de junho de 2024"
-    padrao = r'(\d{1,2} de \w+ de \d{4})'
-    resultado = re.search(padrao, texto)
-
-    if resultado:
-        # Extraindo a data encontrada
-        data_str = resultado.group(1)
-        # Convertendo a data para o formato desejado
-        data_formatada = datetime.strptime(data_str, '%d de %B de %Y').strftime('%d/%m/%Y')
-        return data_formatada
+def parse_address(address):
+    # Substitui o hífen por uma vírgula para facilitar a separação
+    address = address.replace("-", ",")
+    
+    # Regex pattern para capturar os componentes do endereço
+    pattern = r'^(?P<logradouro>[^,]+),?\s*(?P<numero>\d*)?\s*,?\s*(?P<bairro>[^,]*)?,?\s*(?P<cidade>[^,]+?)\s*,\s*(?P<estado>[A-Z]{2})$'
+    
+    # Tenta fazer o match do endereço com o padrão
+    match = re.match(pattern, address.strip())
+    
+    if match:
+        logradouro = match.group("logradouro").strip() if match.group("logradouro") else "inexistente"
+        numero = match.group("numero").strip() if match.group("numero") else "inexistente"
+        bairro = match.group("bairro").strip() if match.group("bairro") else "inexistente"
+        cidade = match.group("cidade").strip() if match.group("cidade") else "inexistente"
+        estado = match.group("estado").strip() if match.group("estado") else "inexistente"
+       
+        if cidade=='':
+           cidade = bairro
+           bairro=''   
+        # Retorna como uma tupla
+        return (logradouro, numero, bairro, cidade, estado)
     else:
-        return None  # Retorna None se não encontrar a data
+        return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente")
 
-# Exemplo de uso
-texto = "Anúncio criado em 26 de junho de 2024, atualizado há 2 dias."
-data_resultado = extrair_e_formatar_data(texto)
-print(data_resultado)  # 
+# Exemplo de endereço no novo formato
+address = "Balneario Água Limpa, Nova Lima - MG"
+
+# Analisando o endereço e imprimindo o resultado
+parsed = parse_address(address)
+logradouro, numero, bairro, cidade, estado = parsed
+
+print(f"Logradouro: {logradouro}")
+print(f"Número: {numero}")
+print(f"Bairro: {bairro}")
+print(f"Cidade: {cidade}")
+print(f"Estado: {estado}")
