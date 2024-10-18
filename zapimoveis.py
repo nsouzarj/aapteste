@@ -139,7 +139,9 @@ sheet.title = "Imóveis"
 cabecalhos = ["data_inclusao", "tipo_imovel", "cep_endereco", "logradouro_endereco", "numero_endereço", "bairro_endereco", "uf_endereco","cidade_endereco","dormitorios",
               "suites","vagas","area_util","vlr_venda","vlr_aluguel","vlr_condominio","vlr_iptu","anunciante","link","codigo_imovel"]
 sheet.append(cabecalhos)  # Adiciona os cabeçalhos à planilha
-#links_imoveis.add("https://www.zapimoveis.com.br/imovel/venda-casa-4-quartos-com-piscina-balneario-agua-limpa-nova-lima-mg-400m2-id-2734702856/")
+
+""" Isso e para teste de um link especifico"""
+#links_imoveis.add("https://www.zapimoveis.com.br/imovel/venda-casa-4-quartos-com-piscina-vale-dos-cristais-nova-lima-mg-680m2-id-2631064090/")
 # Coletando detalhes de cada imóvel
 registro_atual = 0
 for link in links_imoveis:
@@ -167,28 +169,29 @@ for link in links_imoveis:
         amenity_items = soup.find_all('p', class_='amenities-item')
         amenities_data = {}
         # Itera a lista
+        # Setar oo avlores default
+        area_total=""
+        num_dormitorios=""
+        num_suites=""
+        num_vagas=""
         for item in amenity_items:
-           property_name = item['itemprop']  # Obtém o atributo 'itemprop' do parágrafo
-           property_value = item.find('span', class_='amenities-item-text').text.strip()
-           print(f"Propriedade: {property_name}, Valor: {property_value}")
-           amenities_data[property_name] = property_value
-        # Atribui os valores   
-        area_total = extrair_numeros(amenities_data['floorSize'])
-        num_dormitorios = extrair_numeros(amenities_data['numberOfRooms'])
-        num_suites = extrair_numeros(amenities_data['numberOfSuites']) 
-        num_vagas  = extrair_numeros(amenities_data['numberOfParkingSpaces']) 
-        # Verifica os valores 
-        if area_total is None:
-           area_total=""
-        if num_dormitorios is None:
-           num_dormitorios=""
-        if num_suites is None:
-           num_suites=""
-        if num_vagas is None:
-           num_vagas=""
+          property_name = item.get('itemprop')
+          if property_name=='floorSize':
+             property_value = item.find('span', class_='amenities-item-text').text.strip()    
+             area_total = extrair_numeros(property_value)   
+    
+          if property_name=='numberOfRooms':
+             property_value = item.find('span', class_='amenities-item-text').text.strip()        
+             num_dormitorios = extrair_numeros(property_value) 
 
-
-        
+          if property_name=='numberOfSuites':
+             property_value = item.find('span', class_='amenities-item-text').text.strip()        
+             num_suites = extrair_numeros(property_value) 
+               
+          if property_name=='numberOfParkingSpaces':
+             property_value = item.find('span', class_='amenities-item-text').text.strip()        
+             num_vagas = extrair_numeros(property_value)           
+   
         title = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
      
         # PEga tipo de valor "vnda" "aliguel"
@@ -243,7 +246,6 @@ for link in links_imoveis:
             else:
                iptu = iptu.text   
         
-      
             area_valores=   WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]')))
             if not area_valores.text:
                 print("Nao existe")
@@ -289,7 +291,7 @@ for link in links_imoveis:
         print(f"Erro ao coletar detalhes do imóvel: {e}")
 
 # Salva a planilha final (novamente, para garantir que todos os dados estão salvos)
-workbook.save("imoveis.xlsx")
+#workbook.save("imoveis.xlsx")
 print("Planilha Excel criada com sucesso!")
 
 # Fechando o driver

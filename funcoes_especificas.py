@@ -2,7 +2,7 @@ import requests
 import json
 import re
 
-
+""" Traz cep do logradouro """
 def get_ceps_por_logradouro(logradouro, numero=None, cidade=None, estado=None):
   """
   Busca CEPs de um logradouro e retorna o mais próximo, considerando o número (opcional).
@@ -40,7 +40,7 @@ def get_ceps_por_logradouro(logradouro, numero=None, cidade=None, estado=None):
       return ceps 
   else:
     return None
-
+# Pega o cep mais proximo
 def encontrar_cep_mais_proximo(ceps, numero):
   """
   Encontrar o CEP mais próximo com base no número do logradouro.
