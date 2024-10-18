@@ -1,7 +1,7 @@
 # PROJETO DE SCRAP ZAP IMOVEIS
-## Script voltado para fazer scrap dp site http://www.zapimoveis.com.br
-- Autor Nelson Seixas
-- Data Cricao 16/10/2024
+## Script voltado para fazer scrap do site http://www.zapimoveis.com.br
+- Autor: Nelson Seixas
+- Data Criação: 16/10/2024
 
 # :hammer: Instruções de uso
 

@@ -137,19 +137,18 @@ def encontrar_tipo_imovel(descricao, tipos_imoveis):
 """ Esta funcao trata a localizacao do imovel separando por partes"""
 def parse_address(address):
     # Substitui o hífen por uma vírgula para facilitar a separação
- 
-    #address = re.sub(r"\s*-\s*","-", address)
-  # Remover o espaço antes da vírgula e substituir o traço por vírgula
-    string_corrigida = re.sub(r"\s*,", ",", address)  # Remove espaço antes da vírgula 
-    string_corrigida = string_corrigida.replace("-", ",")  # Substitui o traço por vírgul    a
-    # Remove os espaços em branco
-    address = "".join(string_corrigida.split())
-    
+    # Encontra a posição da ","
+    indice_virgula = address.find(",")
+
+   # Substitui a parte depois da ","  
+    endereco_modificado = address[:indice_virgula+1] + address[indice_virgula+1:].replace("-", ",")
+    endereco_modificado = address[:indice_virgula+1] + address[indice_virgula+1:].replace(" - ", ",")
+    # Remove espaços em branco após as vírgulas na parte da frase após a primeira vírgula
+    endereco_modificado = endereco_modificado[:indice_virgula+1] + endereco_modificado[indice_virgula+1:].replace(" ,", ",")
     # Regex pattern para capturar os componentes do endereço
     pattern = r'^(?P<logradouro>[^,]+),?\s*(?P<numero>\d*)?\s*,?\s*(?P<bairro>[^,]*)?,?\s*(?P<cidade>[^,]+?)\s*,\s*(?P<estado>[A-Z]{2})$'
-    
     # Tenta fazer o match do endereço com o padrão
-    match = re.match(pattern, address.strip())
+    match = re.match(pattern, endereco_modificado.strip())
     # Trata o match
     if match:
         logradouro = match.group("logradouro").strip() if match.group("logradouro") else "inexistente"
@@ -161,12 +160,12 @@ def parse_address(address):
            cidade = bairro
            bairro="inexistente"  
         # Retorna como uma tupla
-        return ( logradouro, numero, bairro, cidade, estado)
+        return (logradouro, numero, bairro, cidade, estado)
     else:
         return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente")
       
 # Como usar     
-logradouro, numero, bairro, cidade, estado = parse_address("Rua dos Beija-Flores, 130 - Alphaville Lagoa Dos Ingleses, Nova Lima - MG")
+#logradouro, numero, bairro, cidade, estado = parse_address("Rua dos Beija Flores, 130 - Alphaville Lagoa Dos Ingleses, Nova Lima - MG")
       
       
 """ Funcao que moreov parte do texto """ 
