@@ -1,5 +1,6 @@
 import requests
 import re
+import time
 
 """ Traz cep do logradouro """
 def get_ceps_por_logradouro(logradouro, numero=None, cidade=None, estado=None):
@@ -19,6 +20,7 @@ def get_ceps_por_logradouro(logradouro, numero=None, cidade=None, estado=None):
   # Faz a requisição à API do ViaCEP
   url = f"https://viacep.com.br/ws/{estado}/{cidade}/{logradouro}/json/"
   response = requests.get(url)
+  time.sleep(5)
 
   # Verifica se a requisição foi bem-sucedida
   if response.status_code == 200:
