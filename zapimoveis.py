@@ -33,7 +33,7 @@ pagina_atual = 1
 cont = 0 
 # PAgina por scrol de tela
 pagina_tela = 0
-contador_geral = 0;
+contador_geral = 1;
 
 """ Array que contem os tipso de movel """
 tipos_imoveis = [
@@ -106,17 +106,19 @@ while pagina_atual >= 1:
     for cont in range(1,  106):  # Limita a 105 registros
         try:
             # Coleta o link e outros dados
-            contador_geral+=1;
+            
             link_element = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
             if link_element:
                 link = link_element[0].get_attribute('href')
                 links_imoveis.add(link)
                 print(f"LINK: {cont} - {link}")
+                print(f"CONTADOR:  {len(links_imoveis)}")
                 a+=1
+                contador_geral+=1;
                 if a==10:
-                   driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])  
-                   time.sleep(5)  # Espera um pouco para que novos imóveis sejam carregados
-                   a=0   
+                  driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])  
+                  time.sleep(5)  # Espera um pouco para que novos imóveis sejam carregados
+                  a=0   
             # ... coleta de outros dados ...
         except Exception as e:
             print(f"Erro ao encontrar o link para o elemento")
@@ -128,6 +130,7 @@ while pagina_atual >= 1:
 # Mostra os registros catalogados no  link_imoveis
 print("CRIANDO A PLANILHDA DO EXCEL.") 
 print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
+
 
 # Criando uma nova planilha Excel e definindo os cabeçalhos
 workbook = Workbook()

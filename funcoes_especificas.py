@@ -146,36 +146,27 @@ def parse_address(address):
     num_traco=address.count("-")
     
     if num_virgula==2 and num_traco==2:
-          address=address.replace("-", ",")
-          endereco_modificado=address   
+        address=address.replace("-", ",")
+        endereco_modificado=address   
     
     if num_virgula==1 and num_traco==2:
-          address=address.replace("-", ",")
-          endereco_modificado=address 
+        address=address.replace("-", ",")
+        endereco_modificado=address 
     
     
     if num_virgula==1 and num_traco==3:
-          
-       #endereco_modificado = address[:indice_virgula+1] + address[indice_virgula+1:].replace(",", ",")
-        endereco_modificado = address[:indice_virgula+2:] + address[indice_virgula+1:].replace("-", ",")
-        endereco_modificado = endereco_modificado[:indice_virgula+1] + endereco_modificado[indice_virgula+1:].replace(" - ", ",")
-        endereco_modificado = endereco_modificado[:indice_virgula+1] + endereco_modificado[indice_virgula+1:].replace(" ,", ",")  
+     #  partes = address.split("-")
+       endereco_modificado = re.sub(r' - ', ',', address)
+      
+    #endereco_modificado = address[:indice_virgula+1] + address[indice_virgula+1:].replace(",", ",")
+    #endereco_modificado = address[:indice_virgula+2:] + address[indice_virgula+1:].replace("-", ",")
+    #endereco_modificado = endereco_modificado[:indice_virgula+1] + endereco_modificado[indice_virgula+1:].replace(" - ", ",")
+    #endereco_modificado = endereco_modificado[:indice_virgula+1] + endereco_modificado[indice_virgula+1:].replace(" ,", ",")  
     # Verifica se o endereço tem o padrão específico
-    if num_virgula == 1 and num_traco == 3:
-        # Divide o endereço em partes
-        partes = address.split(',')
-        # Verifica se a primeira parte tem " - "
-        if "-" in partes[0]:
-            # Separa o logradouro e o bairro 
-            logradouro, bairro = partes[0].split(" - ")
-            # Concatena as partes do endereço com as vírgulas
-            endereco_modificado = f"{logradouro} , {bairro}, {partes[1]}"
-            # Remove espaços em branco extras
-            endereco_modificado = endereco_modificado.replace(" ,", ",")
-            # Ajusta a regex para considerar a vírgula no final do logradouro
-            pattern = r'^(?P<logradouro>[^,]+),?\s*(?P<numero>\d*)?\s*,?\s*(?P<bairro>[^,]*)?,?\s*(?P<cidade>[^,]+?)\s*,\s*(?P<estado>[A-Z]{2})$'
+    
     # Regex pattern para capturar os componentes do endereço
     # Tenta fazer o match do endereço com o padrão
+    pattern="^(?P<logradouro>[^,]+),?\\s*(?P<numero>\\d*)?\\s*,?\\s*(?P<bairro>[^,]*)?,?\\s*(?P<cidade>[^,]+?)\\s*,\\s*(?P<estado>[A-Z]{2})$"
     match = re.match(pattern, endereco_modificado.strip())
     # Trata o match
     if match:
@@ -192,12 +183,10 @@ def parse_address(address):
     else:
         return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente")
       
-# Como usar     
-logradouro, numero, bairro, cidade, estado = parse_address("Rua dos Beija-Flores - Alphaville Lagoa Dos Ingleses, Nova Lima - MG")
+# Como usar & tipo de endereços     
+# logradouro, numero, bairro, cidade, estado = parse_address("Rua Gama, 116 - Condominio Quintas do Sol, Nova Lima - MG")
 # Rua Gama, 116 - Condominio Quintas do Sol, Nova Lima - MG
-
 # Rua dos Beija-Flores - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
-
 # Rua dos Jatobás - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
       
       
