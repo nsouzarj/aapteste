@@ -13,7 +13,7 @@
 - Instale as seguinte libs do pyhon usando pip 
     - pip install selenium
     - pip install openpyxl
-    - pip install pandas obs: Crio não ser necessário
+    - pip install pandas  Observação: Crio não ser necessário
     - pip install bs4 
     - pip pyinstaller - esse para tranaforma o script em um executavel
 
@@ -22,7 +22,7 @@
 
 - pyinstaller.exe --hidden-import=funcoes_especificas -F zapimoveis.py  depois de compilado ele cria uma pasta chamada dist dentro do projeto o executavel esta nessa pasta.
 
-### Observação o scpiit leto dos os link conforme a busca e colcoa no array de set() 
+### Observação o script ler os  link conforme a busca e colcoa no array de set() esse array e limitado pela memoria da maquina. 
 
 - A planilah ae criada onde esta o executavel o scriot caso queira mudar procrure na linha 284    workbook.save("imoveis.xlsx") e modifique o caminho conforme sua necessidade os registro sao são sao salvos a cada 50 registros lido.
 
