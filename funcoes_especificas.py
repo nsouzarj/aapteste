@@ -153,6 +153,11 @@ def parse_address(address):
         address=address.replace("-", ",")
         endereco_modificado=address 
     
+    if num_virgula==1 and num_traco==1:
+        address=address.replace("-", ",")
+        endereco_modificado=address 
+        
+    
     
     if num_virgula==1 and num_traco==3:
      #  partes = address.split("-")
@@ -184,10 +189,11 @@ def parse_address(address):
         return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente")
       
 # Como usar & tipo de endereços     
-# logradouro, numero, bairro, cidade, estado = parse_address("Rua Gama, 116 - Condominio Quintas do Sol, Nova Lima - MG")
+logradouro, numero, bairro, cidade, estado = parse_address("Vila del Rey, Nova Lima - MG")
 # Rua Gama, 116 - Condominio Quintas do Sol, Nova Lima - MG
 # Rua dos Beija-Flores - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
 # Rua dos Jatobás - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
+# Vila del Rey, Nova Lima - MG
       
       
 """ Funcao que moreov parte do texto """ 
