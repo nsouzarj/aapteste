@@ -6,10 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 from openpyxl import Workbook
-import pandas as pd
-import re
-import locale
-from datetime import datetime
+#import pandas as pd
 from funcoes_especificas import get_ceps_por_logradouro,extrair_numeros,encontrar_tipo_imovel,parse_address,remover_parte_texto,extrair_e_formatar_data
 from bs4 import BeautifulSoup
 

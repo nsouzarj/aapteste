@@ -1,5 +1,4 @@
 import requests
-import json
 import re
 
 """ Traz cep do logradouro """
