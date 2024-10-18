@@ -282,16 +282,16 @@ for link in links_imoveis:
         sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,valor_venda_limpo,valor_aluguel_limpo, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])
         registro_atual += 1
 
-        # Salva a planilha a cada 100 registros
-        if registro_atual % 100 == 0:
+        # Salva a planilha a cada 50 registros
+        if registro_atual % 50 == 0:
             workbook.save("imoveis.xlsx")
-            print(f"Planilha salva com sucesso! (Registro {registro_atual})")
-
+            print(f"##  PLANILHA SALVA (Registro {registro_atual}) ##")
+            registro_atual=0
     except Exception as e:
         print(f"Erro ao coletar detalhes do imóvel: {e}")
 
 # Salva a planilha final (novamente, para garantir que todos os dados estão salvos)
-#workbook.save("imoveis.xlsx")
+workbook.save("imoveis.xlsx")
 print("Planilha Excel criada com sucesso!")
 
 # Fechando o driver
