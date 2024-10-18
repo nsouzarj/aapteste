@@ -11,7 +11,7 @@
 
 - Instale o python mas recente na sua maquina do site https://www.python.org/downloads
 
-- Baixe o chomedriver mais atual do site https://googlechromelabs.github.io/chrome-for-testing/#stable descompacte o aruivo zip e coloqye na pasta onde está instalado o google chome no meu caso "C:\Program Files\Google\Chrome\Application\chromedriver.exe". 
+- Baixe o chomedriver mais atual do site https://googlechromelabs.github.io/chrome-for-testing/#stable descompacte o arquivo zip e coloque na pasta onde está instalado o google chome no meu caso "C:\Program Files\Google\Chrome\Application\chromedriver.exe". 
 
 - Instale as seguinte libs do python usando pip 
     - pip install selenium
@@ -23,13 +23,13 @@
 
 - Para converter o scrpit em executalvel utilize o pyinstaller  
 
-- pyinstaller.exe --hidden-import=funcoes_especificas -F zapimoveis.py, depois de compilado ele cria uma pasta chamada dist dentro do projeto o executavel esta nessa pasta.
+- pyinstaller.exe --hidden-import=funcoes_especificas -F zapimoveis.py, depois de compilado ele cria uma pasta chamada dist dentro do projeto o executável está nessa pasta.
 
-### Observação o script ler os link conforme a busca e colcoa no array de set(), esse array e limitado pela memoria da maquina. 
+### Observação o script ler os links conforme a busca e colcoa no array de set(), esse array e limitado pela memória ram da maquina. 
 
-- A planilha xmls é criada onde esta o executavel ou script, caso queira mudar procrure o trecho de código   workbook.save("imoveis.xlsx")  na linha 284 e modifique o caminho conforme sua necessidade os registro sao salvos a cada 50 pagina de detalhes lida.
+- A planilha xmls é criada onde esta o executavel ou script, caso queira mudar procrure o trecho de código   workbook.save("imoveis.xlsx")  na linha 284 e modifique o caminho conforme sua necessidade, os registro sao salvos na planilha a cada 50 processos do mesmo assim garante que os dados serão salvos na planilha excel.
 
-### Qualquer dúvida estamos a disposição para esclarecimentos 
+### Qualquer dúvida estamos a sua disposição para esclarecimentos 
 
 
 
