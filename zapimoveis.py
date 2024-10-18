@@ -12,7 +12,6 @@ import locale
 from datetime import datetime
 from funcoes_especificas import get_ceps_por_logradouro,extrair_numeros,encontrar_tipo_imovel,parse_address,remover_parte_texto,extrair_e_formatar_data
 from bs4 import BeautifulSoup
-from itertools import takewhile
 
 # Configurando opções do Chrome
 chrome_options = Options()
@@ -22,7 +21,9 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-gpu")  # Desativa a aceleração de hardware
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
 # Caminho para o ChromeDriver
-chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe"
+# chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe"
+
+chrome_driver_path = r"C:\Program Files\Google\Chrome\Application\chromedriver.exe"
 
 # Inicializando o ChromeDriver
 service = Service(chrome_driver_path)
@@ -127,9 +128,8 @@ while pagina_atual >= 1:
     pagina_atual += 1                  
 
 
-
+# Mostra os registros catalogados no  link_imoveis
 print("CRIANDO A PLANILHDA DO EXCEL.") 
-print(f"TOATL DE REGISTROS VARRIDOS: {contador_geral} ")
 print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
 
 # Criando uma nova planilha Excel e definindo os cabeçalhos

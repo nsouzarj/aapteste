@@ -137,9 +137,13 @@ def encontrar_tipo_imovel(descricao, tipos_imoveis):
 """ Esta funcao trata a localizacao do imovel separando por partes"""
 def parse_address(address):
     # Substitui o hífen por uma vírgula para facilitar a separação
-    address = address.replace("-", ",")
+ 
+    #address = re.sub(r"\s*-\s*","-", address)
+  # Remover o espaço antes da vírgula e substituir o traço por vírgula
+    string_corrigida = re.sub(r"\s*,", ",", address)  # Remove espaço antes da vírgula 
+    string_corrigida = string_corrigida.replace("-", ",")  # Substitui o traço por vírgul    a
     # Remove os espaços em branco
-    address = "".join(address.split())
+    address = "".join(string_corrigida.split())
     
     # Regex pattern para capturar os componentes do endereço
     pattern = r'^(?P<logradouro>[^,]+),?\s*(?P<numero>\d*)?\s*,?\s*(?P<bairro>[^,]*)?,?\s*(?P<cidade>[^,]+?)\s*,\s*(?P<estado>[A-Z]{2})$'
@@ -162,7 +166,7 @@ def parse_address(address):
         return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente")
       
 # Como usar     
-# logradouro, numero, bairro, cidade, estado = parse_address("Alameda das Graúnas - Residencial Sul, Nova Lima - MG")
+logradouro, numero, bairro, cidade, estado = parse_address("Rua dos Beija-Flores, 130 - Alphaville Lagoa Dos Ingleses, Nova Lima - MG")
       
       
 """ Funcao que moreov parte do texto """ 
