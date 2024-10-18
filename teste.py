@@ -10,6 +10,9 @@ import pandas as pd
 import re
 import locale
 from datetime import datetime
+from funcoes_especificas import get_ceps_por_logradouro,extrair_numeros,encontrar_tipo_imovel,parse_address,remover_parte_texto,extrair_e_formatar_data
+from bs4 import BeautifulSoup
+from itertools import takewhile
 
 # Configurando opções do Chrome
 chrome_options = Options()
@@ -59,98 +62,10 @@ tipos_imoveis = [
     "Garagem"
 ]
 
-""" Rerona o tipo do imovel"""
-def encontrar_tipo_imovel(descricao, tipos_imoveis):
-    for indice, tipo in enumerate(tipos_imoveis):
-        if tipo.lower() in descricao.lower():  # Ignora maiúsculas/minúsculas
-            return tipo  # Retorna o tipo encontrado
-    return None  
-
-
-""" Esta funcao trata a localizacao do imovel separando por partes"""
-import re
-
-def parse_address(address):
-    # Substitui o hífen por uma vírgula para facilitar a separação
-    address = address.replace("-", ",")
-    
-    # Regex pattern para capturar os componentes do endereço
-    pattern = r'^(?P<logradouro>[^,]+),?\s*(?P<numero>\d*)?\s*,?\s*(?P<bairro>[^,]*)?,?\s*(?P<cidade>[^,]+?)\s*,\s*(?P<estado>[A-Z]{2})$'
-    
-    # Tenta fazer o match do endereço com o padrão
-    match = re.match(pattern, address.strip())
-    
-    if match:
-        logradouro = match.group("logradouro").strip() if match.group("logradouro") else "inexistente"
-        numero = match.group("numero").strip() if match.group("numero") else "inexistente"
-        bairro = match.group("bairro").strip() if match.group("bairro") else "inexistente"
-        cidade = match.group("cidade").strip() if match.group("cidade") else "inexistente"
-        estado = match.group("estado").strip() if match.group("estado") else "inexistente"
-        if cidade=='':
-           cidade = bairro
-           bairro='inexistente'  
-        # Retorna como uma tupla
-        return ( logradouro, numero, bairro, cidade, estado)
-    else:
-        return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente")
-        
-#Funcao que moreov parte do texto 
-def remover_parte_texto(texto, parte_a_remover):
-    """Remove a parte especificada da string e retorna o restante."""
-    return texto.replace(parte_a_remover, "").strip()   
-
 # Formata data em extendo
   # Retorna None se não encontrar a data
 
-def extrair_e_formatar_data(texto):
-    # Dicionário para mapear meses em português para números
-    meses = {
-        'janeiro': 1,
-        'fevereiro': 2,
-        'março': 3,
-        'abril': 4,
-        'maio': 5,
-        'junho': 6,
-        'julho': 7,
-        'agosto': 8,
-        'setembro': 9,
-        'outubro': 10,
-        'novembro': 11,
-        'dezembro': 12,
-        'jan': 1,
-        'fev': 2,
-        'mar': 3,
-        'abr': 4,
-        'mai': 5,
-        'jun': 6,
-        'jul': 7,
-        'ago': 8,
-        'set': 9,
-        'out': 10,
-        'nov': 11,
-        'dez': 12,
-    }
 
-    # Usando expressão regular para encontrar a data no formato "26 de junho de 2024"
-    padrao = r'(\d{1,2}) de (\w+) de (\d{4})'
-    resultado = re.search(padrao, texto)
-
-    if resultado:
-        dia = int(resultado.group(1))
-        mes_str = resultado.group(2)
-        ano = int(resultado.group(3))
-
-        # Verifica se o mês está no dicionário
-        if mes_str in meses:
-            mes = meses[mes_str]
-            # Formata a data no formato desejado
-            data_formatada = f"{dia:02d}/{mes:02d}/{ano}"
-            return data_formatada
-        else:
-            print(f"Erro: mês '{mes_str}' não reconhecido.")
-            return None
-    else:
-        return None  # Retorna None se não encontrar a data
 
 # Coletando links dos imóveis
 
@@ -162,7 +77,7 @@ while pagina_atual >= 1:
     # Inicializando o ChromeDriver
   
     # Montando a URL com o número da página atual
-    link_nova_lina = f"https://www.zapimoveis.com.br/venda/casas/mg+nova-lima/varanda/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Minas%20Gerais,Nova%20Lima,,,,,city,BR%3EMinas%20Gerais%3ENULL%3ENova%20Lima,-19.984906,-43.846963,&tipos=casa_residencial&pagina={pagina_atual}&amenities=Varanda/Sacada,Piscina&vagas=4"
+    link_nova_lina = f"https://www.zapimoveis.com.br/venda/casas/mg+nova-lima/4-quartos/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Minas%20Gerais,Nova%20Lima,,,,,city,BR%3EMinas%20Gerais%3ENULL%3ENova%20Lima,-19.992998,-43.848488,&tipos=casa_residencial&pagina={pagina_atual}&amenities=Aceita%20pets&banheiros=4&quartos=4&vagas=4"
     # url = f"https://www.zapimoveis.com.br/venda/imoveis/rj+rio-de-janeiro/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Rio%20de%20Janeiro,Rio%20de%20Janeiro,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3ERio%20de%20Janeiro,-22.906847,-43.172897,&pagina={pagina_atual}"
     url=link_nova_lina     # Acessando a URL
     #print(f"Acessando a URL: {url}")
@@ -238,9 +153,41 @@ for link in links_imoveis:
     try:
         
         address = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
-        area = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//span[@data-cy="ldp-propertyFeatures-txt"]')))
-        if not area.text:
-            area=""
+        #area = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//span[@data-cy="ldp-propertyFeatures-txt"]')))
+        items_lista=WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[4]/div/div/div')))
+       # Aguarda a presença do elemento com o XPath
+        """ Traz os items para ser tartado"""
+        items_lista = WebDriverWait(driver1, 10).until(
+            EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[4]/div/div/div'))
+        )
+        # Converte o elemento Selenium para um objeto lxml.html.HtmlElement
+        html_content = items_lista.get_attribute('outerHTML')
+        soup = BeautifulSoup(html_content, 'html.parser')
+        # Extraindo as informações
+        amenity_items = soup.find_all('p', class_='amenities-item')
+        amenities_data = {}
+        # Itera a lista
+        for item in amenity_items:
+           property_name = item['itemprop']  # Obtém o atributo 'itemprop' do parágrafo
+           property_value = item.find('span', class_='amenities-item-text').text.strip()
+           print(f"Propriedade: {property_name}, Valor: {property_value}")
+           amenities_data[property_name] = property_value
+        # Atribui os valores   
+        area_total = extrair_numeros(amenities_data['floorSize'])
+        num_dormitorios = extrair_numeros(amenities_data['numberOfRooms'])
+        num_suites = extrair_numeros(amenities_data['numberOfSuites']) 
+        num_vagas  = extrair_numeros(amenities_data['numberOfParkingSpaces']) 
+        # Verifica os valores 
+        if area_total is None:
+           area_total=""
+        if num_dormitorios is None:
+           num_dormitorios=""
+        if num_suites is None:
+           num_suites=""
+        if num_vagas is None:
+           num_vagas=""
+
+
         
         title = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
      
@@ -300,18 +247,14 @@ for link in links_imoveis:
             area_valores=   WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]')))
             if not area_valores.text:
                 print("Nao existe")
-             
             
-        
-               
         #Tratamento para os dois tipos 
               
-        
            
         # Traz a data em extendo e trasnforma em formato MM/DD/YYYy
         data_extenso = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[4]/span[2]')))  
         data_cadastro = extrair_e_formatar_data(data_extenso.text)
-        area_num = remover_parte_texto(area.text, "m²")
+        #area_num = remover_parte_texto(area.text, "m²")
         # Click the button at the specified XPath
       
         button = WebDriverWait(driver1, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
@@ -323,12 +266,18 @@ for link in links_imoveis:
         # Imprime na tela o link         
         
         logradouro, numero, bairro, cidade, estado = parse_address(address.text)
+        
+        cep = get_ceps_por_logradouro(logradouro, numero, cidade, estado)
+        if cep:
+           cepencontado= cep['cep']
+        else:
+           cepencontado="Nao encontrado"
         tipo_movel=encontrar_tipo_imovel(title.text,tipos_imoveis)
         parte_zap = remover_parte_texto(zap_do_anunciante.text, "No Zap: ")
     
         time.sleep(2) 
         # Aqui adicona na planilha crianda
-        sheet.append([data_cadastro,tipo_movel,"cep", logradouro, numero,bairro,estado,cidade, "00","00","00",area_num,valor_venda_limpo,valor_aluguel_limpo, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])
+        sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,valor_venda_limpo,valor_aluguel_limpo, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])
         registro_atual += 1
 
         # Salva a planilha a cada 100 registros
