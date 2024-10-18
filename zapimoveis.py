@@ -146,9 +146,9 @@ for link in links_imoveis:
     service1 = Service(chrome_driver_path)
     driver1 = webdriver.Chrome(service=service1, options=chrome_options)
     driver1.get(link)  # Acessa a página do imóvel
+    time.sleep(5)  # E
     print(f"LINK - {link}")
-    time.sleep(2)  # Espera a página carregar
-
+    
     try:
         
         address = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
@@ -255,7 +255,6 @@ for link in links_imoveis:
         data_cadastro = extrair_e_formatar_data(data_extenso.text)
         #area_num = remover_parte_texto(area.text, "m²")
         # Click the button at the specified XPath
-      
         button = WebDriverWait(driver1, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
         button.click()  
         # Traz o anunciante do imovel 
@@ -263,9 +262,8 @@ for link in links_imoveis:
         # Zap 
         zap_do_anunciante = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
         # Imprime na tela o link         
-        
         logradouro, numero, bairro, cidade, estado = parse_address(address.text)
-        
+        # Traz o cep dplogradouro
         cep = get_ceps_por_logradouro(logradouro, numero, cidade, estado)
         if cep:
            cepencontado= cep['cep']
