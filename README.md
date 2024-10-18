@@ -16,7 +16,7 @@
 - Instale as seguinte libs do python usando pip 
     - pip install selenium
     - pip install openpyxl
-    - pip install pandas  Observação: Crio não ser necessário
+    - pip install pandas  Observação: Creio quen não seja necessário o uso da mesma
     - pip install bs4 
     - pip pyinstaller - esse para tranaforma o script em um executavel
 
