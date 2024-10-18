@@ -183,12 +183,10 @@ def parse_address(address):
     else:
         return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente")
       
-# Como usar     
+# Como usar & tipo de endereços     
 # logradouro, numero, bairro, cidade, estado = parse_address("Rua Gama, 116 - Condominio Quintas do Sol, Nova Lima - MG")
 # Rua Gama, 116 - Condominio Quintas do Sol, Nova Lima - MG
-
 # Rua dos Beija-Flores - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
-
 # Rua dos Jatobás - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
       
       
