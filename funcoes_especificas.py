@@ -135,8 +135,10 @@ def encontrar_tipo_imovel(descricao, tipos_imoveis):
  
  
 
-""" Esta funcao trata a localizacao do imovel separando por partes"""
+
+"""Esta função trata a localização do imóvel separando por partes"""
 def parse_address(address):
+  
     # Substitui o hífen por uma vírgula para facilitar a separação
     # Encontra a posição da ","
     indice_virgula = address.find(",")
@@ -157,11 +159,13 @@ def parse_address(address):
         address=address.replace("-", ",")
         endereco_modificado=address 
         
-    
-    
     if num_virgula==1 and num_traco==3:
      #  partes = address.split("-")
        endereco_modificado = re.sub(r' - ', ',', address)
+       
+    if num_virgula==1 and num_traco==4:
+     #  partes = address.split("-")
+       endereco_modificado = re.sub(r' - ', ',', address)   
       
     #endereco_modificado = address[:indice_virgula+1] + address[indice_virgula+1:].replace(",", ",")
     #endereco_modificado = address[:indice_virgula+2:] + address[indice_virgula+1:].replace("-", ",")
@@ -172,28 +176,34 @@ def parse_address(address):
     # Regex pattern para capturar os componentes do endereço
     # Tenta fazer o match do endereço com o padrão
     pattern="^(?P<logradouro>[^,]+),?\\s*(?P<numero>\\d*)?\\s*,?\\s*(?P<bairro>[^,]*)?,?\\s*(?P<cidade>[^,]+?)\\s*,\\s*(?P<estado>[A-Z]{2})$"
-    match = re.match(pattern, endereco_modificado.strip())
-    # Trata o match
-    if match:
-        logradouro = match.group("logradouro").strip() if match.group("logradouro") else "inexistente"
-        numero = match.group("numero").strip() if match.group("numero") else "inexistente"
-        bairro = match.group("bairro").strip() if match.group("bairro") else "inexistente"
-        cidade = match.group("cidade").strip() if match.group("cidade") else "inexistente"
-        estado = match.group("estado").strip() if match.group("estado") else "inexistente"
-        if cidade=="":
-           cidade = bairro
-           bairro="inexistente"  
-        # Retorna como uma tupla
-        return (logradouro, numero, bairro, cidade, estado)
-    else:
-        return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente")
+    
+    try:
+        match = re.match(pattern, endereco_modificado.strip())
+        # Trata o match
+        if match:
+            logradouro = match.group("logradouro").strip() if match.group("logradouro") else "inexistente"
+            numero = match.group("numero").strip() if match.group("numero") else "inexistente"
+            bairro = match.group("bairro").strip() if match.group("bairro") else "inexistente"
+            cidade = match.group("cidade").strip() if match.group("cidade") else "inexistente"
+            estado = match.group("estado").strip() if match.group("estado") else "inexistente"
+            if cidade=="":
+               cidade = bairro
+               bairro="inexistente"  
+            # Retorna como uma tupla
+            return (logradouro, numero, bairro, cidade, estado)
+        else:
+            return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente") 
+    except Exception as e:
+        print(f"Erro ao analisar o endereço: {e}")
+        return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente") 
       
-# Como usar & tipo de endereços     
-logradouro, numero, bairro, cidade, estado = parse_address("Vila del Rey, Nova Lima - MG")
+# Como usar & tipo de endereços     # 
+# logradouro, numero, bairro, cidade, estado = parse_address("Rua dos Bem-Te-Vis - Alphaville Lagoa Dos Ingleses, Nova Lima - MG")
 # Rua Gama, 116 - Condominio Quintas do Sol, Nova Lima - MG
 # Rua dos Beija-Flores - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
 # Rua dos Jatobás - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
 # Vila del Rey, Nova Lima - MG
+# Rua dos Bem-Te-Vis - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
       
       
 """ Funcao que moreov parte do texto """ 
