@@ -27,7 +27,7 @@
 
 ### Observação o script ler os links conforme a busca e colcoa no array de set(), esse array e limitado pela memória ram da maquina. 
 
-- A planilha xmls é criada onde esta o executavel ou script, caso queira mudar procure o trecho de código   workbook.save("C:\Users\User\Documents\zapimoveis\listadeimoveis.xlsx.xlsx")  e modifique o caminho conforme sua necessidade, os registro sao salvos na planilha a cada 50 a cada lida da lista armazenada assim garante que os dados serão salvos na planilha excel.
+- A planilha xmls é criada onde esta o executavel ou script, caso queira mudar procure o trecho de código   workbook.save("C:\Users\User\Documents\zapimoveis\listadeimoveis.xlsx")  e modifique o caminho conforme sua necessidade, os registro sao salvos na planilha a cada 50 a cada lida da lista armazenada assim garante que os dados serão salvos na planilha excel.
 
 ### Qualquer dúvida estamos a sua disposição para esclarecimentos.
 
