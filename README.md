@@ -11,7 +11,7 @@
 
 - Instale o python mas recente na sua maquina do site https://www.python.org/downloads
 
-- Baixe o chomedriver mais atual do site https://googlechromelabs.github.io/chrome-for-testing/#stable descompacte o arquivo zip e coloque na pasta onde está instalado o google chome no meu caso "C:\Program Files\Google\Chrome\Application\chromedriver.exe". 
+- Baixe o google com drive mais atual do site https://drive.google.com/file/d/18DEwWP4gDTvMotNAGW6y-8xjGo1uiB1h/view?usp=drive_link descompacte o arquivo zip e descpacte  coloque a pasta no seu  lugar de preferência exemplo: C:\Users\User\ChromeWithDriver  nessa pasta irão estar o chrome driver com o chrome dessa pasta, pois é compatível com a aplicação e na linha  chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe" do zapimoveis.py dever ser alterada conforme onde você descompactou o arquivo zip.  
 
 - Instale as seguinte libs do python usando pip 
     - pip install selenium
@@ -27,7 +27,7 @@
 
 ### Observação o script ler os links conforme a busca e colcoa no array de set(), esse array e limitado pela memória ram da maquina. 
 
-- A planilha xmls é criada onde esta o executavel ou script, caso queira mudar procure o trecho de código   workbook.save("imoveis.xlsx")  na linha 284 e modifique o caminho conforme sua necessidade, os registro sao salvos na planilha a cada 50 processos do mesmo assim garante que os dados serão salvos na planilha excel.
+- A planilha xmls é criada onde esta o executavel ou script, caso queira mudar procure o trecho de código   workbook.save("C:\Users\User\Documents\zapimoveis\listadeimoveis.xlsx.xlsx")  e modifique o caminho conforme sua necessidade, os registro sao salvos na planilha a cada 50 a cada lida da lista armazenada assim garante que os dados serão salvos na planilha excel.
 
 ### Qualquer dúvida estamos a sua disposição para esclarecimentos.
 
