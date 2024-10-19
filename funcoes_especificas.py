@@ -2,20 +2,8 @@ import requests
 import re
 import time
 
-""" Traz cep do logradouro """
+""" Traz cep do logradouro da api  https://viacep.com.br/ """
 def get_ceps_por_logradouro(logradouro, numero=None, cidade=None, estado=None):
-  """
-  Busca CEPs de um logradouro e retorna o mais próximo, considerando o número (opcional).
-
-  Args:
-    logradouro: O nome do logradouro a ser pesquisado.
-    numero: O número do logradouro (opcional). Pode ser um inteiro ou "Inexistente".
-    cidade: A cidade do logradouro.
-    estado: O estado do logradouro.
-
-  Returns:
-    Um dicionário contendo o CEP mais próximo do logradouro.
-  """
   
   # Faz a requisição à API do ViaCEP
   url = f"https://viacep.com.br/ws/{estado}/{cidade}/{logradouro}/json/"
@@ -42,17 +30,10 @@ def get_ceps_por_logradouro(logradouro, numero=None, cidade=None, estado=None):
   else:
     return None
 # Pega o cep mais proximo
+
+""" Econtra o cepo mais proximo da api """
 def encontrar_cep_mais_proximo(ceps, numero):
-  """
-  Encontrar o CEP mais próximo com base no número do logradouro.
 
-  Args:
-    ceps: A lista de CEPs retornados pela API.
-    numero: O número do logradouro (inteiro).
-
-  Returns:
-    O CEP mais próximo com base no número do logradouro.
-  """
 
   cep_mais_proximo = None
   menor_diferenca = float('inf')
@@ -77,31 +58,12 @@ def encontrar_cep_mais_proximo(ceps, numero):
       cep_mais_proximo = cep
 
   return cep_mais_proximo
-"""
-# Exemplo de uso
-logradouro = "Rua Tomaz Gonzaga"
-numero = "400"  # Número é opcional
-cidade = "Nova Lima"
-estado = "MG"
 
-cep_mais_proximo = get_ceps_por_logradouro(logradouro, numero, cidade, estado)
 
-if cep_mais_proximo:
-  print(f"CEP mais próximo de {logradouro}, {cidade}, {estado}: {cep_mais_proximo['cep']}")
-else:
-  print(f"Nenhum CEP encontrado para {logradouro}, {cidade}, {estado}.")
-"""  
+""" Extrai o numeod do texto """
 
 def extrair_numeros(frase):
-    """Extrai números de uma frase, separando-os por hífen.
 
-    Args:
-      frase: A frase da qual os números serão extraídos.
-
-    Returns:
-      Uma string com os números encontrados separados por hífen, ou uma string vazia
-      se nenhum número for encontrado.
-    """
     partes = frase.split()
     numeros = []
     for parte in partes:
@@ -112,29 +74,15 @@ def extrair_numeros(frase):
         else:
           return ""
 
-# Exemplos de uso
-"""    
-frase1 = "3-3 andar"
-frase2 = "4 quartos"
-frase3 = "sem números"
-frase4 = "40 m²"
-print(f"Frase 1: '{frase1}', Números: {extrair_numeros(frase1)}")
-print(f"Frase 2: '{frase2}', Números: {extrair_numeros(frase2)}")
-print(f"Frase 3: '{frase3}', Números: {extrair_numeros(frase3)}")
-print(f"Frase 4: '{frase4}', Números: {extrair_numeros(frase4)}")
-"""
 
 
-
-""" Rerona o tipo do imovel"""
+""" Retorna o tipo do imovel"""
 def encontrar_tipo_imovel(descricao, tipos_imoveis):
     for indice, tipo in enumerate(tipos_imoveis):
         if tipo.lower() in descricao.lower():  # Ignora maiúsculas/minúsculas
             return tipo  # Retorna o tipo encontrado
     return None 
  
- 
-
 
 """Esta função trata a localização do imóvel separando por partes"""
 def parse_address(address):
@@ -194,25 +142,28 @@ def parse_address(address):
         else:
             return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente") 
     except Exception as e:
-        #print(f"Erro ao analisar o endereço: {e}")
+        print(f"Erro ao analisar o endereço não est ano formato correto: {e}")
         return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente") 
       
 # Como usar & tipo de endereços     # 
-# logradouro, numero, bairro, cidade, estado = parse_address("Rua dos Bem-Te-Vis - Alphaville Lagoa Dos Ingleses, Nova Lima - MG")
+# logradouro, numero, bairro, cidade, estado = parse_address("Rua Toledo - Vila Castela , Nova Lima - MG")
+# AQUI SAO OS TIPOS DE ENDEREÇO como exemplo
 # Rua Gama, 116 - Condominio Quintas do Sol, Nova Lima - MG
 # Rua dos Beija-Flores - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
 # Rua dos Jatobás - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
 # Vila del Rey, Nova Lima - MG
 # Rua dos Bem-Te-Vis - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
+# Rua Bem-Te-Vi, 1 - Vila del Rey, Nova Lima - MG
+# Rua Estrela da Manhã, 225 - Vale dos Cristais, Nova Lima - MG
       
       
-""" Funcao que moreov parte do texto """ 
+""" Funcao que remove a parte do texto """ 
 def remover_parte_texto(texto, parte_a_remover):
     """Remove a parte especificada da string e retorna o restante."""
     return texto.replace(parte_a_remover, "").strip()  
   
   
-""" Extari a data do formato exrenso """  
+""" Extrai a data do formato extesno """  
 def extrair_e_formatar_data(texto):
     # Dicionário para mapear meses em português para números
     meses = {
