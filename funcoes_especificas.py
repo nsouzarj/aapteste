@@ -194,7 +194,7 @@ def parse_address(address):
         else:
             return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente") 
     except Exception as e:
-        print(f"Erro ao analisar o endereço: {e}")
+        #print(f"Erro ao analisar o endereço: {e}")
         return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente") 
       
 # Como usar & tipo de endereços     # 
