@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import os
 from openpyxl import Workbook
 from funcoes_especificas import get_ceps_por_logradouro,extrair_numeros,encontrar_tipo_imovel,parse_address,remover_parte_texto,extrair_e_formatar_data
 from bs4 import BeautifulSoup
@@ -282,14 +283,17 @@ for link in links_imoveis:
 
         # Salva a planilha a cada 50 registros
         if registro_atual % 50 == 0:
-            workbook.save("C:\Users\User\Documents\zapimoveis\listadeimoveis.xlsx")
+            #workbook.save(os.path.join("C:", "Users", "User", "Documents", "zapimoveis", "listadeimoveis.xlsx"))
+            output_dir = "C:\\Users\\User\\Documents\\zapimoveis"  # Adjust this if needed
+            os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't exist
+            workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
             print(f"##  PLANILHA SALVA (Registro {registro_atual}) ##")
             registro_atual=0
     except Exception as e:
         print(f"ERROR: Na coleta detalhes do imóvel: {e}  ---> {link}" )
        
 # Salva a planilha final (novamente, para garantir que todos os dados estão salvos)
-workbook.save("C:\Users\User\Documents\zapimoveis\listadeimoveis.xlsx")
+workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
 print("Planilha Excel criada com sucesso!")
 
 # Fechando o driver
