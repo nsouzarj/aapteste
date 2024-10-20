@@ -129,6 +129,8 @@ print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
 
 
 # Criando uma nova planilha Excel e definindo os cabeçalhos
+#Seta o diretorio onde será salvao a planilha
+output_dir = "C:\\Users\\User\\Documents\\zapimoveis" 
 workbook = Workbook()
 sheet = workbook.active
 sheet.title = "Imóveis"
@@ -248,8 +250,7 @@ for link in links_imoveis:
             area_valores=   WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]')))
             if not area_valores.text:
                 print("Nao existe")
-            
-           
+                
         # Traz a data em extendo e trasnforma em formato MM/DD/YYYy
         data_extenso = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[4]/span[2]')))  
         data_cadastro = extrair_e_formatar_data(data_extenso.text)
@@ -283,7 +284,6 @@ for link in links_imoveis:
         # Salva a planilha a cada 50 registros
         if registro_atual % 50 == 0:
             #workbook.save(os.path.join("C:", "Users", "User", "Documents", "zapimoveis", "listadeimoveis.xlsx"))
-            output_dir = "C:\\Users\\User\\Documents\\zapimoveis"  # Adjust this if needed
             os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't exist
             workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
             print(f"##  PLANILHA SALVA (Registro {registro_atual}) ##")
@@ -291,11 +291,9 @@ for link in links_imoveis:
     except Exception as e:
         print(f"ERROR: Na coleta detalhes do imóvel: {e}  ---> {link}" )
        
-# Salva a planilha final (novamente, para garantir que todos os dados estão salvos)
-output_dir = "C:\\Users\\User\\Documents\\zapimoveis"  # Adjust this if needed
+ # Adjust this if needed
 os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't existbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
 workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
 print("Planilha Excel criada com sucesso!")
-
 # Fechando o driver
 driver.quit()
