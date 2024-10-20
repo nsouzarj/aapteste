@@ -33,6 +33,7 @@ cont = 0
 pagina_tela = 0
 contador_geral = 1;
 
+
 """ Array que contem os tipso de movel """
 tipos_imoveis = [
     "Apartamento",
