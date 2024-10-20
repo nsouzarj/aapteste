@@ -72,7 +72,7 @@ while pagina_atual >= 1:
     # Inicializando o ChromeDriver
   
     # Montando a URL com o número da página atual
-    link_nova_lina = f"https://www.zapimoveis.com.br/venda/casas/mg+nova-lima/4-quartos/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Minas%20Gerais,Nova%20Lima,,,,,city,BR%3EMinas%20Gerais%3ENULL%3ENova%20Lima,-19.992998,-43.848488,&tipos=casa_residencial&pagina={pagina_atual}&amenities=Aceita%20pets&banheiros=4&quartos=4&vagas=4"
+    link_nova_lina = f"https://www.zapimoveis.com.br/venda/casas/rj+rio-de-janeiro/4-quartos/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Rio%20de%20Janeiro,Rio%20de%20Janeiro,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3ERio%20de%20Janeiro,-22.906847,-43.172897,&tipos=casa_residencial&pagina={pagina_atual}&amenities=Piscina,Aceita%20pets,Mobiliado,Varanda/Sacada&banheiros=4&quartos=4&vagas=4"
     # url = f"https://www.zapimoveis.com.br/venda/imoveis/rj+rio-de-janeiro/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Rio%20de%20Janeiro,Rio%20de%20Janeiro,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3ERio%20de%20Janeiro,-22.906847,-43.172897,&pagina={pagina_atual}"
     url=link_nova_lina     # Acessando a URL
     #print(f"Acessando a URL: {url}")
@@ -262,10 +262,9 @@ for link in links_imoveis:
         # Zap 
         zap_do_anunciante = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
         # Imprime na tela o link   
-        try:
-          logradouro, numero, bairro, cidade, estado = parse_address(address.text)
-        except:
-           break 
+        
+        logradouro, numero, bairro, cidade, estado = parse_address(address.text)
+        
            
         # Traz o cep dplogradouro
         cep = get_ceps_por_logradouro(logradouro, numero, cidade, estado)
@@ -293,6 +292,8 @@ for link in links_imoveis:
         print(f"ERROR: Na coleta detalhes do imóvel: {e}  ---> {link}" )
        
 # Salva a planilha final (novamente, para garantir que todos os dados estão salvos)
+output_dir = "C:\\Users\\User\\Documents\\zapimoveis"  # Adjust this if needed
+os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't existbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
 workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
 print("Planilha Excel criada com sucesso!")
 
