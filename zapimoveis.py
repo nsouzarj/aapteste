@@ -4,11 +4,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 import os
 from openpyxl import Workbook
 from funcoes_especificas import get_ceps_por_logradouro,extrair_numeros,encontrar_tipo_imovel,parse_address,remover_parte_texto,extrair_e_formatar_data
 from bs4 import BeautifulSoup
+from selenium.webdriver.common.keys import Keys
 
 # Configurando opções do Chrome
 chrome_options = Options()
@@ -24,6 +26,7 @@ chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe"
 service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
+
 # Inicializando um conjunto para armazenar links únicos
 links_imoveis = set()
 # Número da página inicial
@@ -32,6 +35,7 @@ cont = 0
 # PAgina por scrol de tela
 pagina_tela = 0
 contador_geral = 1;
+
 
 """ Array que contem os tipso de movel """
 tipos_imoveis = [
@@ -64,6 +68,8 @@ tipos_imoveis = [
 
 # Coletando links dos imóveis
 """  Comente esse treco do while ate o final caso queira testar um único link do imóvel """
+
+               #actions.move_to_element(drawer)  # Move the mouse to the drawer initiall
 while pagina_atual >= 1:
     service = Service(chrome_driver_path)
     driver = webdriver.Chrome(service=service, options=chrome_options)# Loop principal para as páginas
@@ -76,7 +82,10 @@ while pagina_atual >= 1:
     # url = f"https://www.zapimoveis.com.br/venda/imoveis/rj+rio-de-janeiro/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Rio%20de%20Janeiro,Rio%20de%20Janeiro,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3ERio%20de%20Janeiro,-22.906847,-43.172897,&pagina={pagina_atual}"
     url=link_nova_lina     # Acessando a URL
     #print(f"Acessando a URL: {url}")
+    driver.maximize_window()
+  
     driver.get(url)
+    actions = ActionChains(driver)   
     print("COLENTANDO OS LINK DOS IMOvES..")
     print((f"PAGINA ATUAL: {pagina_atual} "))
 
@@ -90,8 +99,6 @@ while pagina_atual >= 1:
     if len(imoveis) ==1:
        print("Final de leiura dos registros.")
        break 
-        
-         
     
     # Verifica se já coletou todos os imóveis da página atual
     if not imoveis:
@@ -100,33 +107,54 @@ while pagina_atual >= 1:
     # Pagina os registro em cadas pagina ate 106 no maximo
     a=0
     print(f"PAGINANDO REGISTROS: {pagina_atual}")
+    driver.maximize_window() 
+    
+    
     for cont in range(1,  106):  # Limita a 105 registros
         try:
             # Coleta o link e outros dados
-            
+            a+=1
             link_element = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
+            botao_anuncio = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')
+            fechar = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/section/div/form/aside/div/div[1]/div[5]/div')
+            actions = ActionChains(driver)
             if link_element:
-                link = link_element[0].get_attribute('href')
-                links_imoveis.add(link)
-                print(f"LINK: {cont} - {link}")
-                print(f"CONTADOR:  {len(links_imoveis)}")
-                a+=1
-                contador_geral+=1;
-                if a==10:
-                  driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])  
-                  time.sleep(5)  # Espera um pouco para que novos imóveis sejam carregados
-                  a=0   
+               link = link_element[0].get_attribute('href')
+               links_imoveis.add(link)
+               print(f"LINK: {cont} - {link}")
+            
+                     
+            if botao_anuncio:
+               button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')))          
+               # fechar = driver.find_elements(By.XPATH, f' //*[@id="__next"]/main/section/aside/span')
+               texto=button.text                     
+               botao_anuncio[0].click()
+               driver.implicitly_wait(10)
+               link_imovel=driver.find_elements(By.XPATH,'//*[@id="__next"]/main/section/aside/form/section/div/section[2]/section/div[5]/div[1]/a')
+               link_result=link_imovel[0].get_attribute('href')
+               driver.implicitly_wait(5)
+               print("IMOVEL COM ANÚNCIO")
+               print(f"{cont} - {link_result}")
+               links_imoveis.add(link_result)
+               driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE)  
+               #contador_geral+=1;
+            contador_geral+=1  
+            if a==10:
+               driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])  
+               time.sleep(5)  # Espera um pouco para que novos imóveis sejam carregados
+               a=0      
+               #continue                              
             # ... coleta de outros dados ...
-        except Exception as e:
-            print(f"Erro ao encontrar o link para o elemento")
-            continue  # Continua para o próximo registro
-
+        except Exception:#as e:           
+           #print(f"ERRO  {e}")   
+           continue    
+               
+ # Continua para o próximo registro
     pagina_atual += 1                  
 
 # Mostra os registros catalogados no  link_imoveis
 print("CRIANDO A PLANILHDA DO EXCEL.") 
 print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
-
 
 # Criando uma nova planilha Excel e definindo os cabeçalhos
 #Seta o diretorio onde será salvao a planilha
@@ -263,9 +291,7 @@ for link in links_imoveis:
         # Zap 
         zap_do_anunciante = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
         # Imprime na tela o link   
-        
         logradouro, numero, bairro, cidade, estado = parse_address(address.text)
-        
            
         # Traz o cep dplogradouro
         cep = get_ceps_por_logradouro(logradouro, numero, cidade, estado)

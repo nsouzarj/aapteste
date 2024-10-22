@@ -96,15 +96,15 @@ def parse_address(address):
     num_traco=address.count("-")
     
     if num_virgula==2 and num_traco==2:
-        address=address.replace("-", ",")
+        address=address.replace(" - ", ",")
         endereco_modificado=address   
     
     if num_virgula==1 and num_traco==2:
-        address=address.replace("-", ",")
+        address=address.replace(" - ", ",")
         endereco_modificado=address 
     
     if num_virgula==1 and num_traco==1:
-        address=address.replace("-", ",")
+        address=address.replace(" - ", ",")
         endereco_modificado=address 
         
     if num_virgula==1 and num_traco==3:
