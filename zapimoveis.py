@@ -11,6 +11,7 @@ from openpyxl import Workbook
 from funcoes_especificas import get_ceps_por_logradouro,extrair_numeros,encontrar_tipo_imovel,parse_address,remover_parte_texto,extrair_e_formatar_data
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
+import sys
 
 # Configurando opções do Chrome
 chrome_options = Options()
@@ -323,3 +324,6 @@ workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx"))
 print("Planilha Excel criada com sucesso!")
 # Fechando o driver
 driver.quit()
+print("FINALIZANDO A APLICAÇÂO...")
+time.sleep(10)
+sys.exit()
