@@ -1,7 +1,7 @@
 # PROJETO DE SCRAP ZAP IMOVEIS
 
 ## Script voltado para fazer scrap do site http://www.zapimoveis.com.br
-- Autor: Nelson Seixas
+- Autores: Nelson Seixas/ Atilano/ Roberta
 
 - Data Criação: 16/10/2024
 
@@ -18,7 +18,7 @@
     - pip install openpyxl
     - pip install pandas  Observação: Creio quen não seja necessário o uso da mesma
     - pip install bs4 
-    - pip pyinstaller - esse para tranaforma o script em um executavel
+    - pip pyinstaller - esse para transformar o script em um executavel podenos ser executado sem a ncessidade do python instalado no local
 
 
 - Para converter o scrpit em executalvel utilize o pyinstaller  
@@ -27,7 +27,7 @@
 
 ### Observação o script ler os links conforme a busca e colcoa no array de set(), esse array e limitado pela memória ram da maquina. 
 
-- A planilha xmls é criada onde esta o executavel ou script, caso queira mudar procure o trecho de código   workbook.save("C:\Users\User\Documents\zapimoveis\listadeimoveis.xlsx")  e modifique o caminho conforme sua necessidade, os registro sao salvos na planilha a cada 50 a cada lida da lista armazenada assim garante que os dados serão salvos na planilha excel.
+- A planilha xlsx é criada onde esta o executavel ou script, caso queira mudar procure o trecho de código   workbook.save("C:\Users\User\Documents\zapimoveis\listadeimoveis.xlsx")  e modifique o caminho conforme sua necessidade, os registro sao salvos na planilha a cada 50 a cada lida da lista armazenada assim garante que os dados serão salvos na planilha excel.
 
 ### Qualquer dúvida estamos a sua disposição para esclarecimentos.
 
