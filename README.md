@@ -11,7 +11,7 @@
 
 - Instale o python mas recente na sua maquina do site https://www.python.org/downloads
 
-- Baixe o google com drive mais atual do site https://drive.google.com/file/d/18DEwWP4gDTvMotNAGW6y-8xjGo1uiB1h/view?usp=drive_link descompacte o arquivo zip e descpacte  coloque a pasta no seu  lugar de preferência exemplo: C:\Users\User\ChromeWithDriver  nessa pasta irão estar o chrome driver com o chrome dessa pasta, pois é compatível com a aplicação e na linha  chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe" do zapimoveis.py dever ser alterada conforme onde você descompactou o arquivo zip.  
+- Baixe o google com drive mais atual do site 'https://www.zapimoveis.com.br/imovel/venda-casa-3-quartos-com-area-de-servico-violeira-vicosa-163m2-id-2661405811/' descompacte o arquivo zip e descpacte  coloque a pasta no seu  lugar de preferência exemplo: C:\Users\User\ChromeWithDriver  nessa pasta irão estar o chrome driver com o chrome dessa pasta, pois é compatível com a aplicação e na linha  chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe" do zapimoveis.py dever ser alterada conforme onde você descompactou o arquivo zip.  
 
 - Instale as seguinte libs do python usando pip 
     - pip install selenium
