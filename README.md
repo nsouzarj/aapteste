@@ -18,14 +18,14 @@
     - pip install openpyxl
     - pip install pandas  Observação: Creio quen não seja necessário o uso da mesma
     - pip install bs4 
-    - pip pyinstaller - esse para transformar o script em um executavel podenos ser executado sem a ncessidade do python instalado no local
+    - pip pyinstaller - esse para transformar o script em um executavel podenos ser executado sem a necessidade do python instalado no local
 
 
 - Para converter o scrpit em executalvel utilize o pyinstaller  
 
 - pyinstaller.exe --hidden-import=funcoes_especificas -F zapimoveis.py, depois de compilado ele cria uma pasta chamada dist dentro do projeto o executável está nessa pasta.
 
-### Observação o script ler os links conforme a busca e colcoa no array de set(), esse array e limitado pela memória ram da maquina. 
+### Observação o script ler os links conforme a busca e colcoa no array de set(), esse array e ilimitado pela memória ram da maquina. 
 
 - A planilha xlsx é criada onde esta o executavel ou script, caso queira mudar procure o trecho de código   workbook.save("C:\Users\User\Documents\zapimoveis\listadeimoveis.xlsx")  e modifique o caminho conforme sua necessidade, os registro sao salvos na planilha a cada 50 a cada lida da lista armazenada assim garante que os dados serão salvos na planilha excel.
 
