@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 import os
 from openpyxl import Workbook
@@ -12,7 +13,7 @@ from bs4 import BeautifulSoup
 
 # Configurando opções do Chrome
 chrome_options = Options()
-chrome_options.add_argument("--headless")  # Comente esta linha para ver o navegador
+# chrome_options.add_argument("--headless")  # Comente esta linha para ver o navegador
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-gpu")  # Desativa a aceleração de hardware
@@ -23,6 +24,7 @@ chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe"
 # Inicializando o ChromeDriver
 service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service, options=chrome_options)
+
 
 # Inicializando um conjunto para armazenar links únicos
 links_imoveis = set()
@@ -65,6 +67,11 @@ tipos_imoveis = [
 
 # Coletando links dos imóveis
 """  Comente esse treco do while ate o final caso queira testar um único link do imóvel """
+
+
+
+               #actions.move_to_element(drawer)  # Move the mouse to the drawer initially
+
 while pagina_atual >= 1:
     service = Service(chrome_driver_path)
     driver = webdriver.Chrome(service=service, options=chrome_options)# Loop principal para as páginas
@@ -77,7 +84,10 @@ while pagina_atual >= 1:
     # url = f"https://www.zapimoveis.com.br/venda/imoveis/rj+rio-de-janeiro/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Rio%20de%20Janeiro,Rio%20de%20Janeiro,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3ERio%20de%20Janeiro,-22.906847,-43.172897,&pagina={pagina_atual}"
     url=link_nova_lina     # Acessando a URL
     #print(f"Acessando a URL: {url}")
+    driver.maximize_window()
+  
     driver.get(url)
+    actions = ActionChains(driver)   
     print("COLENTANDO OS LINK DOS IMOvES..")
     print((f"PAGINA ATUAL: {pagina_atual} "))
 
@@ -101,26 +111,74 @@ while pagina_atual >= 1:
     # Pagina os registro em cadas pagina ate 106 no maximo
     a=0
     print(f"PAGINANDO REGISTROS: {pagina_atual}")
+    driver.maximize_window() 
+    
+    
     for cont in range(1,  106):  # Limita a 105 registros
         try:
             # Coleta o link e outros dados
-            
+
             link_element = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
+            botao_anuncio = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')
+            fechar = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/section/div/form/aside/div/div[1]/div[5]/div')
+            actions = ActionChains(driver)
             if link_element:
-                link = link_element[0].get_attribute('href')
-                links_imoveis.add(link)
-                print(f"LINK: {cont} - {link}")
-                print(f"CONTADOR:  {len(links_imoveis)}")
-                a+=1
-                contador_geral+=1;
-                if a==10:
-                  driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])  
-                  time.sleep(5)  # Espera um pouco para que novos imóveis sejam carregados
-                  a=0   
+               link = link_element[0].get_attribute('href')
+               links_imoveis.add(link)
+               print(f"LINK: {cont} - {link}")
+            
+                     
+            if botao_anuncio:
+               button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')))          
+               # fechar = driver.find_elements(By.XPATH, f' //*[@id="__next"]/main/section/aside/span')
+               texto=button.text
+                            
+               botao_anuncio[0].click()
+               
+               link_imovel=driver.find_elements(By.XPATH,'//*[@id="__next"]/main/section/aside/form/section/div/section[2]/section/div[5]/div[1]/a')
+               link_result=link_imovel[0].get_attribute('href')
+               print("IMOVEL COM ANÚNCIO")
+               print(f"{cont} - {link_result}")
+               links_imoveis.add(link_result)
+               
+               driver.implicitly_wait(10)
+               tela_princicpal= WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH,'//*[@id="__next"]/main/section/div[2]')))
+   
+               window_width = driver.execute_script("return window.innerWidth;")
+               window_height = driver.execute_script("return window.innerHeight;")
+               x_coord = window_width 
+               y_coord = window_height
+       
+               #drawer = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "aside.l-drawer")))
+              
+               # 1. Get the size of the browser window
+            
+               #actions.move_by_offset(x_coord, y_coord).perform() 
+               #actions.move_to_element(tela_princicpal).perform()
+               #actions.click().perform()
+             
+              # driver.implicitly_wait(5) 
+      
+               #actions.move_by_offset(x_coord, y_coord).perform() 
+               actions.move_to_element(tela_princicpal).perform()
+               actions.click().perform()
+               #contador_geral+=1;
+            contador_geral+=1  
+            a+=1
+            if a==10:
+               driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])  
+               time.sleep(5)  # Espera um pouco para que novos imóveis sejam carregados
+               a=0      
+               #continue      
+                              
             # ... coleta de outros dados ...
-        except Exception as e:
-            print(f"Erro ao encontrar o link para o elemento")
-            continue  # Continua para o próximo registro
+        except Exception as e:                            
+           print(f"ERRO {e}")   
+           continue    
+               
+                         
+
+ # Continua para o próximo registro
 
     pagina_atual += 1                  
 
