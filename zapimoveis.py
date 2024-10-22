@@ -136,33 +136,25 @@ while pagina_atual >= 1:
                print("IMOVEL COM ANÚNCIO")
                print(f"{cont} - {link_result}")
                links_imoveis.add(link_result)
-               
                driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE)  
-
                #contador_geral+=1;
             contador_geral+=1  
-         
             if a==10:
                driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])  
                time.sleep(5)  # Espera um pouco para que novos imóveis sejam carregados
                a=0      
-               #continue      
-                              
+               #continue                              
             # ... coleta de outros dados ...
-        except Exception as e:                            
-           print(f"ERRO  {e}")   
+        except Exception:#as e:           
+           #print(f"ERRO  {e}")   
            continue    
                
-                         
-
  # Continua para o próximo registro
-
     pagina_atual += 1                  
 
 # Mostra os registros catalogados no  link_imoveis
 print("CRIANDO A PLANILHDA DO EXCEL.") 
 print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
-
 
 # Criando uma nova planilha Excel e definindo os cabeçalhos
 #Seta o diretorio onde será salvao a planilha
@@ -299,9 +291,7 @@ for link in links_imoveis:
         # Zap 
         zap_do_anunciante = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
         # Imprime na tela o link   
-        
         logradouro, numero, bairro, cidade, estado = parse_address(address.text)
-        
            
         # Traz o cep dplogradouro
         cep = get_ceps_por_logradouro(logradouro, numero, cidade, estado)
