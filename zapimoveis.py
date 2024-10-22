@@ -13,6 +13,16 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
 import sys
 
+
+# Caminho da planilha
+caminho_da_planilha = sys.argv[1]
+
+# Caminho do webchorme 
+caminho_do_webchrome = sys.argv[2]
+
+#filtro pro cidade
+caminho_do_filtro=sys.argv[3]
+
 # Configurando opções do Chrome
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Comente esta linha para ver o navegador
@@ -21,7 +31,8 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-gpu")  # Desativa a aceleração de hardware
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
 # Caminho para o ChromeDriver
-chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe"
+chrome_driver_path = caminho_do_webchrome
+#"C:\Users\User\ChromeWithDriver\chromedriver.exe"
 
 # Inicializando o ChromeDriver
 service = Service(chrome_driver_path)
@@ -79,7 +90,7 @@ while pagina_atual >= 1:
     # Inicializando o ChromeDriver
   
     # Montando a URL com o número da página atual
-    link_nova_lina = f"https://www.zapimoveis.com.br/venda/casas/rj+rio-de-janeiro/4-quartos/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Rio%20de%20Janeiro,Rio%20de%20Janeiro,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3ERio%20de%20Janeiro,-22.906847,-43.172897,&tipos=casa_residencial&pagina={pagina_atual}&amenities=Piscina,Aceita%20pets,Mobiliado,Varanda/Sacada&banheiros=4&quartos=4&vagas=4"
+    link_nova_lina = caminho_do_filtro+str(pagina_atual) #f"https://www.zapimoveis.com.br/venda/casas/rj+rio-de-janeiro/4-quartos/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Rio%20de%20Janeiro,Rio%20de%20Janeiro,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3ERio%20de%20Janeiro,-22.906847,-43.172897,&tipos=casa_residencial&pagina={pagina_atual}&amenities=Piscina,Aceita%20pets,Mobiliado,Varanda/Sacada&banheiros=4&quartos=4&vagas=4"
     # url = f"https://www.zapimoveis.com.br/venda/imoveis/rj+rio-de-janeiro/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Rio%20de%20Janeiro,Rio%20de%20Janeiro,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3ERio%20de%20Janeiro,-22.906847,-43.172897,&pagina={pagina_atual}"
     url=link_nova_lina     # Acessando a URL
     #print(f"Acessando a URL: {url}")
@@ -159,7 +170,7 @@ print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
 
 # Criando uma nova planilha Excel e definindo os cabeçalhos
 #Seta o diretorio onde será salvao a planilha
-output_dir = "C:\\Users\\User\\Documents\\zapimoveis" 
+output_dir = caminho_da_planilha
 workbook = Workbook()
 sheet = workbook.active
 sheet.title = "Imóveis"
