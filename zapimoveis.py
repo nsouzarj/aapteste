@@ -122,7 +122,7 @@ while pagina_atual >= 1:
     driver.maximize_window() 
     
     
-    for cont in range(1,  106):  # Limita a 105 registros
+    for cont in range(1,  150):  # Limita a 105 registros
         try:
             # Coleta o link e outros dados
             a+=1
