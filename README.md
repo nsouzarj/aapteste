@@ -18,7 +18,7 @@
     - pip install openpyxl
     - pip install pandas  Observação: Creio quen não seja necessário o uso da mesma
     - pip install bs4 
-    - pip pyinstaller - esse para transformar o script em um executavel podenos ser executado sem a necessidade do python instalado no local
+    - pip install pyinstaller - esse para transformar o script em um executavel podenos ser executado sem a necessidade do python instalado no local
 
 
 - Para converter o scrpit em executalvel utilize o pyinstaller  
