@@ -13,7 +13,8 @@
             "args": [
               "C:\\Users\\User\\Documents\\zapimoveis",
               "C:\\Users\\User\\ChromeWithDriver\\chromedriver.exe",
-              "https://www.zapimoveis.com.br/venda/imoveis/mg+vicosa/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=venda&onde=,Minas%20Gerais,Vi%C3%A7osa,,,,,city,BR%3EMinas%20Gerais%3ENULL%3EVicosa,-20.756145,-42.880028,&pagina="
+              "https://www.zapimoveis.com.br/aluguel/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=aluguel&pagina=",
+              "venda"
             ]
           }
     ]

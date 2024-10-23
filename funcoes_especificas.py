@@ -84,88 +84,57 @@ def encontrar_tipo_imovel(descricao, tipos_imoveis):
     return None 
  
 
-"""Esta função trata a localização do imóvel separando por partes"""
 def parse_address(address):
-  
     # Substitui o hífen por uma vírgula para facilitar a separação
-    # Encontra a posição da ","
-    indice_virgula = address.find(",")
-    indice_traco =address.find("-")
-    
-    num_virgula= address.count(",")
-    num_traco=address.count("-")
-    
-    if num_virgula==2 and num_traco==2:
-        address=address.replace(" - ", ",")
-        endereco_modificado=address   
-    
-    if num_virgula==1 and num_traco==2:
-        address=address.replace(" - ", ",")
-        endereco_modificado=address 
-    
-    if num_virgula==1 and num_traco==1:
-        address=address.replace(" - ", ",")
-        endereco_modificado=address 
+    address = address.replace(" - ", ",")
+    # Divide o endereço em partes usando a vírgula como delimitador
+    partes = [parte.strip() for parte in address.split(",")]
+
+    # Inicializa as variáveis com valores padrão
+    logradouro = "inexistente"
+    numero = "inexistente"
+    bairro = "inexistente"
+    cidade = "inexistente"
+    estado = "inexistente"
+
+    # Verifica se há pelo menos duas partes (cidade e estado)
+    if len(partes) >= 2:
+        # O primeiro elemento é sempre o logradouro
+        logradouro_completo = partes[0].strip()
         
-    if num_virgula==1 and num_traco==3:
-     #  partes = address.split("-")
-       endereco_modificado = re.sub(r' - ', ',', address)
-   
-    if num_virgula==1 and num_traco==2:
-         #  partes = address.split("-")
-       endereco_modificado = re.sub(r' - ', ',', address)   
+        # O último elemento é sempre o estado
+        estado = partes[-1].strip()
+        
+        # A penúltima parte é sempre a cidade
+        cidade = partes[-2].strip()
+        
+        numero = partes[1].strip()
+
+        # Verifica se há um número logo após o logradouro
+        logradouro_partes = logradouro_completo.split()
+        
+        if len(logradouro_partes) > 1 and logradouro_partes[-1].isdigit():
+            numero = logradouro_partes.pop()  # Remove e atribui como número
+        
+        # Recria o logradouro sem o número
+        logradouro = ' '.join(logradouro_partes)
+
+        # Se houver mais de três partes, a antepenúltima pode ser um bairro
+        if len(partes) > 3:
+            bairro = partes[-3].strip() 
+            if bairro.isdigit():
+              bairro="inexistente"       
+        if not numero.isdigit():
+              numero="inexistente"
     
-    if num_virgula==2 and num_traco==2:
-       endereco_modificado = re.sub(r' - ', ',', address)   
-       
-    if num_virgula==1 and num_traco==4:
-     #  partes = address.split("-")
-       endereco_modificado = re.sub(r' - ', ',', address)   
-    if num_virgula==2 and num_traco==4:
-         #  partes = address.split("-")
-       endereco_modificado = re.sub(r' - ', ',', address)    
-    
-    if num_virgula==2 and num_traco==3:
-             #  partes = address.split("-")
-       endereco_modificado = re.sub(r' - ', ',', address)         
-      
-    #endereco_modificado = address[:indice_virgula+1] + address[indice_virgula+1:].replace(",", ",")
-    #endereco_modificado = address[:indice_virgula+2:] + address[indice_virgula+1:].replace("-", ",")
-    #endereco_modificado = endereco_modificado[:indice_virgula+1] + endereco_modificado[indice_virgula+1:].replace(" - ", ",")
-    #endereco_modificado = endereco_modificado[:indice_virgula+1] + endereco_modificado[indice_virgula+1:].replace(" ,", ",")  
-    # Verifica se o endereço tem o padrão específico
-    
-    # Regex pattern para capturar os componentes do endereço
-    # Tenta fazer o match do endereço com o padrão
-    pattern="^(?P<logradouro>[^,]+),?\\s*(?P<numero>\\d*)?\\s*,?\\s*(?P<bairro>[^,]*)?,?\\s*(?P<cidade>[^,]+?)\\s*,\\s*(?P<estado>[A-Z]{2})$"
-    
-    try:
-        match = re.match(pattern, endereco_modificado.strip())
-        # Trata o match
-        if match:
-            logradouro = match.group("logradouro").strip() if match.group("logradouro") else "inexistente"
-            numero = match.group("numero").strip() if match.group("numero") else "inexistente"
-            bairro = match.group("bairro").strip() if match.group("bairro") else "inexistente"
-            cidade = match.group("cidade").strip() if match.group("cidade") else "inexistente"
-            estado = match.group("estado").strip() if match.group("estado") else "inexistente"
-            if cidade=="":
-               cidade = bairro
-               bairro="inexistente"  
-            # Retorna como uma tupla
-            return (logradouro, numero, bairro, cidade, estado)
-        else:
-            return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente") 
-    except Exception as e:
-        print(f"Erro ao analisar o endereço não est ano formato correto: {e}")
-        return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente") 
-      
+    return (logradouro, numero, bairro, cidade, estado)
 # Como usar & tipo de endereços     # 
-# logradouro, numero, bairro, cidade, estado = parse_address("Rua Toledo - Vila Castela , Nova Lima - MG")
+# logradouro, numero, bairro, cidade, estado = parse_address("Rua dos Beija-Flores - Alphaville Lagoa Dos Ingleses, Nova Lima - MG")
 # AQUI SAO OS TIPOS DE ENDEREÇO como exemplo
 # Rua Gama, 116 - Condominio Quintas do Sol, Nova Lima - MG
 # Rua dos Beija-Flores - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
-# Rua dos Jatobás - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
-# Vila del Rey, Nova Lima - MG
+# 
+# Vila del Rey, 300 Nova Lima - MG
 # Rua dos Bem-Te-Vis - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
 # Rua Bem-Te-Vi, 1 - Vila del Rey, Nova Lima - MG
 # Rua Estrela da Manhã, 225 - Vale dos Cristais, Nova Lima - MG
@@ -227,5 +196,44 @@ def extrair_e_formatar_data(texto):
             return None
     else:
         return None  # Retorna None se não encontrar a data  
+      
+      
+    """ Separa precos de compra e venda """
          
-           
+    
+    
+def separar_precos(texto):
+    # Dividir o texto em linhas
+    linhas = texto.split('\n')
+    # Verificar se o texto é "Sob consulta"
+   
+    # Verificar se o texto é "Valor sob consulta"
+    if texto.strip() == "Valor sob consulta":
+        return {
+            'Venda': "Valor sob consulta",
+            'Aluguel': "Valor sob consulta"
+        }
+    
+    # Inicializar um dicionário para armazenar os preços
+    precos = {}
+    
+    # Iterar sobre as linhas e extrair os preços
+    for i in range(0, len(linhas), 2):
+        tipo = linhas[i].strip()  # Tipo (Venda ou Aluguel)
+        valor = linhas[i + 1].strip() if i + 1 < len(linhas) else ""  # Valor correspondente
+        
+        # Verificar se o tipo é válido e se o valor não está vazio
+        if tipo in ["Venda", "Aluguel"] and valor:
+            # Remover o símbolo 'R$' e formatar o valor
+            valor_formatado = valor.replace('R$', '').strip()
+            # Armazenar no dicionário
+            precos[tipo] = valor_formatado
+    
+    # Retornar valores ou "" caso não existam
+    return {
+        'Venda': precos.get('Venda', ""),
+        'Aluguel': precos.get('Aluguel', "")
+    }
+
+# Exemplo de uso
+    
