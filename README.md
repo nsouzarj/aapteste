@@ -18,6 +18,7 @@
     - pip install openpyxl
     - pip install pandas  Observação: Creio quen não seja necessário o uso da mesma
     - pip install bs4 
+    - pip install requests-cache
     - pip install pyinstaller - esse para transformar o script em um executavel podenos ser executado sem a necessidade do python instalado no local
 
 

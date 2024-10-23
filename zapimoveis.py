@@ -7,11 +7,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 import os
+import sys
 from openpyxl import Workbook
 from funcoes_especificas import get_ceps_por_logradouro,extrair_numeros,encontrar_tipo_imovel,parse_address,remover_parte_texto,extrair_e_formatar_data,separar_precos
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
-import sys
+import requests_cache
+import requests
+
+requests_cache.install_cache('cache')
 
 
 # Caminho da planilha
@@ -33,13 +37,15 @@ chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-gpu")  # Desativa a aceleração de hardware
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+requests_cache.install_cache('cache')
+# Inicializando o ChromeDriver
 # Caminho para o ChromeDriver
 chrome_driver_path = caminho_do_webchrome
 #"C:\Users\User\ChromeWithDriver\chromedriver.exe"
+# Configurar o cache (use 'cache' como nome do arquivo do cache)
 
-# Inicializando o ChromeDriver
 service = Service(chrome_driver_path)
-driver = webdriver.Chrome(service=service, options=chrome_options)
+driver = webdriver.Chrome(service=service, options= chrome_options)
 
 
 # Inicializando um conjunto para armazenar links únicos
@@ -91,14 +97,21 @@ registro = 0
 
 
 # nt(drawer)  # Move the mouse to the drawer initiall
+# Loop para navegar pelas páginas
 try:
     while pagina_atual >= 1:
         # Montando a URL com o número da página atual
         link_nova_lina = caminho_do_filtro + str(pagina_atual)
         url = link_nova_lina
         
-        # Acessando a URL
-        print(f"Acessando a URL: {url}")
+        # Acessando a URL (usando requests_cache)
+        response =  requests.get(url)  # Faz a requisição usando requests_cache
+        if response.from_cache:
+            print(f"Carregando página {pagina_atual} do cache.")
+        else:
+            print(f"Baixando página {pagina_atual}.")
+
+        # O resto do seu código (dentro do loop) continua exatamente igual:
         driver.maximize_window()
         driver.get(url)
         actions = ActionChains(driver)
@@ -123,61 +136,67 @@ try:
         a = 0
         print(f"PAGINANDO REGISTROS: {pagina_atual}")
         driver.maximize_window()
-
+        actions = ActionChains(driver)
         # Loop para iterar pelos elementos de imóvel
         for cont in range(1, 150):  # Limita a 105 registros
             try:
                 # Coleta o link e outros dados
                 a += 1
+                   
                 link_element = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
-                botao_anuncio = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')
-                fechar = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/section/div/form/aside/div/div[1]/div[5]/div')
-                actions = ActionChains(driver)
+                  
+                botao_anuncio = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')   
+               
+                botao_menssagen = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a/div/div/div[2]/div[3]/div[2]/div[1]/button[2]')  
+ 
+                if botao_anuncio and len(botao_anuncio) > 0 and len(botao_menssagen)==0: 
+                    # Encontra o botão clicável usando WebDriverWait
+                    button1 = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')))
+                    texto = button1.text
+                    
+                    # Clica no botão de anúncio
+                    try:
+                       driver.implicitly_wait(5) 
+                       driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE) # Fechando o anúnci
+                       button1.click()
+                       time.sleep(5)
+                    except:
+                       botao_anuncio[0].click()
+      
+                    link_imovel = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/section/aside/form/section/div/section[2]/section/div[5]/div[1]/a') # Ajuste o tempo de espera conforme necessário
 
-                if link_element:
+      
+                    if link_imovel:
+                        link_result = link_imovel[0].get_attribute('href')
+                        print("IMOVEL COM ANÚNCIO")
+                        print(f"{cont} - {link_result}")
+                        links_imoveis.add(link_result)
+                        
+                        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE) # Fechando o anúncio
+                        time.sleep(4)
+
+                # Coleta o link do imóvel (se não houver anúncio)
+                if link_element and len(link_element) > 0 and len(botao_menssagen) > 0:
                     link = link_element[0].get_attribute('href')
                     links_imoveis.add(link)
                     print(f"LINK: {cont} - {link}")
 
-                if botao_anuncio:
-                    button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')))
-                    texto = button.text
-
-                    # Fechando elementos de aside que podem atrapalhar
-                    if fechar:
-                        fechar[0].click()
-                        driver.implicitly_wait(5)
-
-                    # Clica no botão de anúncio
-                    botao_anuncio[0].click()
-                    driver.implicitly_wait(10)
-
-                    # Coleta o link do anúncio
-                    link_imovel = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/section/aside/form/section/div/section[2]/section/div[5]/div[1]/a')
-                    link_result = link_imovel[0].get_attribute('href')
-                    driver.implicitly_wait(5)
-                    print("IMOVEL COM ANÚNCIO")
-                    print(f"{cont} - {link_result}")
-                    links_imoveis.add(link_result)
-
-                    # Fechando o anúncio
-                    driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE)
-                    driver.implicitly_wait(5)
-
-                    contador_geral += 1
-
-                contador_geral += 1
+                # Rola a página para carregar mais imóveis
                 if a == 14:
                     driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])
-                    time.sleep(5)  # Espera um pouco para que novos imóveis sejam carregados
+                    time.sleep(2)  # Ajuste o tempo de espera conforme necessário
                     a = 0
+                    # Não use 'continue' aqui, pois ele está fora do bloco 'try'
 
             except Exception as e:  # Captura qualquer exceção
-                print(f"ERRO: {e}")
-                continue
+                #print(f"ERRO: {e}")
+                continue  # Continua para a próxima iteração do loop
             
             # Continua para o próximo registro
-            pagina_atual += 1
+        pagina_atual=+1
+                
+
+
 
 except Exception as e:
     print(f"ERRO GERAL: {e}")
@@ -186,7 +205,6 @@ finally:
     print("Finalizando a coleta de dados.")
     print(f"Total de imóveis coletados: {contador_geral}")
     driver.quit()
-    
     
                  
 
