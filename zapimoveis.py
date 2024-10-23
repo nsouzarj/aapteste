@@ -57,32 +57,6 @@ cont = 0
 pagina_tela = 0
 contador_geral = 1;
 
-
-""" Array que contem os tipso de movel """
-tipos_imoveis = [
-    "Apartamento",
-    "Studio",
-    "Kitnet",
-    "Casa",
-    "Sobrado",
-    "Casa de Condomínio",
-    "Casa de Vila",
-    "Cobertura",
-    "Flat",
-    "Loft",
-    "Terreno / Lote / Condomínio",
-    "Fazenda / Sítio / Chácara",
-    "Loja / Salão / Ponto Comercial",
-    "Conjunto Comercial / Sala",
-    "Casa Comercial",
-    "Hotel / Motel / Pousada",
-    "Andar / Laje Corporativa",
-    "Prédio Inteiro",
-    "Terrenos / Lotes Comerciais",
-    "Galpão / Depósito / Armazém",
-    "Garagem"
-]
-
 # Formata data em extendo
   # Retorna None se não encontrar a data
 
@@ -90,9 +64,7 @@ tipos_imoveis = [
 # Coletando links dos imóveis
 """  Comente esse treco do while ate o final caso queira testar um único link do imóvel """
 
-service = Service(chrome_driver_path)
-driver = webdriver.Chrome(service=service, options=chrome_options)# Loop principal para as páginas
-registro = 0
+
 #actions.move_to_eleme
 
 
@@ -100,6 +72,9 @@ registro = 0
 # Loop para navegar pelas páginas
 try:
     while pagina_atual >= 1:
+        service = Service(chrome_driver_path)
+        driver = webdriver.Chrome(service=service, options=chrome_options)# Loop principal para as páginas
+        registro = 0    
         # Montando a URL com o número da página atual
         link_nova_lina = caminho_do_filtro + str(pagina_atual)
         url = link_nova_lina
@@ -211,6 +186,32 @@ finally:
 # Mostra os registros catalogados no  link_imoveis
 print("CRIANDO A PLANILHDA DO EXCEL.") 
 print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
+
+""" Array que contem os tipso de movel """
+tipos_imoveis = [
+    "Apartamento",
+    "Studio",
+    "Kitnet",
+    "Casa",
+    "Sobrado",
+    "Casa de Condomínio",
+    "Casa de Vila",
+    "Cobertura",
+    "Flat",
+    "Loft",
+    "Terreno / Lote / Condomínio",
+    "Fazenda / Sítio / Chácara",
+    "Loja / Salão / Ponto Comercial",
+    "Conjunto Comercial / Sala",
+    "Casa Comercial",
+    "Hotel / Motel / Pousada",
+    "Andar / Laje Corporativa",
+    "Prédio Inteiro",
+    "Terrenos / Lotes Comerciais",
+    "Galpão / Depósito / Armazém",
+    "Garagem"
+]
+
 
 # Criando uma nova planilha Excel e definindo os cabeçalhos
 #Seta o diretorio onde será salvao a planilha
