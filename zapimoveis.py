@@ -72,9 +72,11 @@ contador_geral = 1;
 # Loop para navegar pelas páginas
 try:
     while pagina_atual >= 1:
+
         service = Service(chrome_driver_path)
         driver = webdriver.Chrome(service=service, options=chrome_options)# Loop principal para as páginas
-        registro = 0    
+        registro = 0   
+         
         # Montando a URL com o número da página atual
         link_nova_lina = caminho_do_filtro + str(pagina_atual)
         url = link_nova_lina
@@ -100,7 +102,7 @@ try:
 
         # Seleciona todos os cards de imóveis na página
         imoveis = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div')
-        print(f"Número de imóveis encontrados na página: {len(imoveis)}")
+        print(f"Número de imóveis encontrados na página: {len(imoveis)-1}")
 
         # Verifica se já coletou todos os imóveis da página atual
         if len(imoveis) == 1:
@@ -168,7 +170,7 @@ try:
                 continue  # Continua para a próxima iteração do loop
             
             # Continua para o próximo registro
-        pagina_atual=+1
+        pagina_atual+=1
                 
 
 
@@ -208,6 +210,7 @@ tipos_imoveis = [
     "Andar / Laje Corporativa",
     "Prédio Inteiro",
     "Terrenos / Lotes Comerciais",
+    "Terreno / Lote Comercial",
     "Galpão / Depósito / Armazém",
     "Garagem"
 ]

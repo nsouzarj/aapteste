@@ -8,7 +8,7 @@ def get_ceps_por_logradouro(logradouro, numero=None, cidade=None, estado=None):
   # Faz a requisição à API do ViaCEP
   url = f"https://viacep.com.br/ws/{estado}/{cidade}/{logradouro}/json/"
   response = requests.get(url)
-  time.sleep(5)
+  time.sleep(2)
 
   # Verifica se a requisição foi bem-sucedida
   if response.status_code == 200:
@@ -129,7 +129,7 @@ def parse_address(address):
     
     return (logradouro, numero, bairro, cidade, estado)
 # Como usar & tipo de endereços     # 
-# logradouro, numero, bairro, cidade, estado = parse_address("Rua dos Beija-Flores - Alphaville Lagoa Dos Ingleses, Nova Lima - MG")
+#logradouro, numero, bairro, cidade, estado = parse_address("Avenida Presidente Dutra, 1100 - Centro, Itaperuna - RJ")
 # AQUI SAO OS TIPOS DE ENDEREÇO como exemplo
 # Rua Gama, 116 - Condominio Quintas do Sol, Nova Lima - MG
 # Rua dos Beija-Flores - Alphaville Lagoa Dos Ingleses, Nova Lima - MG
