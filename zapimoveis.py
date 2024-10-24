@@ -245,7 +245,8 @@ for link in links_imoveis:
     
     try:
         
-        address = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
+       
+        
         items_lista=WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[4]/div/div/div')))
        # Aguarda a presença do elemento com o XPath
         """ Traz os items para ser tartado"""
@@ -298,7 +299,7 @@ for link in links_imoveis:
              num_vagas = extrair_numeros(property_value)           
    
         title = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
-     
+        address = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
      
         # PEga tipo de valor "vnda" "aliguel"
         tipo_valor_venda=WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="business-type-info"]')))   
@@ -360,9 +361,13 @@ for link in links_imoveis:
         data_cadastro = extrair_e_formatar_data(data_extenso.text)
         #area_num = remover_parte_texto(area.text, "m²")
         # Click the button at the specified XPath
-        button = WebDriverWait(driver1, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
-        button.click()  
-        # Traz o anunciante do imovel 
+        
+           
+        button2 = WebDriverWait(driver1, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
+        if button2:
+           button2.click()  
+           time.sleep(3)
+        # e do imovel 
         anunciante_do_imovel = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[1]/div/p[1]')))
         # Zap 
         zap_do_anunciante = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
@@ -379,11 +384,11 @@ for link in links_imoveis:
         parte_zap = remover_parte_texto(zap_do_anunciante.text, "No Zap: ")
     
         time.sleep(2) 
-        if tipo_de_filtro=="venda":
-               
+        if tipo_de_filtro=="venda":       
             precovenda=preco['Venda']  
             sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])
-        elif  tipo_de_filtro=="aluguel":
+        
+        if  tipo_de_filtro=="aluguel":
             precoaluguel=preco['Aluguel']  
             sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])   
                
