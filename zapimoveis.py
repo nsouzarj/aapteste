@@ -250,12 +250,13 @@ for link in links_imoveis:
   
     try:
       service1 = Service(chrome_driver_path)
-      driver1 = webdriver.Chrome(service=service1, options=chrome_options,keep_alive=True)
+      driver1 = webdriver.Chrome(service=service1, options=chrome_options)
    
-     
+    
       driver1.get(link) # Acessa a página do imóvel
-      driver1.implicitly_wait(1) 
+
       print(f"LINK - {link}")
+      driver1.implicitly_wait(3)
     except Exception as e:
       print(f"ERROR: Na leirura do endereço ---> {e} ---> {link}")
       break
@@ -267,7 +268,7 @@ for link in links_imoveis:
        #items_lista= driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[4]/div/div/div') #WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[4]/div/div/div')))
        # Aguarda a presença do elemento com o XPath
         """ Traz os items para ser tartado"""
-
+      
         items_lista =  WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]'))                                                )
         # Traz os valores do imovel
         precos_imovel = WebDriverWait(driver1, 5).until(
