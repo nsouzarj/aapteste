@@ -228,7 +228,7 @@ cabecalhos = ["data_inclusao", "tipo_imovel", "cep_endereco", "logradouro_endere
 sheet.append(cabecalhos)  # Adiciona os cabeçalhos à planilha
 
 """ Isso e para teste de um link especifico descomente aqui """
-links_imoveis.add("https://www.zapimoveis.com.br/imovel/venda-casa-3-quartos-pantanal-miguel-pereira-130m2-id-2735351938/")
+#links_imoveis.add("https://www.zapimoveis.com.br/imovel/venda-casa-3-quartos-pantanal-miguel-pereira-130m2-id-2735351938/")
 # Coletando detalhes de cada imóvel
 registro_atual = 0
 for link in links_imoveis:
