@@ -45,7 +45,7 @@ chrome_driver_path = caminho_do_webchrome
 # Configurar o cache (use 'cache' como nome do arquivo do cache)
 
 service = Service(chrome_driver_path)
-driver = webdriver.Chrome(service=service, options= chrome_options)
+driver = webdriver.Chrome(service=service, options= chrome_options, keep_alive=True)
 
 
 # Inicializando um conjunto para armazenar links únicos
@@ -66,6 +66,7 @@ contador_geral = 1;
 
 
 #actions.move_to_eleme
+
 
 
 # nt(drawer)  # Move the mouse to the drawer initiall
@@ -163,7 +164,9 @@ try:
                     driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])
                     time.sleep(2)  # Ajuste o tempo de espera conforme necessário
                     a = 0
-                    # Não use 'continue' aqui, pois ele está fora do bloco 'try'
+                
+                if cont ==105:
+                    break# Não use 'continue' aqui, pois ele está fora do bloco 'try'
 
             except Exception as e:  # Captura qualquer exceção
                 #print(f"ERRO: {e}")
@@ -181,9 +184,7 @@ except Exception as e:
 finally:
     print("Finalizando a coleta de dados.")
     print(f"Total de imóveis coletados: {contador_geral}")
-    driver.quit()
-    
-                 
+    driver.quit()                
 
 # Mostra os registros catalogados no  link_imoveis
 print("CRIANDO A PLANILHDA DO EXCEL.") 
@@ -227,13 +228,13 @@ cabecalhos = ["data_inclusao", "tipo_imovel", "cep_endereco", "logradouro_endere
 sheet.append(cabecalhos)  # Adiciona os cabeçalhos à planilha
 
 """ Isso e para teste de um link especifico descomente aqui """
-#links_imoveis.add("https://www.zapimoveis.cm.br/imovel/venda-sobrados-4-quartos-com-piscina-sao-lourenco-bertioga-sp-150m2-id-2746700743/")
+links_imoveis.add("https://www.zapimoveis.com.br/imovel/venda-casa-3-quartos-pantanal-miguel-pereira-130m2-id-2735351938/")
 # Coletando detalhes de cada imóvel
 registro_atual = 0
 for link in links_imoveis:
     # Inicializando o ChromeDriver
     service1 = Service(chrome_driver_path)
-    driver1 = webdriver.Chrome(service=service1, options=chrome_options)
+    driver1 = webdriver.Chrome(service=service1, options=chrome_options,keep_alive=True)
     try:
       wait = WebDriverWait(driver1, 5)
       driver1.get(link) # Acessa a página do imóvel
@@ -386,8 +387,6 @@ for link in links_imoveis:
             precoaluguel=preco['Aluguel']  
             sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])   
                
-    
-        
         registro_atual += 1
 
         # Salva a planilha a cada 50 registros
