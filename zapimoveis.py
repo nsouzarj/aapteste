@@ -181,7 +181,7 @@ try:
                     break# Não use 'continue' aqui, pois ele está fora do bloco 'try'
 
             except Exception as e:  # Captura qualquer exceção
-                print(f"ERRO: {e}")
+                print(f"ERRO: {e} - {link}")
                 continue  # Continua para a próxima iteração do loop
             
             # Continua para o próximo registro
@@ -245,17 +245,18 @@ sheet.append(cabecalhos)  # Adiciona os cabeçalhos à planilha
 #links_imoveis.add("https://www.zapimoveis.com.br/imovel/venda-casa-3-quartos-pantanal-miguel-pereira-130m2-id-2735351938/")
 # Coletando detalhes de cada imóvel
 registro_atual = 0
+cont_link=0
 for link in links_imoveis:
     # Inicializando o ChromeDriver
   
     try:
       service1 = Service(chrome_driver_path)
       driver1 = webdriver.Chrome(service=service1, options=chrome_options)
-   
-    
+     
+      cont_link+=1
       driver1.get(link) # Acessa a página do imóvel
 
-      print(f"LINK - {link}")
+      print(f"LINK: {cont_link} - {link}")
       driver1.implicitly_wait(3)
     except Exception as e:
       print(f"ERROR: Na leirura do endereço ---> {e} ---> {link}")
@@ -275,6 +276,7 @@ for link in links_imoveis:
             EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]'))
                                                       
         )
+        
         preco=""
         if precos_imovel:
                precos_imovel
@@ -383,6 +385,7 @@ for link in links_imoveis:
         if button2:
            button2.click()  
            time.sleep(3)
+           
         # e do imovel 
         anunciante_do_imovel = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[1]/div/p[1]')))
         # Zap 
