@@ -83,7 +83,6 @@ try:
         service = Service(chrome_driver_path)
         driver = webdriver.Chrome(service=service, options=chrome_options,keep_alive=True)#
         
-         
         # Montando a URL com o número da página atual
         link_nova_lina = caminho_do_filtro + str(pagina_atual)
         url = link_nova_lina
@@ -117,6 +116,7 @@ try:
             print("Final de leitura dos registros.")
             break 
         
+        
         # Pagina os registro em cadas pagina ate 106 no maximo
         a = 0
         print(f"PAGINANDO REGISTROS: {pagina_atual}")
@@ -129,7 +129,7 @@ try:
                 if a == 14:
                      driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])
                     # time.sleep(2) 
-                   
+                
                    #Ajuste o tempo de espera conforme necessário
                      a = 0
                      a += 1
@@ -141,6 +141,7 @@ try:
                   
                 botao_anuncio = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')   
                
+                
               
  
                 if botao_anuncio and len(botao_anuncio) > 0 and len(botao_menssagen)==0: 
@@ -246,7 +247,8 @@ sheet.append(cabecalhos)  # Adiciona os cabeçalhos à planilha
 # Coletando detalhes de cada imóvel
 registro_atual = 0
 cont_link=0
-for link in links_imoveis:
+
+for link in  links_imoveis:
     # Inicializando o ChromeDriver
   
     try:
@@ -257,7 +259,7 @@ for link in links_imoveis:
       driver1.get(link) # Acessa a página do imóvel
 
       print(f"LINK: {cont_link} - {link}")
-      driver1.implicitly_wait(3)
+      
     except Exception as e:
       print(f"ERROR: Na leirura do endereço ---> {e} ---> {link}")
       break
@@ -380,6 +382,7 @@ for link in links_imoveis:
         #area_num = remover_parte_texto(area.text, "m²")
         # Click the button at the specified XPath
         
+        driver1.implicitly_wait(3)
            
         button2 = WebDriverWait(driver1,5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
         if button2:
@@ -421,7 +424,17 @@ for link in links_imoveis:
             print(f"##  PLANILHA SALVA (Registro {registro_atual}) ##")
             registro_atual=0
     except Exception as e:
-        print(f"ERROR: Na coleta detalhes do imóvel: {e}  ---> {link}" )
+        if tipo_de_filtro=="venda":       
+            precovenda=preco['Venda']  
+            sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])
+        
+        if  tipo_de_filtro=="aluguel":
+            precoaluguel=preco['Aluguel']  
+            sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])           
+        
+        print(f"ERROR: Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}" )
+        
+        
        
  # Adjust this if needed
 os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't existbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
