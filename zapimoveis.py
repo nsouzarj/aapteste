@@ -34,7 +34,8 @@ tipo_de_filtro=sys.argv[4]
 chrome_options = Options()
 chrome_options.page_load_strategy="normal"
 chrome_options.set_capability('goog:logginPrefs',{'performance': 'ALL'})
-chrome_options.add_argument("--headless")  # Comente esta linha para ver o navegador
+## Comente esta linha para ver o navegador
+chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--incognito")
 chrome_options.add_argument("--disable-dev-shm-usage")
@@ -61,21 +62,10 @@ cont = 0
 pagina_tela = 0
 contador_geral = 1;
 
-# Formata data em extendo
-  # Retorna None se não encontrar a data
-
-
-# Coletando links dos imóveis
 """  Comente esse treco do while ate o final caso queira testar um único link do imóvel """
-
-
-#actions.move_to_eleme
-
 
 registro = 0   
 
-# nt(drawer)  # Move the mouse to the drawer initiall
-# Loop para navegar pelas páginas
 
 try:
     while pagina_atual >= 1:
@@ -100,14 +90,7 @@ try:
         print("COLENTANDO OS LINK DOS IMOvES..")
         print((f"PAGINA ATUAL: {pagina_atual} "))
         driver.maximize_window()
-        #actions = ActionChains(driver) 
-       
 
-        # Espera até que os imóveis estejam carregados
-        # WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[1]/div/a/div/div[1]/div[2]')))
-        # print("Elemento de verificação encontrado. Iniciando a coleta de links.")
-
-        # Seleciona todos os cards de imóveis na página
         imoveis = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div')
         print(f"Número de imóveis encontrados na página: {len(imoveis)-1}")
 
@@ -143,20 +126,25 @@ try:
                
                 if botao_anuncio and len(botao_anuncio) > 0 and len(botao_menssagen)==0: 
                   
-                    # Encontra o botão clicável usando WebDriverWait
+   
+                   
                     button1 = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')))
                     texto = button1.text
                     
                     # Clica no botão de anúncio
                     try:
-                       driver.implicitly_wait(1)   
-                       #driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE) # Fechando o anúnci
-                       button1.click()
-                       link_imovel = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,    '//*[@id="__next"]/main/section/aside/form/section/div/section[2]/section/div[5]/div[1]/a')))# Ajuste o tempo de espera conforme necessário
+                       driver.implicitly_wait(4)  
+                       if texto=="Exibir Anúncios":
+                          print(" BOTAO CLICADO") 
+                          driver.execute_script("arguments[0].scrollIntoView();", button1) 
+                          driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE) # 
+                          button1.click()
+                      
+                          link_imovel = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,    '//*[@id="__next"]/main/section/aside/form/section/div/section[2]/section/div[5]/div[1]/a')))# Ajuste o tempo de espera conforme necessário
                      #
       
-                    except:
-                       botao_anuncio[0].click()
+                    except Exception  as e:
+                       print(f"Erro - {e}") 
                        
                     if link_imovel:
                        link_result = link_imovel.get_attribute('href')
@@ -199,6 +187,9 @@ finally:
     print(f"Total de imóveis coletados: {contador_geral}")
     driver.quit()                
 
+
+
+"""  Aqui e a segunda parte onde sera processado cada link para ser resgtado os dados"""
 # Mostra os registros catalogados no  link_imoveis
 print("CRIANDO A PLANILHDA DO EXCEL.") 
 print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
@@ -252,7 +243,6 @@ for link in  links_imoveis:
     try:
       service1 = Service(chrome_driver_path)
       driver1 = webdriver.Chrome(service=service1, options=chrome_options)
-     
       cont_link+=1
       driver1.get(link) # Acessa a página do imóvel
 
@@ -264,11 +254,9 @@ for link in  links_imoveis:
     
     try:
        
-       
-        
        #items_lista= driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[4]/div/div/div') #WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[4]/div/div/div')))
        # Aguarda a presença do elemento com o XPath
-        """ Traz os items para ser tartado"""
+        """ Traz os items para ser tartado """
       
         items_lista =  WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]'))                                                )
         # Traz os valores do imovel
@@ -359,7 +347,6 @@ for link in  links_imoveis:
             if not iptu.text:
                iptu = "Isento"  # Assinala um valor padrão se vazio
             
-            
             if isinstance(condo_fee, str):  # Verifica se condo_fee é uma string
                condo_fee = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
             else:
@@ -377,9 +364,7 @@ for link in  links_imoveis:
         # Traz a data em extendo e trasnforma em formato MM/DD/YYYy
         data_extenso = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[4]/span[2]')))  
         data_cadastro = extrair_e_formatar_data(data_extenso.text)
-        #area_num = remover_parte_texto(area.text, "m²")
-        # Click the button at the specified XPath
-        
+         
         driver1.implicitly_wait(3)
            
         button2 = WebDriverWait(driver1,5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
@@ -431,7 +416,6 @@ for link in  links_imoveis:
             sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])           
         
         print(f"ERROR: Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}" )
-        
         
        
  # Adjust this if needed
