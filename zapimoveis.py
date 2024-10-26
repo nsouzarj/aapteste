@@ -117,7 +117,7 @@ try:
                      a = 0
                      a += 1
                    
-                driver.implicitly_wait(1)   
+                driver.implicitly_wait(0)   
                 
                 link_element = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
                 
