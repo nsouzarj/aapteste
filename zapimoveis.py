@@ -117,17 +117,15 @@ try:
                      a = 0
                      a += 1
                    
-                driver.implicitly_wait(0)   
+                driver.implicitly_wait(1)   
+                
                 link_element = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
                 
                 botao_menssagen = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a/div/div/div[2]/div[3]/div[2]/div[1]/button[2]')  
                   
                 botao_anuncio = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')   
                
-                if botao_anuncio and len(botao_anuncio) > 0 and len(botao_menssagen)==0: 
-                  
-   
-                   
+                if botao_anuncio and len(botao_anuncio) > 0: 
                     button1 = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')))
                     texto = button1.text
                     
@@ -139,7 +137,6 @@ try:
                           driver.execute_script("arguments[0].scrollIntoView();", button1) 
                           driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE) # 
                           button1.click()
-                      
                           link_imovel = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,    '//*[@id="__next"]/main/section/aside/form/section/div/section[2]/section/div[5]/div[1]/a')))# Ajuste o tempo de espera conforme necessário
                      #
       
@@ -151,12 +148,11 @@ try:
                        print("IMOVEL COM ANÚNCIO")
                        print(f"{cont} - {link_result}")
                        links_imoveis.add(link_result)
-                        
                        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE) # Fechando o anúncio
                         
 
                 # Coleta o link do imóvel (se não houver anúncio)
-                if link_element and len(link_element) > 0 and len(botao_menssagen) > 0:
+                if link_element and len(link_element) > 0:
                     link = link_element[0].get_attribute('href')
                     links_imoveis.add(link)
                     print(f"LINK: {cont} - {link}")

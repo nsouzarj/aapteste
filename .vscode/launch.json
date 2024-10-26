@@ -13,9 +13,10 @@
             "args": [
               "C:\\Users\\User\\Documents\\zapimoveis",
               "C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe",
-              "https://www.zapimoveis.com.br/aluguel/imoveis/rj+itaborai/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,TOP-FIXED:card-b,pos-zap:control,new-rec:b,lgpd-ldp:test&transacao=aluguel&onde=,Rio%20de%20Janeiro,Itabora%C3%AD,,,,,city,BR%3ERio%20de%20Janeiro%3ENULL%3EItaborai,-22.747246,-42.858446,&pagina=",
+              "https://www.zapimoveis.com.br/aluguel/imoveis/mg+juiz-de-fora++s-mateus/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,pos-zap:new,new-rec:b,lgpd-ldp:test&transacao=aluguel&onde=,Minas%20Gerais,Juiz%20de%20Fora,,S%C3%A3o%20Mateus,,,neighborhood,BR%3EMinas%20Gerais%3ENULL%3EJuiz%20de%20Fora%3EBarrios%3ESao%20Mateus,-21.764289,-43.354782,&pagina=",
               "aluguel"
               ],
           }
     ]
 }
+
