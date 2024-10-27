@@ -8,15 +8,15 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 import os
 import sys
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook  # Importe load_workbook
 from funcoes_especificas import get_ceps_por_logradouro,extrair_numeros,encontrar_tipo_imovel,parse_address,remover_parte_texto,extrair_e_formatar_data,separar_precos
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
 import requests_cache
 import requests
+from threading import Thread, Semaphore, Lock
 
 requests_cache.install_cache('cache')
-
 
 # Caminho da planilha
 caminho_da_planilha = sys.argv[1]
@@ -105,7 +105,7 @@ try:
         print(f"PAGINANDO REGISTROS: {pagina_atual}")
         
         # Loop para iterar pelos elementos de imóvel
-        for cont in range(1, 150):  # Limita a 105 registros
+        for cont in range(1, 150):  # Itera até o final da lista de imóveis
             try:
                 # Coleta o link e outros dados
                 a += 1
@@ -121,7 +121,7 @@ try:
                 
                 link_element = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
                 
-                botao_menssagen = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a/div/div/div[2]/div[3]/div[2]/div[1]/button[2]')  
+                botao_menssagen = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div[2]/div[3]/div[2]/div[1]/button[2]')  
                   
                 botao_anuncio = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div/div/div[2]/div[3]/div[2]/button')   
                
@@ -132,8 +132,7 @@ try:
                     # Clica no botão de anúncio
                     try:
                        driver.implicitly_wait(4)  
-                       if texto=="Exibir Anúncios":
-                          print(" BOTAO CLICADO") 
+                       if texto=="Exibir Anúncios": 
                           driver.execute_script("arguments[0].scrollIntoView();", button1) 
                           driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE) # 
                           button1.click()
@@ -156,13 +155,10 @@ try:
                     link = link_element[0].get_attribute('href')
                     links_imoveis.add(link)
                     print(f"LINK: {cont} - {link}")
-
-                # Rola a página para carregar mais imóveis
-            
-              
+                
                 if cont ==105:
-                    break# Não use 'continue' aqui, pois ele está fora do bloco 'try'
-
+                    break# Não use 'continue' aqui, pois ele está fora do bloco 'try'   
+               
             except Exception as e:  # Captura qualquer exceção
                 print(f"ERRO: {e} - {link}")
                 continue  # Continua para a próxima iteração do loop
@@ -233,29 +229,32 @@ sheet.append(cabecalhos)  # Adiciona os cabeçalhos à planilha
 registro_atual = 0
 cont_link=0
 
-for link in  links_imoveis:
-    # Inicializando o ChromeDriver
-  
-    try:
-      service1 = Service(chrome_driver_path)
-      driver1 = webdriver.Chrome(service=service1, options=chrome_options)
-      cont_link+=1
-      driver1.get(link) # Acessa a página do imóvel
+# Limite máximo de threads simultâneas
+MAX_THREADS = 10 
+semaphore = Semaphore(MAX_THREADS)  # Define um semáforo com o limite de threads
 
-      print(f"LINK: {cont_link} - {link}")
-      
-    except Exception as e:
-      print(f"ERROR: Na leirura do endereço ---> {e} ---> {link}")
-      break
-    
+# Variável compartilhada para o contador de links
+cont_link = 0
+cont_link_lock = Lock()  # Cria uma trava para proteger a variável
+
+def processar_imovel(link,tipo_de_filtro):
+    global registro_atual, cont_link
+    data_cadastro = None  # Inicializa data_cadastro como None
     try:
-       
-       #items_lista= driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[4]/div/div/div') #WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[4]/div/div/div')))
-       # Aguarda a presença do elemento com o XPath
-        """ Traz os items para ser tartado """
-      
+        semaphore.acquire()
+        service1 = Service(chrome_driver_path)
+        driver1 = webdriver.Chrome(service=service1, options=chrome_options)
+        time.sleep(1) 
+        # Incrementa o contador de links com sincronização
+        with cont_link_lock:  # Utiliza a trava para proteger o contador
+            cont_link += 1
+            print(f"LINK: {cont_link} - {link}") 
+            
+
+        driver1.get(link)  # Acessa a página do imóvel
+        
+        # ... (o restante do código para coletar dados do imóvel) ...
         items_lista =  WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]'))                                                )
-        # Traz os valores do imovel
         precos_imovel = WebDriverWait(driver1, 5).until(
             EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]'))
                                                       
@@ -266,21 +265,15 @@ for link in  links_imoveis:
                precos_imovel
                preco= separar_precos(precos_imovel.text)
                     
-        # Converte o elemento Selenium para um objeto lxml.html.HtmlElement
         html_content = items_lista.get_attribute('outerHTML')
-       
         soup = BeautifulSoup(html_content, 'html.parser')       
-        # Extraindo as informações
         amenity_items = soup.find_all('p', class_='amenities-item')
  
         amenities_data = {}
-        # Itera a lista
-        # Setar oo avlores default
         area_total=""
         num_dormitorios=""
         num_suites=""
         num_vagas=""
-        #  Faz a busca bo objeto
         for item in amenity_items:
           property_name = item.get('itemprop')
      
@@ -303,13 +296,11 @@ for link in  links_imoveis:
         title = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
         address = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
      
-        # PEga tipo de valor "vnda" "aliguel"
         tipo_valor_venda=WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="business-type-info"]')))   
         if tipo_valor_venda.text == "Venda":
             valor_venda = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '//p[@data-testid="price-info-value"]')))    
             valor_venda_limpo=valor_venda.text;
             valor_aluguel_limpo=""
-            #valor_venda = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, ' /html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div/div[1]/div[1]/p[2]')))
             if valor_venda.text != "Sob consulta":
            
                 condo_fee = WebDriverWait(driver1,5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
@@ -356,11 +347,14 @@ for link in  links_imoveis:
             area_valores=   WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]')))
             if not area_valores.text:
                 print("Nao existe")
-                
-        # Traz a data em extendo e trasnforma em formato MM/DD/YYYy
-        data_extenso = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[4]/span[2]')))  
-        data_cadastro = extrair_e_formatar_data(data_extenso.text)
-         
+        
+        try:        
+          data_extenso = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[4]/span[2]')))  
+          data_cadastro = extrair_e_formatar_data(data_extenso.text)
+        except Exception:
+           data_extenso=""
+           data_cadastro=""
+             
         driver1.implicitly_wait(3)
            
         button2 = WebDriverWait(driver1,5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
@@ -368,21 +362,33 @@ for link in  links_imoveis:
            button2.click()  
            time.sleep(3)
            
-        # e do imovel 
         anunciante_do_imovel = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[1]/div/p[1]')))
-        # Zap 
         zap_do_anunciante = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
-        # Imprime na tela o link   
         logradouro, numero, bairro, cidade, estado = parse_address(address.text)
+        
+        
+        #Trata o cep
+        try:   
+          cep = get_ceps_por_logradouro(logradouro, numero, cidade, estado)
+        
+          if cep:
+            cepencontado= cep['cep']
+          else:
+            cepencontado="Nao encontrado"
+        except Exception:
+            cepencontado="Nao encontrado"
+        
+        
            
-        # Traz o cep dplogradouro
-        cep = get_ceps_por_logradouro(logradouro, numero, cidade, estado)
-        if cep:
-           cepencontado= cep['cep']
-        else:
-           cepencontado="Nao encontrado"
-        tipo_movel=encontrar_tipo_imovel(title.text,tipos_imoveis)
-        parte_zap = remover_parte_texto(zap_do_anunciante.text, "No Zap: ")
+        try:   
+          tipo_movel=encontrar_tipo_imovel(title.text,tipos_imoveis)
+        except Exception:
+          tipo_movel="inexistente"
+        
+        try:    
+          parte_zap = remover_parte_texto(zap_do_anunciante.text, "No Zap: ")
+        except Exception:
+           parte_zap="inexistemte"    
     
         time.sleep(2) 
         if tipo_de_filtro=="venda":       
@@ -394,15 +400,17 @@ for link in  links_imoveis:
             sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])   
                
         registro_atual += 1
-
-        # Salva a planilha a cada 50 registros
+        
         if registro_atual % 50 == 0:
-            #workbook.save(os.path.join("C:", "Users", "User", "Documents", "zapimoveis", "listadeimoveis.xlsx"))
-            os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't exist
+            os.makedirs(output_dir, exist_ok=True)  # Cria o diretório se não existir
             workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
-            print(f"##  PLANILHA SALVA (Registro {registro_atual}) ##")
-            registro_atual=0
+            print(f"## PLANILHA SALVA COM REGISTROS (Registro {registro_atual}) ##")
+        
+        
+        #driver1.quit()
+        semaphore.release()  # Libera um espaço no semáforo após terminar
     except Exception as e:
+        print(f"ERROR: Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}" )
         if tipo_de_filtro=="venda":       
             precovenda=preco['Venda']  
             sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])
@@ -410,16 +418,24 @@ for link in  links_imoveis:
         if  tipo_de_filtro=="aluguel":
             precoaluguel=preco['Aluguel']  
             sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])           
-        
-        print(f"ERROR: Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}" )
-        
-       
- # Adjust this if needed
-os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't existbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
-workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
+        #driver1.quit()
+        semaphore.release()  # Libera um espaço no semáforo após terminar
+
+# Cria threads para processar cada link
+threads = []
+for link in links_imoveis:
+    thread = Thread(target=processar_imovel, args=(link,tipo_de_filtro))
+    threads.append(thread)
+    thread.start()
+
+# Aguarda todas as threads terminarem
+for thread in threads:
+    thread.join()
+
+# Salva a planilha final
+os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't exist
+workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx"))
 print("Planilha Excel criada com sucesso!")
-# Fechando o driver
-driver.quit()
 print("FINALIZADO COM SUCESSO..")
 time.sleep(10)
-sys.exit()
+sys.exit()   
