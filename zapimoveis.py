@@ -368,8 +368,6 @@ def processar_imovel(link,tipo_de_filtro):
         except Exception:
           data_cadastro=""
           
-          
-                
         driver1.implicitly_wait(3)
            
         button2 = WebDriverWait(driver1,30).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
