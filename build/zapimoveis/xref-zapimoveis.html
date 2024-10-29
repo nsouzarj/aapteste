@@ -259,6 +259,7 @@ imports:
  &#8226;   <a href="#pyi_rth_pkgres.py">pyi_rth_pkgres.py</a>
  &#8226;   <a href="#pyi_rth_pkgutil.py">pyi_rth_pkgutil.py</a>
  &#8226;   <a href="#pyi_rth_setuptools.py">pyi_rth_setuptools.py</a>
+ &#8226;   <a href="#random">random</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#re._casefix">re._casefix</a>
  &#8226;   <a href="#re._compiler">re._compiler</a>
@@ -282,6 +283,7 @@ imports:
  &#8226;   <a href="#sre_parse">sre_parse</a>
  &#8226;   <a href="#stat">stat</a>
  &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#threading">threading</a>
  &#8226;   <a href="#time">time</a>
  &#8226;   <a href="#traceback">traceback</a>
  &#8226;   <a href="#types">types</a>
@@ -582,6 +584,7 @@ imported by:
  &#8226;   <a href="#numpy._typing._nested_sequence">numpy._typing._nested_sequence</a>
  &#8226;   <a href="#numpy.f2py._backends._backend">numpy.f2py._backends._backend</a>
  &#8226;   <a href="#numpy.f2py._backends._meson">numpy.f2py._backends._meson</a>
+ &#8226;   <a href="#numpy.random._pickle">numpy.random._pickle</a>
  &#8226;   <a href="#packaging._elffile">packaging._elffile</a>
  &#8226;   <a href="#packaging._manylinux">packaging._manylinux</a>
  &#8226;   <a href="#packaging._musllinux">packaging._musllinux</a>
@@ -632,18 +635,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.packaging.version">setuptools._vendor.packaging.version</a>
  &#8226;   <a href="#setuptools._vendor.tomli._parser">setuptools._vendor.tomli._parser</a>
  &#8226;   <a href="#setuptools._vendor.tomli._re">setuptools._vendor.tomli._re</a>
- &#8226;   <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel._setuptools_logging">setuptools._vendor.wheel._setuptools_logging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.pack">setuptools._vendor.wheel.cli.pack</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.tags">setuptools._vendor.wheel.cli.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.unpack">setuptools._vendor.wheel.cli.unpack</a>
- &#8226;   <a href="#setuptools._vendor.wheel.macosx_libfile">setuptools._vendor.wheel.macosx_libfile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.util">setuptools._vendor.wheel.util</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
  &#8226;   <a href="#setuptools.command._requirestxt">setuptools.command._requirestxt</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
  &#8226;   <a href="#setuptools.command.build">setuptools.command.build</a>
@@ -704,6 +695,18 @@ imported by:
  &#8226;   <a href="#urllib3.util.url">urllib3.util.url</a>
  &#8226;   <a href="#urllib3.util.util">urllib3.util.util</a>
  &#8226;   <a href="#urllib3.util.wait">urllib3.util.wait</a>
+ &#8226;   <a href="#wheel">wheel</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel._setuptools_logging">wheel._setuptools_logging</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
+ &#8226;   <a href="#wheel.cli.pack">wheel.cli.pack</a>
+ &#8226;   <a href="#wheel.cli.tags">wheel.cli.tags</a>
+ &#8226;   <a href="#wheel.cli.unpack">wheel.cli.unpack</a>
+ &#8226;   <a href="#wheel.macosx_libfile">wheel.macosx_libfile</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
+ &#8226;   <a href="#wheel.util">wheel.util</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
 
   </div>
 
@@ -1207,7 +1210,7 @@ imported by:
 imported by:
     <a href="#packaging._manylinux">packaging._manylinux</a>
  &#8226;   <a href="#setuptools._vendor.packaging._manylinux">setuptools._vendor.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
 
   </div>
 
@@ -1847,9 +1850,9 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.importlib_metadata">setuptools._vendor.importlib_metadata</a>
  &#8226;   <a href="#setuptools._vendor.importlib_resources.abc">setuptools._vendor.importlib_resources.abc</a>
  &#8226;   <a href="#setuptools._vendor.packaging.specifiers">setuptools._vendor.packaging.specifiers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.specifiers">setuptools._vendor.wheel.vendored.packaging.specifiers</a>
  &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#typing_extensions">typing_extensions</a>
+ &#8226;   <a href="#wheel.vendored.packaging.specifiers">wheel.vendored.packaging.specifiers</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
 
   </div>
@@ -1906,12 +1909,12 @@ imported by:
  &#8226;   <a href="#numpy.f2py.f2py2e">numpy.f2py.f2py2e</a>
  &#8226;   <a href="#py_compile">py_compile</a>
  &#8226;   <a href="#setuptools._vendor.backports.tarfile">setuptools._vendor.backports.tarfile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
  &#8226;   <a href="#sqlite3.__main__">sqlite3.__main__</a>
  &#8226;   <a href="#tarfile">tarfile</a>
  &#8226;   <a href="#tokenize">tokenize</a>
  &#8226;   <a href="#unittest.main">unittest.main</a>
  &#8226;   <a href="#uuid">uuid</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
  &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
@@ -1958,9 +1961,9 @@ imported by:
  &#8226;   <a href="#numpy.matrixlib.defmatrix">numpy.matrixlib.defmatrix</a>
  &#8226;   <a href="#packaging._parser">packaging._parser</a>
  &#8226;   <a href="#setuptools._vendor.packaging._parser">setuptools._vendor.packaging._parser</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._parser">setuptools._vendor.wheel.vendored.packaging._parser</a>
  &#8226;   <a href="#setuptools.config.expand">setuptools.config.expand</a>
  &#8226;   <a href="#traceback">traceback</a>
+ &#8226;   <a href="#wheel.vendored.packaging._parser">wheel.vendored.packaging._parser</a>
 
   </div>
 
@@ -3443,13 +3446,13 @@ imported by:
  &#8226;   <a href="#selenium.webdriver.remote.remote_connection">selenium.webdriver.remote.remote_connection</a>
  &#8226;   <a href="#selenium.webdriver.remote.webdriver">selenium.webdriver.remote.webdriver</a>
  &#8226;   <a href="#selenium.webdriver.remote.webelement">selenium.webdriver.remote.webelement</a>
- &#8226;   <a href="#setuptools._vendor.wheel.util">setuptools._vendor.wheel.util</a>
  &#8226;   <a href="#socks">socks</a>
  &#8226;   <a href="#ssl">ssl</a>
  &#8226;   <a href="#urllib.request">urllib.request</a>
  &#8226;   <a href="#urllib3.util.request">urllib3.util.request</a>
  &#8226;   <a href="#websocket._handshake">websocket._handshake</a>
  &#8226;   <a href="#websocket._http">websocket._http</a>
+ &#8226;   <a href="#wheel.util">wheel.util</a>
  &#8226;   <a href="#xmlrpc.client">xmlrpc.client</a>
 
   </div>
@@ -4916,7 +4919,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.more_itertools.more">setuptools._vendor.more_itertools.more</a>
  &#8226;   <a href="#setuptools._vendor.more_itertools.recipes">setuptools._vendor.more_itertools.recipes</a>
  &#8226;   <a href="#setuptools._vendor.packaging._manylinux">setuptools._vendor.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
  &#8226;   <a href="#setuptools.command._requirestxt">setuptools.command._requirestxt</a>
  &#8226;   <a href="#setuptools.command.egg_info">setuptools.command.egg_info</a>
  &#8226;   <a href="#setuptools.config.setupcfg">setuptools.config.setupcfg</a>
@@ -4938,6 +4940,7 @@ imported by:
  &#8226;   <a href="#urllib.parse">urllib.parse</a>
  &#8226;   <a href="#urllib3._collections">urllib3._collections</a>
  &#8226;   <a href="#urllib3.response">urllib3.response</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
  &#8226;   <a href="#xml.etree.ElementTree">xml.etree.ElementTree</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
 
@@ -4999,7 +5002,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.more_itertools.more">setuptools._vendor.more_itertools.more</a>
  &#8226;   <a href="#setuptools._vendor.more_itertools.recipes">setuptools._vendor.more_itertools.recipes</a>
  &#8226;   <a href="#setuptools._vendor.tomli._parser">setuptools._vendor.tomli._parser</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.tags">setuptools._vendor.wheel.cli.tags</a>
  &#8226;   <a href="#socks">socks</a>
  &#8226;   <a href="#sqlite3.dbapi2">sqlite3.dbapi2</a>
  &#8226;   <a href="#tomllib._parser">tomllib._parser</a>
@@ -5007,6 +5009,7 @@ imported by:
  &#8226;   <a href="#tracemalloc">tracemalloc</a>
  &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#typing_extensions">typing_extensions</a>
+ &#8226;   <a href="#wheel.cli.tags">wheel.cli.tags</a>
  &#8226;   <a href="#xml.etree.ElementTree">xml.etree.ElementTree</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
 
@@ -5044,7 +5047,6 @@ imported by:
  &#8226;   <a href="#concurrent.futures._base">concurrent.futures._base</a>
  &#8226;   <a href="#concurrent.futures.process">concurrent.futures.process</a>
  &#8226;   <a href="#concurrent.futures.thread">concurrent.futures.thread</a>
- &#8226;   <a href="#numpy.testing._private.utils">numpy.testing._private.utils</a>
  &#8226;   <a href="#setuptools._distutils.command.build_ext">setuptools._distutils.command.build_ext</a>
 
   </div>
@@ -5218,8 +5220,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.jaraco.context">setuptools._vendor.jaraco.context</a>
  &#8226;   <a href="#setuptools._vendor.packaging._manylinux">setuptools._vendor.packaging._manylinux</a>
  &#8226;   <a href="#setuptools._vendor.packaging._tokenizer">setuptools._vendor.packaging._tokenizer</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._tokenizer">setuptools._vendor.wheel.vendored.packaging._tokenizer</a>
  &#8226;   <a href="#setuptools._vendor.zipp">setuptools._vendor.zipp</a>
  &#8226;   <a href="#setuptools.archive_util">setuptools.archive_util</a>
  &#8226;   <a href="#setuptools.command.sdist">setuptools.command.sdist</a>
@@ -5238,6 +5238,8 @@ imported by:
  &#8226;   <a href="#urllib.request">urllib.request</a>
  &#8226;   <a href="#urllib3.contrib.emscripten.response">urllib3.contrib.emscripten.response</a>
  &#8226;   <a href="#urllib3.response">urllib3.response</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._tokenizer">wheel.vendored.packaging._tokenizer</a>
  &#8226;   <a href="#xml.etree.ElementTree">xml.etree.ElementTree</a>
  &#8226;   <a href="#zipfile._path">zipfile._path</a>
 
@@ -5262,7 +5264,6 @@ imported by:
  &#8226;   <a href="#asyncio.tasks">asyncio.tasks</a>
  &#8226;   <a href="#asyncio.threads">asyncio.threads</a>
  &#8226;   <a href="#numpy._core._ufunc_config">numpy._core._ufunc_config</a>
- &#8226;   <a href="#numpy._core.printoptions">numpy._core.printoptions</a>
  &#8226;   <a href="#unittest.async_case">unittest.async_case</a>
 
   </div>
@@ -5376,7 +5377,7 @@ imports:
 imported by:
     <a href="#importlib.metadata">importlib.metadata</a>
  &#8226;   <a href="#setuptools._vendor.importlib_metadata">setuptools._vendor.importlib_metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
 
   </div>
 
@@ -5407,9 +5408,9 @@ imported by:
  &#8226;   <a href="#packaging._manylinux">packaging._manylinux</a>
  &#8226;   <a href="#platformdirs.windows">platformdirs.windows</a>
  &#8226;   <a href="#setuptools._vendor.packaging._manylinux">setuptools._vendor.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.macosx_libfile">setuptools._vendor.wheel.macosx_libfile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
  &#8226;   <a href="#setuptools.windows_support">setuptools.windows_support</a>
+ &#8226;   <a href="#wheel.macosx_libfile">wheel.macosx_libfile</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
 
   </div>
 
@@ -5474,9 +5475,9 @@ imported by:
  &#8226;   <a href="#pprint">pprint</a>
  &#8226;   <a href="#selenium.webdriver.common.bidi.script">selenium.webdriver.common.bidi.script</a>
  &#8226;   <a href="#setuptools._vendor.packaging._tokenizer">setuptools._vendor.packaging._tokenizer</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._tokenizer">setuptools._vendor.wheel.vendored.packaging._tokenizer</a>
  &#8226;   <a href="#urllib3.contrib.emscripten.request">urllib3.contrib.emscripten.request</a>
  &#8226;   <a href="#urllib3.contrib.emscripten.response">urllib3.contrib.emscripten.response</a>
+ &#8226;   <a href="#wheel.vendored.packaging._tokenizer">wheel.vendored.packaging._tokenizer</a>
 
   </div>
 
@@ -5981,9 +5982,9 @@ imports:
   <div class="import">
 imported by:
     <a href="#email.message">email.message</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.pack">setuptools._vendor.wheel.cli.pack</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.cli.pack">wheel.cli.pack</a>
 
   </div>
 
@@ -6083,10 +6084,10 @@ imported by:
  &#8226;   <a href="#pydoc">pydoc</a>
  &#8226;   <a href="#setuptools._core_metadata">setuptools._core_metadata</a>
  &#8226;   <a href="#setuptools._vendor.importlib_metadata._adapters">setuptools._vendor.importlib_metadata._adapters</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
  &#8226;   <a href="#setuptools.config._validate_pyproject.formats">setuptools.config._validate_pyproject.formats</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
 
   </div>
 
@@ -6109,10 +6110,10 @@ imported by:
  &#8226;   <a href="#http.client">http.client</a>
  &#8226;   <a href="#packaging.metadata">packaging.metadata</a>
  &#8226;   <a href="#pkg_resources">pkg_resources</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.pack">setuptools._vendor.wheel.cli.pack</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.tags">setuptools._vendor.wheel.cli.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
  &#8226;   <a href="#urllib3.contrib.emscripten.fetch">urllib3.contrib.emscripten.fetch</a>
+ &#8226;   <a href="#wheel.cli.pack">wheel.cli.pack</a>
+ &#8226;   <a href="#wheel.cli.tags">wheel.cli.tags</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
 
   </div>
 
@@ -6137,10 +6138,10 @@ imports:
 imported by:
     <a href="#email.message">email.message</a>
  &#8226;   <a href="#packaging.metadata">packaging.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.pack">setuptools._vendor.wheel.cli.pack</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.tags">setuptools._vendor.wheel.cli.tags</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.cli.pack">wheel.cli.pack</a>
+ &#8226;   <a href="#wheel.cli.tags">wheel.cli.tags</a>
 
   </div>
 
@@ -8746,7 +8747,6 @@ imported by:
  &#8226;   <a href="#selenium.webdriver.common.virtual_authenticator">selenium.webdriver.common.virtual_authenticator</a>
  &#8226;   <a href="#selenium.webdriver.ie.options">selenium.webdriver.ie.options</a>
  &#8226;   <a href="#setuptools._vendor.packaging._elffile">setuptools._vendor.packaging._elffile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._elffile">setuptools._vendor.wheel.vendored.packaging._elffile</a>
  &#8226;   <a href="#signal">signal</a>
  &#8226;   <a href="#socket">socket</a>
  &#8226;   <a href="#ssl">ssl</a>
@@ -8754,6 +8754,7 @@ imported by:
  &#8226;   <a href="#urllib3.util.request">urllib3.util.request</a>
  &#8226;   <a href="#urllib3.util.timeout">urllib3.util.timeout</a>
  &#8226;   <a href="#uuid">uuid</a>
+ &#8226;   <a href="#wheel.vendored.packaging._elffile">wheel.vendored.packaging._elffile</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
 
   </div>
@@ -9090,9 +9091,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.packaging._manylinux">setuptools._vendor.packaging._manylinux</a>
  &#8226;   <a href="#setuptools._vendor.packaging._musllinux">setuptools._vendor.packaging._musllinux</a>
  &#8226;   <a href="#setuptools._vendor.tomli._re">setuptools._vendor.tomli._re</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._musllinux">setuptools._vendor.wheel.vendored.packaging._musllinux</a>
  &#8226;   <a href="#setuptools.command.egg_info">setuptools.command.egg_info</a>
  &#8226;   <a href="#setuptools.config">setuptools.config</a>
  &#8226;   <a href="#setuptools.config._apply_pyprojecttoml">setuptools.config._apply_pyprojecttoml</a>
@@ -9123,6 +9121,9 @@ imported by:
  &#8226;   <a href="#urllib.parse">urllib.parse</a>
  &#8226;   <a href="#urllib3.poolmanager">urllib3.poolmanager</a>
  &#8226;   <a href="#urllib3.util.wait">urllib3.util.wait</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._musllinux">wheel.vendored.packaging._musllinux</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
 
   </div>
@@ -9257,13 +9258,13 @@ imports:
 imported by:
     <a href="#pdb">pdb</a>
  &#8226;   <a href="#setuptools._distutils.command.sdist">setuptools._distutils.command.sdist</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
  &#8226;   <a href="#setuptools.config.expand">setuptools.config.expand</a>
  &#8226;   <a href="#setuptools.discovery">setuptools.discovery</a>
  &#8226;   <a href="#setuptools.dist">setuptools.dist</a>
  &#8226;   <a href="#setuptools.installer">setuptools.installer</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
 
   </div>
 
@@ -9361,11 +9362,11 @@ imported by:
  &#8226;   <a href="#requests_cache.cache_keys">requests_cache.cache_keys</a>
  &#8226;   <a href="#selenium.webdriver.remote.shadowroot">selenium.webdriver.remote.shadowroot</a>
  &#8226;   <a href="#selenium.webdriver.remote.webelement">selenium.webdriver.remote.webelement</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
  &#8226;   <a href="#urllib.request">urllib.request</a>
  &#8226;   <a href="#urllib3.util.ssl_">urllib3.util.ssl_</a>
  &#8226;   <a href="#uuid">uuid</a>
  &#8226;   <a href="#websocket._handshake">websocket._handshake</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
 
   </div>
 
@@ -9760,7 +9761,6 @@ imports:
  &#8226;   <a href="#importlib">importlib</a>
  &#8226;   <a href="#importlib._bootstrap">importlib._bootstrap</a>
  &#8226;   <a href="#importlib._bootstrap_external">importlib._bootstrap_external</a>
- &#8226;   <a href="#importlib.machinery">importlib.machinery</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#warnings">warnings</a>
 
@@ -9908,8 +9908,7 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#importlib">importlib</a>
- &#8226;   <a href="#importlib.abc">importlib.abc</a>
+    <a href="#importlib.abc">importlib.abc</a>
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#packaging.tags">packaging.tags</a>
  &#8226;   <a href="#pkg_resources">pkg_resources</a>
@@ -9919,8 +9918,8 @@ imported by:
  &#8226;   <a href="#runpy">runpy</a>
  &#8226;   <a href="#setuptools._imp">setuptools._imp</a>
  &#8226;   <a href="#setuptools._vendor.packaging.tags">setuptools._vendor.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
  &#8226;   <a href="#setuptools.config.expand">setuptools.config.expand</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
 
   </div>
 
@@ -10485,7 +10484,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.backports.tarfile">setuptools._vendor.backports.tarfile</a>
  &#8226;   <a href="#setuptools._vendor.importlib_resources._adapters">setuptools._vendor.importlib_resources._adapters</a>
  &#8226;   <a href="#setuptools._vendor.importlib_resources.abc">setuptools._vendor.importlib_resources.abc</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
  &#8226;   <a href="#setuptools._vendor.zipp">setuptools._vendor.zipp</a>
  &#8226;   <a href="#setuptools._vendor.zipp.compat.py310">setuptools._vendor.zipp.compat.py310</a>
  &#8226;   <a href="#setuptools.command._requirestxt">setuptools.command._requirestxt</a>
@@ -10513,6 +10511,8 @@ imported by:
  &#8226;   <a href="#urllib3.util.request">urllib3.util.request</a>
  &#8226;   <a href="#urllib3.util.ssltransport">urllib3.util.ssltransport</a>
  &#8226;   <a href="#uuid">uuid</a>
+ &#8226;   <a href="#wheel.macosx_libfile">wheel.macosx_libfile</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
  &#8226;   <a href="#xml.dom.minidom">xml.dom.minidom</a>
  &#8226;   <a href="#xml.dom.pulldom">xml.dom.pulldom</a>
  &#8226;   <a href="#xml.etree.ElementTree">xml.etree.ElementTree</a>
@@ -10612,10 +10612,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.more_itertools.recipes">setuptools._vendor.more_itertools.recipes</a>
  &#8226;   <a href="#setuptools._vendor.packaging.specifiers">setuptools._vendor.packaging.specifiers</a>
  &#8226;   <a href="#setuptools._vendor.packaging.version">setuptools._vendor.packaging.version</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.tags">setuptools._vendor.wheel.cli.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.specifiers">setuptools._vendor.wheel.vendored.packaging.specifiers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.version">setuptools._vendor.wheel.vendored.packaging.version</a>
  &#8226;   <a href="#setuptools._vendor.zipp">setuptools._vendor.zipp</a>
  &#8226;   <a href="#setuptools.command._requirestxt">setuptools.command._requirestxt</a>
  &#8226;   <a href="#setuptools.command.sdist">setuptools.command.sdist</a>
@@ -10633,6 +10629,10 @@ imported by:
  &#8226;   <a href="#traceback">traceback</a>
  &#8226;   <a href="#urllib3.util.retry">urllib3.util.retry</a>
  &#8226;   <a href="#weakref">weakref</a>
+ &#8226;   <a href="#wheel.cli.tags">wheel.cli.tags</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
+ &#8226;   <a href="#wheel.vendored.packaging.specifiers">wheel.vendored.packaging.specifiers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.version">wheel.vendored.packaging.version</a>
  &#8226;   <a href="#zipfile._path">zipfile._path</a>
 
   </div>
@@ -10988,9 +10988,6 @@ imported by:
  &#8226;   <a href="#setuptools._distutils.dist">setuptools._distutils.dist</a>
  &#8226;   <a href="#setuptools._distutils.log">setuptools._distutils.log</a>
  &#8226;   <a href="#setuptools._vendor.packaging.tags">setuptools._vendor.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel._setuptools_logging">setuptools._vendor.wheel._setuptools_logging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.util">setuptools._vendor.wheel.util</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
  &#8226;   <a href="#setuptools.config._apply_pyprojecttoml">setuptools.config._apply_pyprojecttoml</a>
  &#8226;   <a href="#setuptools.config._validate_pyproject.error_reporting">setuptools.config._validate_pyproject.error_reporting</a>
  &#8226;   <a href="#setuptools.config._validate_pyproject.formats">setuptools.config._validate_pyproject.formats</a>
@@ -11008,6 +11005,9 @@ imported by:
  &#8226;   <a href="#urllib3.response">urllib3.response</a>
  &#8226;   <a href="#urllib3.util.retry">urllib3.util.retry</a>
  &#8226;   <a href="#websocket._logging">websocket._logging</a>
+ &#8226;   <a href="#wheel._setuptools_logging">wheel._setuptools_logging</a>
+ &#8226;   <a href="#wheel.util">wheel.util</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
 
   </div>
 
@@ -11071,7 +11071,6 @@ imported by:
  &#8226;   <a href="#_pydecimal">_pydecimal</a>
  &#8226;   <a href="#asyncio.windows_events">asyncio.windows_events</a>
  &#8226;   <a href="#fractions">fractions</a>
- &#8226;   <a href="#numpy._core._internal">numpy._core._internal</a>
  &#8226;   <a href="#numpy._core._machar">numpy._core._machar</a>
  &#8226;   <a href="#numpy._core.numeric">numpy._core.numeric</a>
  &#8226;   <a href="#numpy.f2py.symbolic">numpy.f2py.symbolic</a>
@@ -12072,7 +12071,6 @@ imported by:
 imports:
     <a href="#numpy">numpy</a>
  &#8226;   <a href="#numpy.__config__">numpy.__config__</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
  &#8226;   <a href="#numpy._core._dtype_ctypes">numpy._core._dtype_ctypes</a>
  &#8226;   <a href="#numpy._core._multiarray_tests">numpy._core._multiarray_tests</a>
@@ -12207,7 +12205,6 @@ imports:
  &#8226;   <a href="#numpy._core.pi">numpy._core.pi</a>
  &#8226;   <a href="#numpy._core.positive">numpy._core.positive</a>
  &#8226;   <a href="#numpy._core.power">numpy._core.power</a>
- &#8226;   <a href="#numpy._core.printoptions">numpy._core.printoptions</a>
  &#8226;   <a href="#numpy._core.prod">numpy._core.prod</a>
  &#8226;   <a href="#numpy._core.rad2deg">numpy._core.rad2deg</a>
  &#8226;   <a href="#numpy._core.radians">numpy._core.radians</a>
@@ -12302,14 +12299,11 @@ imports:
 imported by:
     <a href="#numpy">numpy</a>
  &#8226;   <a href="#numpy.__config__">numpy.__config__</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
  &#8226;   <a href="#numpy._core._dtype">numpy._core._dtype</a>
  &#8226;   <a href="#numpy._core._dtype_ctypes">numpy._core._dtype_ctypes</a>
  &#8226;   <a href="#numpy._core._internal">numpy._core._internal</a>
- &#8226;   <a href="#numpy._core._methods">numpy._core._methods</a>
  &#8226;   <a href="#numpy._core.arrayprint">numpy._core.arrayprint</a>
- &#8226;   <a href="#numpy._core.defchararray">numpy._core.defchararray</a>
  &#8226;   <a href="#numpy._core.fromnumeric">numpy._core.fromnumeric</a>
  &#8226;   <a href="#numpy._core.function_base">numpy._core.function_base</a>
  &#8226;   <a href="#numpy._core.memmap">numpy._core.memmap</a>
@@ -12390,33 +12384,6 @@ imports:
  &#8226;   <a href="#numpy._core._multiarray_umath">numpy._core._multiarray_umath</a>
  &#8226;   <a href="#warnings">warnings</a>
  &#8226;   <a href="#yaml">yaml</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#numpy">numpy</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="numpy._array_api_info"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/numpy/_array_api_info.py" type="text/plain"><tt>numpy._array_api_info</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._core">numpy._core</a>
- &#8226;   <a href="#numpy._core.complex64">numpy._core.complex64</a>
- &#8226;   <a href="#numpy._core.float32">numpy._core.float32</a>
- &#8226;   <a href="#numpy._core.int16">numpy._core.int16</a>
- &#8226;   <a href="#numpy._core.int32">numpy._core.int32</a>
- &#8226;   <a href="#numpy._core.int64">numpy._core.int64</a>
- &#8226;   <a href="#numpy._core.int8">numpy._core.int8</a>
- &#8226;   <a href="#numpy._core.intp">numpy._core.intp</a>
- &#8226;   <a href="#numpy._core.uint16">numpy._core.uint16</a>
- &#8226;   <a href="#numpy._core.uint32">numpy._core.uint32</a>
- &#8226;   <a href="#numpy._core.uint64">numpy._core.uint64</a>
 
   </div>
   <div class="import">
@@ -12641,7 +12608,6 @@ imports:
   <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
  &#8226;   <a href="#numpy._core._add_newdocs">numpy._core._add_newdocs</a>
  &#8226;   <a href="#numpy._core._add_newdocs_scalars">numpy._core._add_newdocs_scalars</a>
@@ -12668,7 +12634,6 @@ imported by:
  &#8226;   <a href="#numpy._core.numeric">numpy._core.numeric</a>
  &#8226;   <a href="#numpy._core.numerictypes">numpy._core.numerictypes</a>
  &#8226;   <a href="#numpy._core.overrides">numpy._core.overrides</a>
- &#8226;   <a href="#numpy._core.printoptions">numpy._core.printoptions</a>
  &#8226;   <a href="#numpy._core.records">numpy._core.records</a>
  &#8226;   <a href="#numpy._core.shape_base">numpy._core.shape_base</a>
  &#8226;   <a href="#numpy._core.strings">numpy._core.strings</a>
@@ -12817,7 +12782,6 @@ imported by:
 imports:
     <a href="#ast">ast</a>
  &#8226;   <a href="#ctypes">ctypes</a>
- &#8226;   <a href="#math">math</a>
  &#8226;   <a href="#numpy">numpy</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
  &#8226;   <a href="#numpy._core.multiarray">numpy._core.multiarray</a>
@@ -12863,7 +12827,6 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#contextlib">contextlib</a>
- &#8226;   <a href="#numpy">numpy</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
  &#8226;   <a href="#numpy._core._exceptions">numpy._core._exceptions</a>
  &#8226;   <a href="#numpy._core._ufunc_config">numpy._core._ufunc_config</a>
@@ -13208,7 +13171,6 @@ imports:
  &#8226;   <a href="#numpy._core.numeric">numpy._core.numeric</a>
  &#8226;   <a href="#numpy._core.numerictypes">numpy._core.numerictypes</a>
  &#8226;   <a href="#numpy._core.overrides">numpy._core.overrides</a>
- &#8226;   <a href="#numpy._core.printoptions">numpy._core.printoptions</a>
  &#8226;   <a href="#numpy._core.umath">numpy._core.umath</a>
  &#8226;   <a href="#operator">operator</a>
  &#8226;   <a href="#sys">sys</a>
@@ -13443,7 +13405,6 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
 
   </div>
@@ -13581,7 +13542,6 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#functools">functools</a>
- &#8226;   <a href="#numpy">numpy</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
  &#8226;   <a href="#numpy._core.multiarray">numpy._core.multiarray</a>
  &#8226;   <a href="#numpy._core.numeric">numpy._core.numeric</a>
@@ -13857,7 +13817,6 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
  &#8226;   <a href="#numpy.testing._private.utils">numpy.testing._private.utils</a>
 
@@ -14189,7 +14148,6 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
 
   </div>
@@ -14202,7 +14160,6 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
 
   </div>
@@ -14215,7 +14172,6 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
 
   </div>
@@ -14228,7 +14184,6 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
 
   </div>
@@ -14267,7 +14222,6 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
  &#8226;   <a href="#numpy.linalg._linalg">numpy.linalg._linalg</a>
  &#8226;   <a href="#numpy.testing._private.utils">numpy.testing._private.utils</a>
@@ -14998,25 +14952,6 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="numpy._core.printoptions"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/numpy/_core/printoptions.py" type="text/plain"><tt>numpy._core.printoptions</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#contextvars">contextvars</a>
- &#8226;   <a href="#numpy._core">numpy._core</a>
- &#8226;   <a href="#sys">sys</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._core.arrayprint">numpy._core.arrayprint</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="numpy._core.prod"></a>
   <a target="code" href="" type="text/plain"><tt>numpy._core.prod</tt></a>
 <span class="moduletype">MissingModule</span>  <div class="import">
@@ -15497,7 +15432,6 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
 
   </div>
@@ -15510,7 +15444,6 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
 
   </div>
@@ -15523,7 +15456,6 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#numpy">numpy</a>
- &#8226;   <a href="#numpy._array_api_info">numpy._array_api_info</a>
  &#8226;   <a href="#numpy._core">numpy._core</a>
 
   </div>
@@ -18264,7 +18196,8 @@ imported by:
   <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/numpy/random/_pickle.py" type="text/plain"><tt>numpy.random._pickle</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#numpy.random">numpy.random</a>
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#numpy.random">numpy.random</a>
  &#8226;   <a href="#numpy.random._generator">numpy.random._generator</a>
  &#8226;   <a href="#numpy.random._mt19937">numpy.random._mt19937</a>
  &#8226;   <a href="#numpy.random._pcg64">numpy.random._pcg64</a>
@@ -18440,8 +18373,7 @@ imported by:
   <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/numpy/testing/_private/utils.py" type="text/plain"><tt>numpy.testing._private.utils</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#concurrent.futures">concurrent.futures</a>
- &#8226;   <a href="#contextlib">contextlib</a>
+    <a href="#contextlib">contextlib</a>
  &#8226;   <a href="#difflib">difflib</a>
  &#8226;   <a href="#doctest">doctest</a>
  &#8226;   <a href="#functools">functools</a>
@@ -23378,11 +23310,11 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.more_itertools.more">setuptools._vendor.more_itertools.more</a>
  &#8226;   <a href="#setuptools._vendor.more_itertools.recipes">setuptools._vendor.more_itertools.recipes</a>
  &#8226;   <a href="#setuptools._vendor.packaging.markers">setuptools._vendor.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
  &#8226;   <a href="#six">six</a>
  &#8226;   <a href="#statistics">statistics</a>
  &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#typing_extensions">typing_extensions</a>
+ &#8226;   <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
 
   </div>
@@ -23567,13 +23499,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.packaging._elffile">setuptools._vendor.packaging._elffile</a>
  &#8226;   <a href="#setuptools._vendor.packaging._manylinux">setuptools._vendor.packaging._manylinux</a>
  &#8226;   <a href="#setuptools._vendor.packaging.markers">setuptools._vendor.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.tags">setuptools._vendor.wheel.cli.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.macosx_libfile">setuptools._vendor.wheel.macosx_libfile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._elffile">setuptools._vendor.wheel.vendored.packaging._elffile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
  &#8226;   <a href="#setuptools._vendor.zipp.glob">setuptools._vendor.zipp.glob</a>
  &#8226;   <a href="#setuptools.archive_util">setuptools.archive_util</a>
  &#8226;   <a href="#setuptools.command.bdist_egg">setuptools.command.bdist_egg</a>
@@ -23619,6 +23544,13 @@ imported by:
  &#8226;   <a href="#websocket._handshake">websocket._handshake</a>
  &#8226;   <a href="#websocket._http">websocket._http</a>
  &#8226;   <a href="#websocket._url">websocket._url</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.cli.tags">wheel.cli.tags</a>
+ &#8226;   <a href="#wheel.macosx_libfile">wheel.macosx_libfile</a>
+ &#8226;   <a href="#wheel.vendored.packaging._elffile">wheel.vendored.packaging._elffile</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
  &#8226;   <a href="#xml.dom.domreg">xml.dom.domreg</a>
  &#8226;   <a href="#xml.sax">xml.sax</a>
  &#8226;   <a href="#xml.sax.saxutils">xml.sax.saxutils</a>
@@ -23652,14 +23584,14 @@ imported by:
  &#8226;   <a href="#requests_cache.backends.sqlite">requests_cache.backends.sqlite</a>
  &#8226;   <a href="#setuptools._distutils._modified">setuptools._distutils._modified</a>
  &#8226;   <a href="#setuptools._distutils.file_util">setuptools._distutils.file_util</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.pack">setuptools._vendor.wheel.cli.pack</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
  &#8226;   <a href="#setuptools.msvc">setuptools.msvc</a>
  &#8226;   <a href="#sysconfig">sysconfig</a>
  &#8226;   <a href="#tracemalloc">tracemalloc</a>
  &#8226;   <a href="#unittest.util">unittest.util</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
+ &#8226;   <a href="#wheel.cli.pack">wheel.cli.pack</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
 
   </div>
 
@@ -24109,11 +24041,11 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.importlib_resources.abc">setuptools._vendor.importlib_resources.abc</a>
  &#8226;   <a href="#setuptools._vendor.importlib_resources.future.adapters">setuptools._vendor.importlib_resources.future.adapters</a>
  &#8226;   <a href="#setuptools._vendor.importlib_resources.readers">setuptools._vendor.importlib_resources.readers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.unpack">setuptools._vendor.wheel.cli.unpack</a>
  &#8226;   <a href="#setuptools._vendor.zipp">setuptools._vendor.zipp</a>
  &#8226;   <a href="#setuptools.config.expand">setuptools.config.expand</a>
  &#8226;   <a href="#setuptools.discovery">setuptools.discovery</a>
  &#8226;   <a href="#setuptools.dist">setuptools.dist</a>
+ &#8226;   <a href="#wheel.cli.unpack">wheel.cli.unpack</a>
  &#8226;   <a href="#zipfile._path">zipfile._path</a>
 
   </div>
@@ -24342,12 +24274,12 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.importlib_metadata._compat">setuptools._vendor.importlib_metadata._compat</a>
  &#8226;   <a href="#setuptools._vendor.packaging.markers">setuptools._vendor.packaging.markers</a>
  &#8226;   <a href="#setuptools._vendor.packaging.tags">setuptools._vendor.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
  &#8226;   <a href="#setuptools.monkey">setuptools.monkey</a>
  &#8226;   <a href="#setuptools.msvc">setuptools.msvc</a>
  &#8226;   <a href="#setuptools.windows_support">setuptools.windows_support</a>
  &#8226;   <a href="#uuid">uuid</a>
+ &#8226;   <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
 
   </div>
 
@@ -24907,6 +24839,7 @@ imported by:
  &#8226;   <a href="#tempfile">tempfile</a>
  &#8226;   <a href="#urllib3.util.retry">urllib3.util.retry</a>
  &#8226;   <a href="#uuid">uuid</a>
+ &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
 
   </div>
 
@@ -25073,18 +25006,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.packaging.utils">setuptools._vendor.packaging.utils</a>
  &#8226;   <a href="#setuptools._vendor.packaging.version">setuptools._vendor.packaging.version</a>
  &#8226;   <a href="#setuptools._vendor.tomli._re">setuptools._vendor.tomli._re</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.pack">setuptools._vendor.wheel.cli.pack</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._musllinux">setuptools._vendor.wheel.vendored.packaging._musllinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._tokenizer">setuptools._vendor.wheel.vendored.packaging._tokenizer</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.specifiers">setuptools._vendor.wheel.vendored.packaging.specifiers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.utils">setuptools._vendor.wheel.vendored.packaging.utils</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.version">setuptools._vendor.wheel.vendored.packaging.version</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
  &#8226;   <a href="#setuptools._vendor.zipp">setuptools._vendor.zipp</a>
  &#8226;   <a href="#setuptools._vendor.zipp.glob">setuptools._vendor.zipp.glob</a>
  &#8226;   <a href="#setuptools.command.bdist_egg">setuptools.command.bdist_egg</a>
@@ -25128,6 +25049,18 @@ imported by:
  &#8226;   <a href="#urllib3.util.ssl_match_hostname">urllib3.util.ssl_match_hostname</a>
  &#8226;   <a href="#urllib3.util.url">urllib3.util.url</a>
  &#8226;   <a href="#warnings">warnings</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
+ &#8226;   <a href="#wheel.cli.pack">wheel.cli.pack</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._musllinux">wheel.vendored.packaging._musllinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._tokenizer">wheel.vendored.packaging._tokenizer</a>
+ &#8226;   <a href="#wheel.vendored.packaging.specifiers">wheel.vendored.packaging.specifiers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
+ &#8226;   <a href="#wheel.vendored.packaging.utils">wheel.vendored.packaging.utils</a>
+ &#8226;   <a href="#wheel.vendored.packaging.version">wheel.vendored.packaging.version</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
  &#8226;   <a href="#xml.etree.ElementPath">xml.etree.ElementPath</a>
  &#8226;   <a href="#xml.etree.ElementTree">xml.etree.ElementTree</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
@@ -28793,8 +28726,6 @@ imported by:
  &#8226;   <a href="#setuptools._path">setuptools._path</a>
  &#8226;   <a href="#setuptools._reqs">setuptools._reqs</a>
  &#8226;   <a href="#setuptools._vendor">setuptools._vendor</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
  &#8226;   <a href="#setuptools.archive_util">setuptools.archive_util</a>
  &#8226;   <a href="#setuptools.command">setuptools.command</a>
  &#8226;   <a href="#setuptools.command._requirestxt">setuptools.command._requirestxt</a>
@@ -28819,6 +28750,8 @@ imported by:
  &#8226;   <a href="#setuptools.warnings">setuptools.warnings</a>
  &#8226;   <a href="#setuptools.wheel">setuptools.wheel</a>
  &#8226;   <a href="#setuptools.windows_support">setuptools.windows_support</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
 
   </div>
 
@@ -29410,10 +29343,10 @@ imports:
 imported by:
     <a href="#setuptools._distutils.cmd">setuptools._distutils.cmd</a>
  &#8226;   <a href="#setuptools._distutils.core">setuptools._distutils.core</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
  &#8226;   <a href="#setuptools.config._apply_pyprojecttoml">setuptools.config._apply_pyprojecttoml</a>
  &#8226;   <a href="#setuptools.config.setupcfg">setuptools.config.setupcfg</a>
  &#8226;   <a href="#setuptools.dist">setuptools.dist</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
 
   </div>
 
@@ -29962,7 +29895,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.more_itertools">setuptools._vendor.more_itertools</a>
  &#8226;   <a href="#setuptools._vendor.packaging">setuptools._vendor.packaging</a>
  &#8226;   <a href="#setuptools._vendor.tomli">setuptools._vendor.tomli</a>
- &#8226;   <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
  &#8226;   <a href="#setuptools._vendor.zipp">setuptools._vendor.zipp</a>
 
   </div>
@@ -31136,643 +31068,6 @@ imported by:
 </div>
 
 <div class="node">
-  <a name="setuptools._vendor.wheel"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/__init__.py" type="text/plain"><tt>setuptools._vendor.wheel</tt></a>
-<span class="moduletype">Package</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#setuptools._vendor">setuptools._vendor</a>
- &#8226;   <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel._setuptools_logging">setuptools._vendor.wheel._setuptools_logging</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel._setuptools_logging">setuptools._vendor.wheel._setuptools_logging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.macosx_libfile">setuptools._vendor.wheel.macosx_libfile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.util">setuptools._vendor.wheel.util</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored">setuptools._vendor.wheel.vendored</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
- &#8226;   <a href="#wheel">wheel</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel._setuptools_logging"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/_setuptools_logging.py" type="text/plain"><tt>setuptools._vendor.wheel._setuptools_logging</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#logging">logging</a>
- &#8226;   <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#sys">sys</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.util">setuptools._vendor.wheel.util</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.bdist_wheel"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/bdist_wheel.py" type="text/plain"><tt>setuptools._vendor.wheel.bdist_wheel</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#email.generator">email.generator</a>
- &#8226;   <a href="#email.message">email.message</a>
- &#8226;   <a href="#email.policy">email.policy</a>
- &#8226;   <a href="#glob">glob</a>
- &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools">setuptools</a>
- &#8226;   <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.macosx_libfile">setuptools._vendor.wheel.macosx_libfile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.util">setuptools._vendor.wheel.util</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.version">setuptools._vendor.wheel.vendored.packaging.version</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
- &#8226;   <a href="#shutil">shutil</a>
- &#8226;   <a href="#stat">stat</a>
- &#8226;   <a href="#struct">struct</a>
- &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#sysconfig">sysconfig</a>
- &#8226;   <a href="#warnings">warnings</a>
- &#8226;   <a href="#zipfile">zipfile</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.cli"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/cli/__init__.py" type="text/plain"><tt>setuptools._vendor.wheel.cli</tt></a>
-<span class="moduletype">Package</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#argparse">argparse</a>
- &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.pack">setuptools._vendor.wheel.cli.pack</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.tags">setuptools._vendor.wheel.cli.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.unpack">setuptools._vendor.wheel.cli.unpack</a>
- &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#wheel">wheel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.pack">setuptools._vendor.wheel.cli.pack</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.tags">setuptools._vendor.wheel.cli.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.unpack">setuptools._vendor.wheel.cli.unpack</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.cli.convert"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/cli/convert.py" type="text/plain"><tt>setuptools._vendor.wheel.cli.convert</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#glob">glob</a>
- &#8226;   <a href="#os.path">os.path</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools">setuptools</a>
- &#8226;   <a href="#setuptools._distutils.dist">setuptools._distutils.dist</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
- &#8226;   <a href="#shutil">shutil</a>
- &#8226;   <a href="#tempfile">tempfile</a>
- &#8226;   <a href="#zipfile">zipfile</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.cli.pack"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/cli/pack.py" type="text/plain"><tt>setuptools._vendor.wheel.cli.pack</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#email.generator">email.generator</a>
- &#8226;   <a href="#email.parser">email.parser</a>
- &#8226;   <a href="#email.policy">email.policy</a>
- &#8226;   <a href="#os.path">os.path</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.cli.tags"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/cli/tags.py" type="text/plain"><tt>setuptools._vendor.wheel.cli.tags</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#collections.abc">collections.abc</a>
- &#8226;   <a href="#email.parser">email.parser</a>
- &#8226;   <a href="#email.policy">email.policy</a>
- &#8226;   <a href="#itertools">itertools</a>
- &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.cli.unpack"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/cli/unpack.py" type="text/plain"><tt>setuptools._vendor.wheel.cli.unpack</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#pathlib">pathlib</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.macosx_libfile"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/macosx_libfile.py" type="text/plain"><tt>setuptools._vendor.wheel.macosx_libfile</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#ctypes">ctypes</a>
- &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#wheel">wheel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.metadata"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/metadata.py" type="text/plain"><tt>setuptools._vendor.wheel.metadata</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#email.message">email.message</a>
- &#8226;   <a href="#email.parser">email.parser</a>
- &#8226;   <a href="#functools">functools</a>
- &#8226;   <a href="#itertools">itertools</a>
- &#8226;   <a href="#os.path">os.path</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.requirements">setuptools._vendor.wheel.vendored.packaging.requirements</a>
- &#8226;   <a href="#textwrap">textwrap</a>
- &#8226;   <a href="#typing">typing</a>
- &#8226;   <a href="#wheel">wheel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.util"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/util.py" type="text/plain"><tt>setuptools._vendor.wheel.util</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#base64">base64</a>
- &#8226;   <a href="#logging">logging</a>
- &#8226;   <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel._setuptools_logging">setuptools._vendor.wheel._setuptools_logging</a>
- &#8226;   <a href="#wheel">wheel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/__init__.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored</tt></a>
-<span class="moduletype">Package</span>  <div class="import">
-imports:
-    <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/__init__.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging</tt></a>
-<span class="moduletype">Package</span>  <div class="import">
-imports:
-    <a href="#setuptools._vendor.wheel.vendored">setuptools._vendor.wheel.vendored</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._musllinux">setuptools._vendor.wheel.vendored.packaging._musllinux</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._elffile">setuptools._vendor.wheel.vendored.packaging._elffile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._musllinux">setuptools._vendor.wheel.vendored.packaging._musllinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._parser">setuptools._vendor.wheel.vendored.packaging._parser</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._structures">setuptools._vendor.wheel.vendored.packaging._structures</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._tokenizer">setuptools._vendor.wheel.vendored.packaging._tokenizer</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.requirements">setuptools._vendor.wheel.vendored.packaging.requirements</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.specifiers">setuptools._vendor.wheel.vendored.packaging.specifiers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.utils">setuptools._vendor.wheel.vendored.packaging.utils</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.version">setuptools._vendor.wheel.vendored.packaging.version</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging._elffile"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/_elffile.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging._elffile</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#enum">enum</a>
- &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#struct">struct</a>
- &#8226;   <a href="#typing">typing</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._musllinux">setuptools._vendor.wheel.vendored.packaging._musllinux</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging._manylinux"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/_manylinux.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging._manylinux</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#_manylinux">_manylinux</a>
- &#8226;   <a href="#collections">collections</a>
- &#8226;   <a href="#contextlib">contextlib</a>
- &#8226;   <a href="#ctypes">ctypes</a>
- &#8226;   <a href="#functools">functools</a>
- &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._elffile">setuptools._vendor.wheel.vendored.packaging._elffile</a>
- &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#typing">typing</a>
- &#8226;   <a href="#warnings">warnings</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging._musllinux"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/_musllinux.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging._musllinux</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#functools">functools</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._elffile">setuptools._vendor.wheel.vendored.packaging._elffile</a>
- &#8226;   <a href="#subprocess">subprocess</a>
- &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#sysconfig">sysconfig</a>
- &#8226;   <a href="#typing">typing</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging._parser"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/_parser.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging._parser</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#ast">ast</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._tokenizer">setuptools._vendor.wheel.vendored.packaging._tokenizer</a>
- &#8226;   <a href="#typing">typing</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.requirements">setuptools._vendor.wheel.vendored.packaging.requirements</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging._structures"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/_structures.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging._structures</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.vendored.packaging.version">setuptools._vendor.wheel.vendored.packaging.version</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging._tokenizer"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/_tokenizer.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging._tokenizer</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#contextlib">contextlib</a>
- &#8226;   <a href="#dataclasses">dataclasses</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.specifiers">setuptools._vendor.wheel.vendored.packaging.specifiers</a>
- &#8226;   <a href="#typing">typing</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.vendored.packaging._parser">setuptools._vendor.wheel.vendored.packaging._parser</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.requirements">setuptools._vendor.wheel.vendored.packaging.requirements</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging.markers"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/markers.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging.markers</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#operator">operator</a>
- &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#platform">platform</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._parser">setuptools._vendor.wheel.vendored.packaging._parser</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._tokenizer">setuptools._vendor.wheel.vendored.packaging._tokenizer</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.specifiers">setuptools._vendor.wheel.vendored.packaging.specifiers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.utils">setuptools._vendor.wheel.vendored.packaging.utils</a>
- &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#typing">typing</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.vendored.packaging.requirements">setuptools._vendor.wheel.vendored.packaging.requirements</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging.requirements"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/requirements.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging.requirements</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._parser">setuptools._vendor.wheel.vendored.packaging._parser</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._tokenizer">setuptools._vendor.wheel.vendored.packaging._tokenizer</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.specifiers">setuptools._vendor.wheel.vendored.packaging.specifiers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.utils">setuptools._vendor.wheel.vendored.packaging.utils</a>
- &#8226;   <a href="#typing">typing</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging.specifiers"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/specifiers.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging.specifiers</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#abc">abc</a>
- &#8226;   <a href="#itertools">itertools</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.utils">setuptools._vendor.wheel.vendored.packaging.utils</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.version">setuptools._vendor.wheel.vendored.packaging.version</a>
- &#8226;   <a href="#typing">typing</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.vendored.packaging._tokenizer">setuptools._vendor.wheel.vendored.packaging._tokenizer</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.requirements">setuptools._vendor.wheel.vendored.packaging.requirements</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging.tags"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/tags.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging.tags</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#importlib.machinery">importlib.machinery</a>
- &#8226;   <a href="#logging">logging</a>
- &#8226;   <a href="#platform">platform</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._musllinux">setuptools._vendor.wheel.vendored.packaging._musllinux</a>
- &#8226;   <a href="#struct">struct</a>
- &#8226;   <a href="#subprocess">subprocess</a>
- &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#sysconfig">sysconfig</a>
- &#8226;   <a href="#typing">typing</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.utils">setuptools._vendor.wheel.vendored.packaging.utils</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging.utils"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/utils.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging.utils</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#re">re</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.version">setuptools._vendor.wheel.vendored.packaging.version</a>
- &#8226;   <a href="#typing">typing</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.requirements">setuptools._vendor.wheel.vendored.packaging.requirements</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.specifiers">setuptools._vendor.wheel.vendored.packaging.specifiers</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.vendored.packaging.version"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/vendored/packaging/version.py" type="text/plain"><tt>setuptools._vendor.wheel.vendored.packaging.version</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#itertools">itertools</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging">setuptools._vendor.wheel.vendored.packaging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._structures">setuptools._vendor.wheel.vendored.packaging._structures</a>
- &#8226;   <a href="#typing">typing</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.specifiers">setuptools._vendor.wheel.vendored.packaging.specifiers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.utils">setuptools._vendor.wheel.vendored.packaging.utils</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="setuptools._vendor.wheel.wheelfile"></a>
-  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/wheel/wheelfile.py" type="text/plain"><tt>setuptools._vendor.wheel.wheelfile</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
-imports:
-    <a href="#__future__">__future__</a>
- &#8226;   <a href="#csv">csv</a>
- &#8226;   <a href="#hashlib">hashlib</a>
- &#8226;   <a href="#io">io</a>
- &#8226;   <a href="#os.path">os.path</a>
- &#8226;   <a href="#re">re</a>
- &#8226;   <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.util">setuptools._vendor.wheel.util</a>
- &#8226;   <a href="#stat">stat</a>
- &#8226;   <a href="#time">time</a>
- &#8226;   <a href="#wheel">wheel</a>
- &#8226;   <a href="#zipfile">zipfile</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.pack">setuptools._vendor.wheel.cli.pack</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.tags">setuptools._vendor.wheel.cli.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.unpack">setuptools._vendor.wheel.cli.unpack</a>
- &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
-
-  </div>
-
-</div>
-
-<div class="node">
   <a name="setuptools._vendor.zipp"></a>
   <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/setuptools/_vendor/zipp/__init__.py" type="text/plain"><tt>setuptools._vendor.zipp</tt></a>
 <span class="moduletype">Package</span>  <div class="import">
@@ -31984,9 +31279,6 @@ imports:
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#setuptools">setuptools</a>
  &#8226;   <a href="#setuptools._distutils.log">setuptools._distutils.log</a>
- &#8226;   <a href="#setuptools._vendor.wheel.macosx_libfile">setuptools._vendor.wheel.macosx_libfile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
  &#8226;   <a href="#setuptools.command">setuptools.command</a>
  &#8226;   <a href="#setuptools.command.egg_info">setuptools.command.egg_info</a>
  &#8226;   <a href="#setuptools.warnings">setuptools.warnings</a>
@@ -31997,6 +31289,9 @@ imports:
  &#8226;   <a href="#sysconfig">sysconfig</a>
  &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#warnings">warnings</a>
+ &#8226;   <a href="#wheel.macosx_libfile">wheel.macosx_libfile</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
  &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
@@ -32978,14 +32273,14 @@ imported by:
  &#8226;   <a href="#setuptools._distutils.spawn">setuptools._distutils.spawn</a>
  &#8226;   <a href="#setuptools._vendor.backports.tarfile">setuptools._vendor.backports.tarfile</a>
  &#8226;   <a href="#setuptools._vendor.jaraco.context">setuptools._vendor.jaraco.context</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
  &#8226;   <a href="#setuptools.archive_util">setuptools.archive_util</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
  &#8226;   <a href="#tarfile">tarfile</a>
  &#8226;   <a href="#tempfile">tempfile</a>
  &#8226;   <a href="#uuid">uuid</a>
  &#8226;   <a href="#webbrowser">webbrowser</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
  &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
@@ -33614,13 +32909,13 @@ imported by:
  &#8226;   <a href="#setuptools._core_metadata">setuptools._core_metadata</a>
  &#8226;   <a href="#setuptools._distutils.file_util">setuptools._distutils.file_util</a>
  &#8226;   <a href="#setuptools._vendor.backports.tarfile">setuptools._vendor.backports.tarfile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
  &#8226;   <a href="#setuptools._vendor.zipp">setuptools._vendor.zipp</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
  &#8226;   <a href="#shutil">shutil</a>
  &#8226;   <a href="#site">site</a>
  &#8226;   <a href="#tarfile">tarfile</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
  &#8226;   <a href="#zipfile">zipfile</a>
 
@@ -33736,9 +33031,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.backports.tarfile">setuptools._vendor.backports.tarfile</a>
  &#8226;   <a href="#setuptools._vendor.packaging._elffile">setuptools._vendor.packaging._elffile</a>
  &#8226;   <a href="#setuptools._vendor.packaging.tags">setuptools._vendor.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._elffile">setuptools._vendor.wheel.vendored.packaging._elffile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
  &#8226;   <a href="#six">six</a>
  &#8226;   <a href="#socks">socks</a>
@@ -33746,6 +33038,9 @@ imported by:
  &#8226;   <a href="#websocket._abnf">websocket._abnf</a>
  &#8226;   <a href="#websocket._core">websocket._core</a>
  &#8226;   <a href="#websocket._url">websocket._url</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.vendored.packaging._elffile">wheel.vendored.packaging._elffile</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
  &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
@@ -33809,11 +33104,11 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.jaraco.context">setuptools._vendor.jaraco.context</a>
  &#8226;   <a href="#setuptools._vendor.packaging._musllinux">setuptools._vendor.packaging._musllinux</a>
  &#8226;   <a href="#setuptools._vendor.packaging.tags">setuptools._vendor.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._musllinux">setuptools._vendor.wheel.vendored.packaging._musllinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
  &#8226;   <a href="#setuptools.installer">setuptools.installer</a>
  &#8226;   <a href="#uuid">uuid</a>
  &#8226;   <a href="#webbrowser">webbrowser</a>
+ &#8226;   <a href="#wheel.vendored.packaging._musllinux">wheel.vendored.packaging._musllinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
 
   </div>
 
@@ -33918,7 +33213,6 @@ imported by:
  &#8226;   <a href="#numpy._core._internal">numpy._core._internal</a>
  &#8226;   <a href="#numpy._core.arrayprint">numpy._core.arrayprint</a>
  &#8226;   <a href="#numpy._core.numeric">numpy._core.numeric</a>
- &#8226;   <a href="#numpy._core.printoptions">numpy._core.printoptions</a>
  &#8226;   <a href="#numpy._core.strings">numpy._core.strings</a>
  &#8226;   <a href="#numpy._pytesttester">numpy._pytesttester</a>
  &#8226;   <a href="#numpy._typing._array_like">numpy._typing._array_like</a>
@@ -34004,14 +33298,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.packaging._musllinux">setuptools._vendor.packaging._musllinux</a>
  &#8226;   <a href="#setuptools._vendor.packaging.markers">setuptools._vendor.packaging.markers</a>
  &#8226;   <a href="#setuptools._vendor.packaging.tags">setuptools._vendor.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel._setuptools_logging">setuptools._vendor.wheel._setuptools_logging</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.macosx_libfile">setuptools._vendor.wheel.macosx_libfile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._musllinux">setuptools._vendor.wheel.vendored.packaging._musllinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
  &#8226;   <a href="#setuptools._vendor.zipp">setuptools._vendor.zipp</a>
  &#8226;   <a href="#setuptools._vendor.zipp.compat.py310">setuptools._vendor.zipp.compat.py310</a>
  &#8226;   <a href="#setuptools.command">setuptools.command</a>
@@ -34066,6 +33352,14 @@ imported by:
  &#8226;   <a href="#weakref">weakref</a>
  &#8226;   <a href="#webbrowser">webbrowser</a>
  &#8226;   <a href="#websocket._abnf">websocket._abnf</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel._setuptools_logging">wheel._setuptools_logging</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.macosx_libfile">wheel.macosx_libfile</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._musllinux">wheel.vendored.packaging._musllinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
  &#8226;   <a href="#xml.dom.domreg">xml.dom.domreg</a>
  &#8226;   <a href="#xml.etree.ElementTree">xml.etree.ElementTree</a>
  &#8226;   <a href="#xml.parsers.expat">xml.parsers.expat</a>
@@ -34113,11 +33407,11 @@ imported by:
  &#8226;   <a href="#setuptools._distutils.util">setuptools._distutils.util</a>
  &#8226;   <a href="#setuptools._vendor.packaging._musllinux">setuptools._vendor.packaging._musllinux</a>
  &#8226;   <a href="#setuptools._vendor.packaging.tags">setuptools._vendor.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._musllinux">setuptools._vendor.wheel.vendored.packaging._musllinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
  &#8226;   <a href="#setuptools.command.bdist_egg">setuptools.command.bdist_egg</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.vendored.packaging._musllinux">wheel.vendored.packaging._musllinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
 
   </div>
 
@@ -34201,10 +33495,10 @@ imported by:
  &#8226;   <a href="#setuptools._distutils.util">setuptools._distutils.util</a>
  &#8226;   <a href="#setuptools._vendor.importlib_resources._common">setuptools._vendor.importlib_resources._common</a>
  &#8226;   <a href="#setuptools._vendor.jaraco.context">setuptools._vendor.jaraco.context</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
  &#8226;   <a href="#setuptools.installer">setuptools.installer</a>
  &#8226;   <a href="#urllib.request">urllib.request</a>
  &#8226;   <a href="#urllib.response">urllib.response</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
 
   </div>
 
@@ -34245,13 +33539,13 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.importlib_metadata">setuptools._vendor.importlib_metadata</a>
  &#8226;   <a href="#setuptools._vendor.importlib_metadata._adapters">setuptools._vendor.importlib_metadata._adapters</a>
  &#8226;   <a href="#setuptools._vendor.jaraco.text">setuptools._vendor.jaraco.text</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
  &#8226;   <a href="#setuptools.command.bdist_egg">setuptools.command.bdist_egg</a>
  &#8226;   <a href="#setuptools.config._validate_pyproject.error_reporting">setuptools.config._validate_pyproject.error_reporting</a>
  &#8226;   <a href="#setuptools.warnings">setuptools.warnings</a>
  &#8226;   <a href="#site">site</a>
  &#8226;   <a href="#sqlite3.__main__">sqlite3.__main__</a>
  &#8226;   <a href="#traceback">traceback</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
 
   </div>
 
@@ -34326,6 +33620,7 @@ imported by:
  &#8226;   <a href="#websocket._abnf">websocket._abnf</a>
  &#8226;   <a href="#websocket._app">websocket._app</a>
  &#8226;   <a href="#websocket._core">websocket._core</a>
+ &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
  &#8226;   <a href="#zipfile">zipfile</a>
 
   </div>
@@ -34391,7 +33686,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.backports.tarfile">setuptools._vendor.backports.tarfile</a>
  &#8226;   <a href="#setuptools._vendor.jaraco.functools">setuptools._vendor.jaraco.functools</a>
  &#8226;   <a href="#setuptools._vendor.more_itertools.more">setuptools._vendor.more_itertools.more</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
  &#8226;   <a href="#setuptools.command.egg_info">setuptools.command.egg_info</a>
  &#8226;   <a href="#socketserver">socketserver</a>
  &#8226;   <a href="#sqlite3.dbapi2">sqlite3.dbapi2</a>
@@ -34407,6 +33701,7 @@ imported by:
  &#8226;   <a href="#uuid">uuid</a>
  &#8226;   <a href="#websocket._app">websocket._app</a>
  &#8226;   <a href="#websocket._core">websocket._core</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
  &#8226;   <a href="#xmlrpc.client">xmlrpc.client</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
  &#8226;   <a href="#zipfile">zipfile</a>
@@ -34745,6 +34040,7 @@ imported by:
  &#8226;   <a href="#urllib3.poolmanager">urllib3.poolmanager</a>
  &#8226;   <a href="#urllib3.util.retry">urllib3.util.retry</a>
  &#8226;   <a href="#urllib3.util.util">urllib3.util.util</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
 
   </div>
@@ -34940,18 +34236,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.tomli._parser">setuptools._vendor.tomli._parser</a>
  &#8226;   <a href="#setuptools._vendor.tomli._re">setuptools._vendor.tomli._re</a>
  &#8226;   <a href="#setuptools._vendor.tomli._types">setuptools._vendor.tomli._types</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._elffile">setuptools._vendor.wheel.vendored.packaging._elffile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._musllinux">setuptools._vendor.wheel.vendored.packaging._musllinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._parser">setuptools._vendor.wheel.vendored.packaging._parser</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._tokenizer">setuptools._vendor.wheel.vendored.packaging._tokenizer</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.markers">setuptools._vendor.wheel.vendored.packaging.markers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.requirements">setuptools._vendor.wheel.vendored.packaging.requirements</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.specifiers">setuptools._vendor.wheel.vendored.packaging.specifiers</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.tags">setuptools._vendor.wheel.vendored.packaging.tags</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.utils">setuptools._vendor.wheel.vendored.packaging.utils</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging.version">setuptools._vendor.wheel.vendored.packaging.version</a>
  &#8226;   <a href="#setuptools.command._requirestxt">setuptools.command._requirestxt</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
  &#8226;   <a href="#setuptools.command.build">setuptools.command.build</a>
@@ -35017,6 +34301,21 @@ imported by:
  &#8226;   <a href="#websocket._socket">websocket._socket</a>
  &#8226;   <a href="#websocket._url">websocket._url</a>
  &#8226;   <a href="#websocket._utils">websocket._utils</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.macosx_libfile">wheel.macosx_libfile</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
+ &#8226;   <a href="#wheel.vendored.packaging._elffile">wheel.vendored.packaging._elffile</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._musllinux">wheel.vendored.packaging._musllinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._parser">wheel.vendored.packaging._parser</a>
+ &#8226;   <a href="#wheel.vendored.packaging._tokenizer">wheel.vendored.packaging._tokenizer</a>
+ &#8226;   <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.requirements">wheel.vendored.packaging.requirements</a>
+ &#8226;   <a href="#wheel.vendored.packaging.specifiers">wheel.vendored.packaging.specifiers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
+ &#8226;   <a href="#wheel.vendored.packaging.utils">wheel.vendored.packaging.utils</a>
+ &#8226;   <a href="#wheel.vendored.packaging.version">wheel.vendored.packaging.version</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
 
   </div>
 
@@ -35068,6 +34367,7 @@ imported by:
  &#8226;   <a href="#urllib3.poolmanager">urllib3.poolmanager</a>
  &#8226;   <a href="#urllib3.util.retry">urllib3.util.retry</a>
  &#8226;   <a href="#urllib3.util.ssltransport">urllib3.util.ssltransport</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
 
   </div>
 
@@ -36927,8 +36227,6 @@ imported by:
  &#8226;   <a href="#setuptools._vendor.jaraco.functools">setuptools._vendor.jaraco.functools</a>
  &#8226;   <a href="#setuptools._vendor.more_itertools.more">setuptools._vendor.more_itertools.more</a>
  &#8226;   <a href="#setuptools._vendor.packaging._manylinux">setuptools._vendor.packaging._manylinux</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.vendored.packaging._manylinux">setuptools._vendor.wheel.vendored.packaging._manylinux</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
  &#8226;   <a href="#setuptools.warnings">setuptools.warnings</a>
  &#8226;   <a href="#shutil">shutil</a>
@@ -36964,6 +36262,8 @@ imported by:
  &#8226;   <a href="#urllib3.response">urllib3.response</a>
  &#8226;   <a href="#urllib3.util.ssl_">urllib3.util.ssl_</a>
  &#8226;   <a href="#webbrowser">webbrowser</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
  &#8226;   <a href="#xml.etree.ElementTree">xml.etree.ElementTree</a>
  &#8226;   <a href="#zapimoveis.py">zapimoveis.py</a>
  &#8226;   <a href="#zipfile">zipfile</a>
@@ -37371,19 +36671,635 @@ imported by:
 
 <div class="node">
   <a name="wheel"></a>
-  <a target="code" href="" type="text/plain"><tt>wheel</tt></a>
-<span class="moduletype">AliasNode</span>  <div class="import">
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/__init__.py" type="text/plain"><tt>wheel</tt></a>
+<span class="moduletype">Package</span>  <div class="import">
 imports:
-    <a href="#setuptools._vendor.wheel">setuptools._vendor.wheel</a>
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#wheel">wheel</a>
+ &#8226;   <a href="#wheel._setuptools_logging">wheel._setuptools_logging</a>
 
   </div>
   <div class="import">
 imported by:
-    <a href="#setuptools._vendor.wheel.cli">setuptools._vendor.wheel.cli</a>
- &#8226;   <a href="#setuptools._vendor.wheel.macosx_libfile">setuptools._vendor.wheel.macosx_libfile</a>
- &#8226;   <a href="#setuptools._vendor.wheel.metadata">setuptools._vendor.wheel.metadata</a>
- &#8226;   <a href="#setuptools._vendor.wheel.util">setuptools._vendor.wheel.util</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
+    <a href="#wheel">wheel</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel._setuptools_logging">wheel._setuptools_logging</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.macosx_libfile">wheel.macosx_libfile</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
+ &#8226;   <a href="#wheel.util">wheel.util</a>
+ &#8226;   <a href="#wheel.vendored">wheel.vendored</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel._bdist_wheel"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/_bdist_wheel.py" type="text/plain"><tt>wheel._bdist_wheel</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#email.generator">email.generator</a>
+ &#8226;   <a href="#email.message">email.message</a>
+ &#8226;   <a href="#email.policy">email.policy</a>
+ &#8226;   <a href="#glob">glob</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#setuptools">setuptools</a>
+ &#8226;   <a href="#shutil">shutil</a>
+ &#8226;   <a href="#stat">stat</a>
+ &#8226;   <a href="#struct">struct</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#sysconfig">sysconfig</a>
+ &#8226;   <a href="#types">types</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#warnings">warnings</a>
+ &#8226;   <a href="#wheel">wheel</a>
+ &#8226;   <a href="#wheel.macosx_libfile">wheel.macosx_libfile</a>
+ &#8226;   <a href="#wheel.metadata">wheel.metadata</a>
+ &#8226;   <a href="#wheel.util">wheel.util</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
+ &#8226;   <a href="#wheel.vendored.packaging.version">wheel.vendored.packaging.version</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
+ &#8226;   <a href="#zipfile">zipfile</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.cli.convert">wheel.cli.convert</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel._setuptools_logging"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/_setuptools_logging.py" type="text/plain"><tt>wheel._setuptools_logging</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#logging">logging</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#wheel">wheel</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel">wheel</a>
+ &#8226;   <a href="#wheel.util">wheel.util</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.cli"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/cli/__init__.py" type="text/plain"><tt>wheel.cli</tt></a>
+<span class="moduletype">Package</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#argparse">argparse</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#wheel">wheel</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
+ &#8226;   <a href="#wheel.cli.pack">wheel.cli.pack</a>
+ &#8226;   <a href="#wheel.cli.tags">wheel.cli.tags</a>
+ &#8226;   <a href="#wheel.cli.unpack">wheel.cli.unpack</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
+ &#8226;   <a href="#wheel.cli.pack">wheel.cli.pack</a>
+ &#8226;   <a href="#wheel.cli.tags">wheel.cli.tags</a>
+ &#8226;   <a href="#wheel.cli.unpack">wheel.cli.unpack</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.cli.convert"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/cli/convert.py" type="text/plain"><tt>wheel.cli.convert</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#glob">glob</a>
+ &#8226;   <a href="#os.path">os.path</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#setuptools">setuptools</a>
+ &#8226;   <a href="#setuptools._distutils.dist">setuptools._distutils.dist</a>
+ &#8226;   <a href="#shutil">shutil</a>
+ &#8226;   <a href="#tempfile">tempfile</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
+ &#8226;   <a href="#zipfile">zipfile</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.cli">wheel.cli</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.cli.pack"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/cli/pack.py" type="text/plain"><tt>wheel.cli.pack</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#email.generator">email.generator</a>
+ &#8226;   <a href="#email.parser">email.parser</a>
+ &#8226;   <a href="#email.policy">email.policy</a>
+ &#8226;   <a href="#os.path">os.path</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.cli">wheel.cli</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.cli.tags"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/cli/tags.py" type="text/plain"><tt>wheel.cli.tags</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#collections.abc">collections.abc</a>
+ &#8226;   <a href="#email.parser">email.parser</a>
+ &#8226;   <a href="#email.policy">email.policy</a>
+ &#8226;   <a href="#itertools">itertools</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.cli">wheel.cli</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.cli.unpack"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/cli/unpack.py" type="text/plain"><tt>wheel.cli.unpack</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#pathlib">pathlib</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.cli">wheel.cli</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.macosx_libfile"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/macosx_libfile.py" type="text/plain"><tt>wheel.macosx_libfile</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#ctypes">ctypes</a>
+ &#8226;   <a href="#io">io</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel">wheel</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.metadata"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/metadata.py" type="text/plain"><tt>wheel.metadata</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#email.message">email.message</a>
+ &#8226;   <a href="#email.parser">email.parser</a>
+ &#8226;   <a href="#functools">functools</a>
+ &#8226;   <a href="#itertools">itertools</a>
+ &#8226;   <a href="#os.path">os.path</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#textwrap">textwrap</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel">wheel</a>
+ &#8226;   <a href="#wheel.vendored.packaging.requirements">wheel.vendored.packaging.requirements</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.util"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/util.py" type="text/plain"><tt>wheel.util</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#base64">base64</a>
+ &#8226;   <a href="#logging">logging</a>
+ &#8226;   <a href="#wheel">wheel</a>
+ &#8226;   <a href="#wheel._setuptools_logging">wheel._setuptools_logging</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/__init__.py" type="text/plain"><tt>wheel.vendored</tt></a>
+<span class="moduletype">Package</span>  <div class="import">
+imports:
+    <a href="#wheel">wheel</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/__init__.py" type="text/plain"><tt>wheel.vendored.packaging</tt></a>
+<span class="moduletype">Package</span>  <div class="import">
+imports:
+    <a href="#wheel.vendored">wheel.vendored</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._musllinux">wheel.vendored.packaging._musllinux</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging._elffile">wheel.vendored.packaging._elffile</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._musllinux">wheel.vendored.packaging._musllinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._parser">wheel.vendored.packaging._parser</a>
+ &#8226;   <a href="#wheel.vendored.packaging._structures">wheel.vendored.packaging._structures</a>
+ &#8226;   <a href="#wheel.vendored.packaging._tokenizer">wheel.vendored.packaging._tokenizer</a>
+ &#8226;   <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.requirements">wheel.vendored.packaging.requirements</a>
+ &#8226;   <a href="#wheel.vendored.packaging.specifiers">wheel.vendored.packaging.specifiers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
+ &#8226;   <a href="#wheel.vendored.packaging.utils">wheel.vendored.packaging.utils</a>
+ &#8226;   <a href="#wheel.vendored.packaging.version">wheel.vendored.packaging.version</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging._elffile"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/_elffile.py" type="text/plain"><tt>wheel.vendored.packaging._elffile</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#enum">enum</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#struct">struct</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._musllinux">wheel.vendored.packaging._musllinux</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging._manylinux"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/_manylinux.py" type="text/plain"><tt>wheel.vendored.packaging._manylinux</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#_manylinux">_manylinux</a>
+ &#8226;   <a href="#collections">collections</a>
+ &#8226;   <a href="#contextlib">contextlib</a>
+ &#8226;   <a href="#ctypes">ctypes</a>
+ &#8226;   <a href="#functools">functools</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#warnings">warnings</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging._elffile">wheel.vendored.packaging._elffile</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging._musllinux"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/_musllinux.py" type="text/plain"><tt>wheel.vendored.packaging._musllinux</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#functools">functools</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#subprocess">subprocess</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#sysconfig">sysconfig</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging._elffile">wheel.vendored.packaging._elffile</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging._parser"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/_parser.py" type="text/plain"><tt>wheel.vendored.packaging._parser</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#ast">ast</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging._tokenizer">wheel.vendored.packaging._tokenizer</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.requirements">wheel.vendored.packaging.requirements</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging._structures"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/_structures.py" type="text/plain"><tt>wheel.vendored.packaging._structures</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.vendored.packaging.version">wheel.vendored.packaging.version</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging._tokenizer"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/_tokenizer.py" type="text/plain"><tt>wheel.vendored.packaging._tokenizer</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#contextlib">contextlib</a>
+ &#8226;   <a href="#dataclasses">dataclasses</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging.specifiers">wheel.vendored.packaging.specifiers</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.vendored.packaging._parser">wheel.vendored.packaging._parser</a>
+ &#8226;   <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.requirements">wheel.vendored.packaging.requirements</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging.markers"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/markers.py" type="text/plain"><tt>wheel.vendored.packaging.markers</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#operator">operator</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#platform">platform</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging._parser">wheel.vendored.packaging._parser</a>
+ &#8226;   <a href="#wheel.vendored.packaging._tokenizer">wheel.vendored.packaging._tokenizer</a>
+ &#8226;   <a href="#wheel.vendored.packaging.specifiers">wheel.vendored.packaging.specifiers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.utils">wheel.vendored.packaging.utils</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.vendored.packaging.requirements">wheel.vendored.packaging.requirements</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging.requirements"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/requirements.py" type="text/plain"><tt>wheel.vendored.packaging.requirements</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging._parser">wheel.vendored.packaging._parser</a>
+ &#8226;   <a href="#wheel.vendored.packaging._tokenizer">wheel.vendored.packaging._tokenizer</a>
+ &#8226;   <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.specifiers">wheel.vendored.packaging.specifiers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.utils">wheel.vendored.packaging.utils</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.metadata">wheel.metadata</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging.specifiers"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/specifiers.py" type="text/plain"><tt>wheel.vendored.packaging.specifiers</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#abc">abc</a>
+ &#8226;   <a href="#itertools">itertools</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging.utils">wheel.vendored.packaging.utils</a>
+ &#8226;   <a href="#wheel.vendored.packaging.version">wheel.vendored.packaging.version</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.vendored.packaging._tokenizer">wheel.vendored.packaging._tokenizer</a>
+ &#8226;   <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.requirements">wheel.vendored.packaging.requirements</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging.tags"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/tags.py" type="text/plain"><tt>wheel.vendored.packaging.tags</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#importlib.machinery">importlib.machinery</a>
+ &#8226;   <a href="#logging">logging</a>
+ &#8226;   <a href="#platform">platform</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#struct">struct</a>
+ &#8226;   <a href="#subprocess">subprocess</a>
+ &#8226;   <a href="#sys">sys</a>
+ &#8226;   <a href="#sysconfig">sysconfig</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging._manylinux">wheel.vendored.packaging._manylinux</a>
+ &#8226;   <a href="#wheel.vendored.packaging._musllinux">wheel.vendored.packaging._musllinux</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.vendored.packaging.utils">wheel.vendored.packaging.utils</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging.utils"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/utils.py" type="text/plain"><tt>wheel.vendored.packaging.utils</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#re">re</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging.tags">wheel.vendored.packaging.tags</a>
+ &#8226;   <a href="#wheel.vendored.packaging.version">wheel.vendored.packaging.version</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel.vendored.packaging.markers">wheel.vendored.packaging.markers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.requirements">wheel.vendored.packaging.requirements</a>
+ &#8226;   <a href="#wheel.vendored.packaging.specifiers">wheel.vendored.packaging.specifiers</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.vendored.packaging.version"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/vendored/packaging/version.py" type="text/plain"><tt>wheel.vendored.packaging.version</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#itertools">itertools</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#wheel.vendored.packaging">wheel.vendored.packaging</a>
+ &#8226;   <a href="#wheel.vendored.packaging._structures">wheel.vendored.packaging._structures</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.vendored.packaging.specifiers">wheel.vendored.packaging.specifiers</a>
+ &#8226;   <a href="#wheel.vendored.packaging.utils">wheel.vendored.packaging.utils</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="wheel.wheelfile"></a>
+  <a target="code" href="///C:/Users/User/AppData/Local/Programs/Python/Python312/Lib/site-packages/wheel/wheelfile.py" type="text/plain"><tt>wheel.wheelfile</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#__future__">__future__</a>
+ &#8226;   <a href="#csv">csv</a>
+ &#8226;   <a href="#hashlib">hashlib</a>
+ &#8226;   <a href="#io">io</a>
+ &#8226;   <a href="#os.path">os.path</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#stat">stat</a>
+ &#8226;   <a href="#time">time</a>
+ &#8226;   <a href="#typing">typing</a>
+ &#8226;   <a href="#typing_extensions">typing_extensions</a>
+ &#8226;   <a href="#wheel">wheel</a>
+ &#8226;   <a href="#wheel.cli">wheel.cli</a>
+ &#8226;   <a href="#wheel.util">wheel.util</a>
+ &#8226;   <a href="#zipfile">zipfile</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
+ &#8226;   <a href="#wheel.cli.pack">wheel.cli.pack</a>
+ &#8226;   <a href="#wheel.cli.tags">wheel.cli.tags</a>
+ &#8226;   <a href="#wheel.cli.unpack">wheel.cli.unpack</a>
 
   </div>
 
@@ -38021,15 +37937,15 @@ imported by:
  &#8226;   <a href="#selenium.webdriver.remote.webelement">selenium.webdriver.remote.webelement</a>
  &#8226;   <a href="#setuptools._distutils.archive_util">setuptools._distutils.archive_util</a>
  &#8226;   <a href="#setuptools._vendor.importlib_resources.compat.py39">setuptools._vendor.importlib_resources.compat.py39</a>
- &#8226;   <a href="#setuptools._vendor.wheel.bdist_wheel">setuptools._vendor.wheel.bdist_wheel</a>
- &#8226;   <a href="#setuptools._vendor.wheel.cli.convert">setuptools._vendor.wheel.cli.convert</a>
- &#8226;   <a href="#setuptools._vendor.wheel.wheelfile">setuptools._vendor.wheel.wheelfile</a>
  &#8226;   <a href="#setuptools._vendor.zipp">setuptools._vendor.zipp</a>
  &#8226;   <a href="#setuptools.archive_util">setuptools.archive_util</a>
  &#8226;   <a href="#setuptools.command.bdist_egg">setuptools.command.bdist_egg</a>
  &#8226;   <a href="#setuptools.command.bdist_wheel">setuptools.command.bdist_wheel</a>
  &#8226;   <a href="#setuptools.wheel">setuptools.wheel</a>
  &#8226;   <a href="#shutil">shutil</a>
+ &#8226;   <a href="#wheel._bdist_wheel">wheel._bdist_wheel</a>
+ &#8226;   <a href="#wheel.cli.convert">wheel.cli.convert</a>
+ &#8226;   <a href="#wheel.wheelfile">wheel.wheelfile</a>
  &#8226;   <a href="#zipfile._path">zipfile._path</a>
 
   </div>

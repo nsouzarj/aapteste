@@ -81,7 +81,7 @@ def encontrar_tipo_imovel(descricao, tipos_imoveis):
     for indice, tipo in enumerate(tipos_imoveis):
         if tipo.lower() in descricao.lower():  # Ignora maiúsculas/minúsculas
             return tipo  # Retorna o tipo encontrado
-    return None 
+    return "Indefinido"
  
 
 def parse_address(address):

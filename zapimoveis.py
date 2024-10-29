@@ -15,6 +15,10 @@ from selenium.webdriver.common.keys import Keys
 import requests_cache
 import requests
 from threading import Thread, Semaphore, Lock
+import traceback
+import random
+import time
+
 
 requests_cache.install_cache('cache')
 
@@ -205,6 +209,7 @@ tipos_imoveis = [
     "Casa Comercial",
     "Hotel / Motel / Pousada",
     "Andar / Laje Corporativa",
+    "Andar / Laje corporativa",
     "Prédio Inteiro",
     "Terrenos / Lotes Comerciais",
     "Terreno / Lote Comercial",
@@ -239,6 +244,13 @@ cont_link_lock = Lock()  # Cria uma trava para proteger a variável
 
 def processar_imovel(link,tipo_de_filtro):
     global registro_atual, cont_link
+    area_total=""
+    num_dormitorios=""
+    num_suites=""
+    num_vagas=""
+    tipo_movel=""
+    cepencontado=""
+    preco=""
     data_cadastro = None  # Inicializa data_cadastro como None
     try:
         semaphore.acquire()
@@ -254,26 +266,24 @@ def processar_imovel(link,tipo_de_filtro):
         driver1.get(link)  # Acessa a página do imóvel
         
         # ... (o restante do código para coletar dados do imóvel) ...
-        items_lista =  WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]'))                                                )
-        precos_imovel = WebDriverWait(driver1, 5).until(
+        items_lista =  WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]'))                                                )
+        precos_imovel = WebDriverWait(driver1, 30).until(
             EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]'))
                                                       
         )
-        
-        preco=""
+
         if precos_imovel:
                precos_imovel
                preco= separar_precos(precos_imovel.text)
+        else:
+            preco=""       
                     
         html_content = items_lista.get_attribute('outerHTML')
         soup = BeautifulSoup(html_content, 'html.parser')       
         amenity_items = soup.find_all('p', class_='amenities-item')
  
         amenities_data = {}
-        area_total=""
-        num_dormitorios=""
-        num_suites=""
-        num_vagas=""
+      
         for item in amenity_items:
           property_name = item.get('itemprop')
      
@@ -293,20 +303,20 @@ def processar_imovel(link,tipo_de_filtro):
              property_value = item.find('span', class_='amenities-item-text').text.strip()        
              num_vagas = extrair_numeros(property_value)           
    
-        title = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
-        address = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
+        title = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
+        address = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
      
-        tipo_valor_venda=WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="business-type-info"]')))   
+        tipo_valor_venda=WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="business-type-info"]')))   
         if tipo_valor_venda.text == "Venda":
-            valor_venda = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '//p[@data-testid="price-info-value"]')))    
+            valor_venda = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//p[@data-testid="price-info-value"]')))    
             valor_venda_limpo=valor_venda.text;
             valor_aluguel_limpo=""
             if valor_venda.text != "Sob consulta":
            
-                condo_fee = WebDriverWait(driver1,5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
+                condo_fee = WebDriverWait(driver1,10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
                 if not condo_fee.text:
                    condo_fee = "Isento"  # Assinala um valor padrão se vazio
-                iptu = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="iptu-price"]')))
+                iptu = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="iptu-price"]')))
                 if not iptu.text:
                    iptu = "Isento"  # Assinala um valor padrão se vazi  
                
@@ -322,15 +332,15 @@ def processar_imovel(link,tipo_de_filtro):
                     
         elif tipo_valor_venda.text == "Aluguel":
                                                                                                        
-            valor_aluguel = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div/div[1]/div[1]/p[2]')))
+            valor_aluguel = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div/div[1]/div[1]/p[2]')))
             valor_aluguel_limpo=valor_aluguel.text
             valor_venda_limpo=""
             
-            condo_fee = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
+            condo_fee = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
             if not condo_fee.text:
                condo_fee = "Isento"  # Assinala um valor padrão se vazio
             
-            iptu = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '//*[@id="iptu-price"]')))
+            iptu = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="iptu-price"]')))
             if not iptu.text:
                iptu = "Isento"  # Assinala um valor padrão se vazio
             
@@ -344,26 +354,31 @@ def processar_imovel(link,tipo_de_filtro):
             else:
                iptu = iptu.text   
         
-            area_valores=   WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]')))
+            area_valores=   WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]')))
             if not area_valores.text:
                 print("Nao existe")
         
         try:        
-          data_extenso = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[4]/span[2]')))  
-          data_cadastro = extrair_e_formatar_data(data_extenso.text)
+          data_extenso = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[4]/span[2]')))  
         except Exception:
-           data_extenso=""
-           data_cadastro=""
-             
+          data_extenso=""
+        
+        try:
+          data_cadastro = extrair_e_formatar_data(data_extenso.text)    
+        except Exception:
+          data_cadastro=""
+          
+          
+                
         driver1.implicitly_wait(3)
            
-        button2 = WebDriverWait(driver1,5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
+        button2 = WebDriverWait(driver1,30).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[3]/button')))
         if button2:
            button2.click()  
            time.sleep(3)
            
-        anunciante_do_imovel = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[1]/div/p[1]')))
-        zap_do_anunciante = WebDriverWait(driver1, 5).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
+        anunciante_do_imovel = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[1]/div/p[1]')))
+        zap_do_anunciante = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
         logradouro, numero, bairro, cidade, estado = parse_address(address.text)
         
         
@@ -377,8 +392,6 @@ def processar_imovel(link,tipo_de_filtro):
             cepencontado="Nao encontrado"
         except Exception:
             cepencontado="Nao encontrado"
-        
-        
            
         try:   
           tipo_movel=encontrar_tipo_imovel(title.text,tipos_imoveis)
@@ -405,11 +418,9 @@ def processar_imovel(link,tipo_de_filtro):
             os.makedirs(output_dir, exist_ok=True)  # Cria o diretório se não existir
             workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
             print(f"## PLANILHA SALVA COM REGISTROS (Registro {registro_atual}) ##")
-        
-        
-        #driver1.quit()
+
         semaphore.release()  # Libera um espaço no semáforo após terminar
-    except Exception as e:
+    except Exception:
         print(f"ERROR: Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}" )
         if tipo_de_filtro=="venda":       
             precovenda=preco['Venda']  
@@ -419,19 +430,39 @@ def processar_imovel(link,tipo_de_filtro):
             precoaluguel=preco['Aluguel']  
             sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])           
         #driver1.quit()
-        semaphore.release()  # Libera um espaço no semáforo após terminar
+        semaphore.release()  
+    finally:
+        semaphore.release()# Libera um espaço no semáforo após terminar
 
 # Cria threads para processar cada link
-threads = []
-for link in links_imoveis:
-    thread = Thread(target=processar_imovel, args=(link,tipo_de_filtro))
-    threads.append(thread)
-    thread.start()
+# Cria threads para processar cada link em lotes de 5
+lote_atual = 0
+tamanho_lote = 10  # Ajuste o tamanho do lote
+while lote_atual * tamanho_lote < len(links_imoveis):
+    try:
+        print(f"Iniciando lote {lote_atual}")
+        lote = list(links_imoveis)[lote_atual * tamanho_lote: (lote_atual + 1) * tamanho_lote]
+        threads = []
+        for link in lote:
+            # Tempo de espera aleatório
+            time.sleep(random.uniform(2, 5))  # Espere entre 2 e 5 segundos
 
-# Aguarda todas as threads terminarem
-for thread in threads:
-    thread.join()
+            thread = Thread(target=processar_imovel, args=(link, tipo_de_filtro))
+            threads.append(thread)
+            thread.start()
 
+        # Aguarda todas as threads do lote terminarem
+        for thread in threads:
+            thread.join(timeout=30)
+            if thread.is_alive():
+                print(f"A thread para o link {link} não terminou em 30 segundos.")
+
+        lote_atual += 1  # Incrementa o lote atual após o processamento do lote
+    except Exception as e:
+        print(f"ERROR: {e}")
+        traceback.print_exc()
+    finally:
+        print(f"Terminando lote {lote_atual}")
 # Salva a planilha final
 os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't exist
 workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx"))
