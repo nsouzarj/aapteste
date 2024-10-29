@@ -379,7 +379,6 @@ def processar_imovel(link,tipo_de_filtro):
         zap_do_anunciante = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
         logradouro, numero, bairro, cidade, estado = parse_address(address.text)
         
-        
         #Trata o cep
         try:   
           cep = get_ceps_por_logradouro(logradouro, numero, cidade, estado)
@@ -435,7 +434,7 @@ def processar_imovel(link,tipo_de_filtro):
 # Cria threads para processar cada link
 # Cria threads para processar cada link em lotes de 5
 lote_atual = 0
-tamanho_lote = 10  # Ajuste o tamanho do lote
+tamanho_lote = 20  # Ajuste o tamanho do lote
 while lote_atual * tamanho_lote < len(links_imoveis):
     try:
         print(f"Iniciando lote {lote_atual}")
@@ -451,9 +450,9 @@ while lote_atual * tamanho_lote < len(links_imoveis):
 
         # Aguarda todas as threads do lote terminarem
         for thread in threads:
-            thread.join(timeout=30)
+            thread.join(timeout=60)
             if thread.is_alive():
-                print(f"A thread para o link {link} não terminou em 30 segundos.")
+                print(f"A thread para o link {link} não terminou em 60 segundos.")
 
         lote_atual += 1  # Incrementa o lote atual após o processamento do lote
     except Exception as e:
