@@ -18,6 +18,7 @@ from threading import Thread, Semaphore, Lock
 import traceback
 import random
 import time
+import datetime
 
 
 requests_cache.install_cache('cache')
@@ -33,6 +34,10 @@ caminho_do_filtro=sys.argv[3]
 
 #tipo de filtro pode ser venda 
 tipo_de_filtro=sys.argv[4]
+
+#maximo de theads
+
+maximo_theads=sys.argv[5]
 
 # Configurando opções do Chrome
 chrome_options = Options()
@@ -53,7 +58,7 @@ chrome_driver_path = caminho_do_webchrome
 #"C:\Users\User\ChromeWithDriver\chromedriver.exe"
 # Configurar o cache (use 'cache' como nome do arquivo do cache)
 
-#service = Service(chrome_driver_path)
+#
 #driver = webdriver.Chrome(service=service, options= chrome_options, keep_alive=True)
 
 
@@ -66,11 +71,13 @@ cont = 0
 pagina_tela = 0
 contador_geral = 1;
 
+horainicial=datetime.datetime.now()
+
 """  Comente esse treco do while ate o final caso queira testar um único link do imóvel """
 
 registro = 0   
-
-
+totapagina=0
+print(f"HORA INICIAL {datetime.datetime.now()}")
 try:
     while pagina_atual >= 1:
          
@@ -78,51 +85,44 @@ try:
         driver = webdriver.Chrome(service=service, options=chrome_options,keep_alive=True)#
         
         # Montando a URL com o número da página atual
-        link_nova_lina = caminho_do_filtro + str(pagina_atual)
-        url = link_nova_lina
+        url= caminho_do_filtro + str(pagina_atual)
+   
         
-        # Acessando a URL (usando requests_cache)
-        response =  requests.get(url)  # Faz a requisição usando requests_cache
-        if response.from_cache:
-            print(f"Carregando página {pagina_atual} do cache.")
-        else:
-            print(f"Baixando página {pagina_atual}.")
-
         # O resto do seu código (dentro do loop) continua exatamente igual:
         driver.maximize_window()
-        driver.get(url)
-        print("COLENTANDO OS LINK DOS IMOvES..")
-        print((f"PAGINA ATUAL: {pagina_atual} "))
-        driver.maximize_window()
 
-        imoveis = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div')
-        print(f"Número de imóveis encontrados na página: {len(imoveis)-1}")
+        driver.get(url)
+        time.sleep(random.uniform(1, 3))
+        print("COLENTANDO OS LINK DOS IMOvES..")
+
+        print((f"PAGINA ATUAL: {pagina_atual} "))  
+  
+        imoveis = driver.find_elements(By.XPATH, '//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div')  
+     
+        print(f"Número de imóveis encontrados na página: {len(imoveis)}")
+        
 
         # Verifica se já coletou todos os imóveis da página atual
-        if len(imoveis) == 1:
+        if len(imoveis) <= 1:
             print("Final de leitura dos registros.")
             break 
         
+
         
         # Pagina os registro em cadas pagina ate 106 no maximo
         a = 0
         print(f"PAGINANDO REGISTROS: {pagina_atual}")
         
+
+        contreg=0;
         # Loop para iterar pelos elementos de imóvel
         for cont in range(1, 150):  # Itera até o final da lista de imóveis
             try:
-                # Coleta o link e outros dados
+                
+                # Coleta o link e outros dado        
                 a += 1
-                if a == 14:
-                     driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])
-                    # time.sleep(2) 
-                
-                   #Ajuste o tempo de espera conforme necessário
-                     a = 0
-                     a += 1
-                   
-                driver.implicitly_wait(0)   
-                
+                        
+                driver.implicitly_wait(0)
                 link_element = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/a')
                 
                 botao_menssagen = driver.find_elements(By.XPATH, f'//*[@id="__next"]/main/section/div/form/div[2]/div[4]/div[1]/div/div[{cont}]/div/div/div[2]/div[3]/div[2]/div[1]/button[2]')  
@@ -150,6 +150,7 @@ try:
                        link_result = link_imovel.get_attribute('href')
                        print("IMOVEL COM ANÚNCIO")
                        print(f"{cont} - {link_result}")
+                       contreg+=1
                        links_imoveis.add(link_result)
                        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE) # Fechando o anúncio
                         
@@ -159,8 +160,16 @@ try:
                     link = link_element[0].get_attribute('href')
                     links_imoveis.add(link)
                     print(f"LINK: {cont} - {link}")
+                    contreg+=1
+                    
+                if a == 15:
+                     driver.execute_script("arguments[0].scrollIntoView();", imoveis[-1])
+                     time.sleep(2) 
+                     a = 0    
                 
                 if cont ==105:
+                    totapagina=totapagina+contreg;
+                    contreg=0;
                     break# Não use 'continue' aqui, pois ele está fora do bloco 'try'   
                
             except Exception as e:  # Captura qualquer exceção
@@ -168,13 +177,9 @@ try:
                 continue  # Continua para a próxima iteração do loop
             
             # Continua para o próximo registro
-      
+        print(f"TOTAL DE REGISTROS NAS PAGINAS: {totapagina}")
         pagina_atual+=1
         
-                
-
-
-
 except Exception as e:
     print(f"ERRO GERAL: {e}")
     driver.quit()
@@ -185,10 +190,18 @@ finally:
 
 
 
+
+
+print("HORA INCIAL DE LEITURA: ", horainicial.strftime("%H:%M:%S"))
+horaatual=datetime.datetime.now()
+print("HORA FINAL DE LEITURA: ", horaatual.strftime("%H:%M:%S"))  
+
+
 """  Aqui e a segunda parte onde sera processado cada link para ser resgtado os dados"""
 # Mostra os registros catalogados no  link_imoveis
 print("CRIANDO A PLANILHDA DO EXCEL.") 
 print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
+
 
 """ Array que contem os tipso de movel """
 tipos_imoveis = [
@@ -262,7 +275,6 @@ def processar_imovel(link,tipo_de_filtro):
             cont_link += 1
             print(f"LINK: {cont_link} - {link}") 
             
-
         driver1.get(link)  # Acessa a página do imóvel
         
         # ... (o restante do código para coletar dados do imóvel) ...
@@ -434,7 +446,7 @@ def processar_imovel(link,tipo_de_filtro):
 # Cria threads para processar cada link
 # Cria threads para processar cada link em lotes de 5
 lote_atual = 0
-tamanho_lote = 20  # Ajuste o tamanho do lote
+tamanho_lote =int(maximo_theads)  # Ajuste o tamanho do lote
 while lote_atual * tamanho_lote < len(links_imoveis):
     try:
         print(f"Iniciando lote {lote_atual}")
@@ -465,5 +477,9 @@ os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't exi
 workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx"))
 print("Planilha Excel criada com sucesso!")
 print("FINALIZADO COM SUCESSO..")
+
+print("HORA INCIAL DE LEITURA: ", horainicial.strftime("%H:%M:%S"))
+horafinal=datetime.datetime.now()
+print("HORA FINAL DE LEITURA: ", horafinal.strftime("%H:%M:%S")) 
 time.sleep(10)
 sys.exit()   
