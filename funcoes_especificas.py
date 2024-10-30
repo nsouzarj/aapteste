@@ -1,6 +1,5 @@
-import requests
-import re
-import time
+import requests, time, re
+
 
 """ Traz cep do logradouro da api  https://viacep.com.br/ """
 def get_ceps_por_logradouro(logradouro, numero=None, cidade=None, estado=None):
