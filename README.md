@@ -51,7 +51,7 @@ zapimoveis.exe 'C:\Users\User\Documents\zapimoveis' 'C:\Program Files\Google\Chr
 
 - 4) Quarto parametro: Tipo de filtro 'aluguel' ou 'venda'
 
-- 5) Quinto parametro: Numerpo de theads para ser executada o ideal é 20
+- 5) Quinto parametro: Numero de theads para ser executada o ideal é 20
 
 
 
