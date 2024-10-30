@@ -1,3 +1,6 @@
+"""--------------------------------------------------------"""
+""" Parte que ler o s link da listagem                     """
+"""--------------------------------------------------------"""
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -49,12 +52,6 @@ chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64
 # Caminho para o ChromeDriver
 chrome_driver_path = caminho_do_webchrome
 #"C:\Users\User\ChromeWithDriver\chromedriver.exe"
-# Configurar o cache (use 'cache' como nome do arquivo do cache)
-
-#
-#driver = webdriver.Chrome(service=service, options= chrome_options, keep_alive=True)
-
-
 # Inicializando um conjunto para armazenar links únicos
 links_imoveis = set()
 # Número da página inicial
@@ -75,12 +72,9 @@ try:
     while pagina_atual >= 1:
          
         service = Service(chrome_driver_path)
-        driver = webdriver.Chrome(service=service, options=chrome_options,keep_alive=True)#
-        
+        driver = webdriver.Chrome(service=service, options=chrome_options,keep_alive=True)#  
         # Montando a URL com o número da página atual
         url= caminho_do_filtro + str(pagina_atual)
-   
-        
         # O resto do seu código (dentro do loop) continua exatamente igual:
         driver.maximize_window()
 
@@ -99,9 +93,7 @@ try:
         if len(imoveis) <= 1:
             print("Final de leitura dos registros.")
             break 
-        
 
-        
         # Pagina os registro em cadas pagina ate 106 no maximo
         a = 0
         print(f"PAGINANDO REGISTROS: {pagina_atual}")
@@ -147,7 +139,6 @@ try:
                        links_imoveis.add(link_result)
                        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE) # Fechando o anúncio
                         
-
                 # Coleta o link do imóvel (se não houver anúncio)
                 if link_element and len(link_element) > 0:
                     link = link_element[0].get_attribute('href')
@@ -182,16 +173,16 @@ finally:
     driver.quit()                
 
 
-
-
-
 print("HORA INCIAL DE LEITURA: ", horainicial.strftime("%H:%M:%S"))
 horaatual=datetime.datetime.now()
 print("HORA FINAL DE LEITURA: ", horaatual.strftime("%H:%M:%S"))  
 
 
-"""  Aqui e a segunda parte onde sera processado cada link para ser resgtado os dados"""
+"""-----------------------------------------------------------------------------------"""
+"""  Aqui e a segunda parte onde sera processado cada link para ser resgtado os dados """
+"""-----------------------------------------------------------------------------------"""
 # Mostra os registros catalogados no  link_imoveis
+
 print("CRIANDO A PLANILHDA DO EXCEL.") 
 print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
 
@@ -222,7 +213,6 @@ tipos_imoveis = [
     "Galpão / Depósito / Armazém",
     "Garagem"
 ]
-
 
 # Criando uma nova planilha Excel e definindo os cabeçalhos
 #Seta o diretorio onde será salvao a planilha
