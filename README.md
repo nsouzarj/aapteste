@@ -43,9 +43,9 @@ zapimoveis.exe 'C:\Users\User\Documents\zapimoveis' 'C:\Program Files\Google\Chr
 
 - 2) Segundo parametro: Onde esta o chomesdrive 
 
-- 3) Terceiro paramentro: O link do filtro de busca dos imoveis
+- 3) Terceiro parametro: O link do filtro de busca dos imoveis
 
-- 4) Quarto paramnetro: tipo de filtro 'aluguel' ou 'venda'
+- 4) Quarto parametro: Tipo de filtro 'aluguel' ou 'venda'
 
 - 5) Quinto parametro: Numerpo de tehas para ser executado o ideal é 20
 
