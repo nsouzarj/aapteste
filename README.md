@@ -43,7 +43,7 @@
 
 zapimoveis.exe 'C:\Users\User\Documents\zapimoveis' 'C:\Program Files\Google\Chrome\Application\chromedriver.exe' 'https://www.zapimoveis.com.br/aluguel/imoveis/mg+belo-horizonte/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,pos-zap:new,new-rec:b,lgpd-ldp:test&transacao=aluguel&onde=,Minas%20Gerais,Belo%20Horizonte,,,,,city,BR%3EMinas%20Gerais%3ENULL%3EBelo%20Horizonte,-19.919052,-43.938669,&pagina=' 'aluguel' '25'
 
-- 1) Primeiro parametro: Onde vai ser salvo o arquivo xls 
+- 1) Primeiro parametro: Onde vai ser salvo o arquivo ou plaiha dos imoveis xls 
 
 - 2) Segundo parametro: Onde esta o chomesdrive 
 
