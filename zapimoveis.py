@@ -5,20 +5,13 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-import time
-import os
-import sys
+import sys, os, random, time, datetime, traceback, requests_cache 
 from openpyxl import Workbook, load_workbook  # Importe load_workbook
 from funcoes_especificas import get_ceps_por_logradouro,extrair_numeros,encontrar_tipo_imovel,parse_address,remover_parte_texto,extrair_e_formatar_data,separar_precos
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
-import requests_cache
-import requests
 from threading import Thread, Semaphore, Lock
-import traceback
-import random
-import time
-import datetime
+
 
 
 requests_cache.install_cache('cache')
