@@ -238,6 +238,9 @@ semaphore = Semaphore(MAX_THREADS)  # Define um semáforo com o limite de thread
 cont_link = 0
 cont_link_lock = Lock()  # Cria uma trava para proteger a variável
 
+"""-----------------------------------------------"""
+""" Funçao que traz os detalhes e esta nas theads """
+"""-----------------------------------------------"""
 def processar_imovel(link,tipo_de_filtro):
     global registro_atual, cont_link
     area_total=""
