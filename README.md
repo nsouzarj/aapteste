@@ -37,7 +37,7 @@
 
 ### Como exeutar o projeto 
 
-- Baixe o program do git est ana pasta dist 
+- Baixe o program do git esta na pasta dist do próprio git
 
 - A execução: 
 
