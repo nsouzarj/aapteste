@@ -11,13 +11,17 @@
 
 - Instale o python mas recente na sua maquina do site https://www.python.org/downloads
 
-- Baixe o google com drive mais atual do site https://drive.google.com/file/d/18DEwWP4gDTvMotNAGW6y-8xjGo1uiB1h/view?usp=drive_link descompacte o arquivo zip e descpacte  coloque a pasta no seu  lugar de preferência exemplo: C:\Users\User\ChromeWithDriver  nessa pasta irão estar o chrome driver com o chrome dessa pasta, pois é compatível com a aplicação e na linha  chrome_driver_path = r"C:\Users\User\ChromeWithDriver\chromedriver.exe" do zapimoveis.py dever ser alterada conforme onde você descompactou o arquivo zip.  
+- Baixe o google com drive mais atual do site es no projetocoloque a pasta no seu  lugar de preferência exemplo: C:\Program Files\Google\Chrome\Application  onde fica o google chome instalado.
+
+
+ do zapimoveis.py dever ser alterada conforme onde você descompactou o arquivo zip.  
 
 - Instale as seguinte libs do python usando pip 
     - pip install selenium
     - pip install openpyxl
     - pip install pandas  Observação: Creio quen não seja necessário o uso da mesma
     - pip install bs4 
+    - pip install requests-cache
     - pip install pyinstaller - esse para transformar o script em um executavel podenos ser executado sem a necessidade do python instalado no local
 
 
@@ -30,6 +34,26 @@
 - A planilha xlsx é criada onde esta o executavel ou script, caso queira mudar procure o trecho de código   workbook.save("C:\Users\User\Documents\zapimoveis\listadeimoveis.xlsx")  e modifique o caminho conforme sua necessidade, os registro sao salvos na planilha a cada 50 a cada lida da lista armazenada assim garante que os dados serão salvos na planilha excel.
 
 ### Qualquer dúvida estamos a sua disposição para esclarecimentos.
+
+### Como exeutar o projeto 
+
+- Baixe o program do git esta na pasta dist do próprio git
+
+- A execução: 
+
+zapimoveis.exe 'C:\Users\User\Documents\zapimoveis' 'C:\Program Files\Google\Chrome\Application\chromedriver.exe' 'https://www.zapimoveis.com.br/aluguel/imoveis/mg+belo-horizonte/?__ab=sup-hl-pl:newC,exp-aa-test:B,super-high:new,off-no-hl:new,pos-zap:new,new-rec:b,lgpd-ldp:test&transacao=aluguel&onde=,Minas%20Gerais,Belo%20Horizonte,,,,,city,BR%3EMinas%20Gerais%3ENULL%3EBelo%20Horizonte,-19.919052,-43.938669,&pagina=' 'aluguel' '25'
+
+- 1) Primeiro parametro: Onde vai ser salvo o arquivo ou plaiha dos imoveis xls 
+
+- 2) Segundo parametro: Onde esta o chomesdrive 
+
+- 3) Terceiro parametro: O link do filtro de busca dos imoveis
+
+- 4) Quarto parametro: Tipo de filtro 'aluguel' ou 'venda'
+
+- 5) Quinto parametro: Numero de theads para ser executada o ideal é 20
+
+
 
 
 
