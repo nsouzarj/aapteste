@@ -101,46 +101,6 @@ def parse_address(address):
         # O primeiro elemento é sempre o logradouro
         logradouro_completo = partes[0].strip()
         
-<<<<<<< HEAD
-    if num_virgula==1 and num_traco==3:
-     #  partes = address.split("-")
-       endereco_modificado = re.sub(r' - ', ',', address)
-       
-    if num_virgula==1 and num_traco==4:
-     #  partes = address.split("-")
-       endereco_modificado = re.sub(r' - ', ',', address)   
-      
-    #endereco_modificado = address[:indice_virgula+1] + address[indice_virgula+1:].replace(",", ",")
-    #endereco_modificado = address[:indice_virgula+2:] + address[indice_virgula+1:].replace("-", ",")
-    #endereco_modificado = endereco_modificado[:indice_virgula+1] + endereco_modificado[indice_virgula+1:].replace(" - ", ",")
-    #endereco_modificado = endereco_modificado[:indice_virgula+1] + endereco_modificado[indice_virgula+1:].replace(" ,", ",")  
-    # Verifica se o endereço tem o padrão específico
-    
-    # Regex pattern para capturar os componentes do endereço
-    # Tenta fazer o match do endereço com o padrão
-    pattern="^(?P<logradouro>[^,]+),?\\s*(?P<numero>\\d*)?\\s*,?\\s*(?P<bairro>[^,]*)?,?\\s*(?P<cidade>[^,]+?)\\s*,\\s*(?P<estado>[A-Z]{2})$"
-    
-    try:
-        match = re.match(pattern, endereco_modificado.strip())
-        # Trata o match
-        if match:
-            logradouro = match.group("logradouro").strip() if match.group("logradouro") else "inexistente"
-            numero = match.group("numero").strip() if match.group("numero") else "inexistente"
-            bairro = match.group("bairro").strip() if match.group("bairro") else "inexistente"
-            cidade = match.group("cidade").strip() if match.group("cidade") else "inexistente"
-            estado = match.group("estado").strip() if match.group("estado") else "inexistente"
-            if cidade=="":
-               cidade = bairro
-               bairro="inexistente"  
-            # Retorna como uma tupla
-            return (logradouro, numero, bairro, cidade, estado)
-        else:
-            return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente") 
-    except Exception as e:
-        print(f"Erro ao analisar o endereço não est ano formato correto: {e}")
-        return ("inexistente", "inexistente", "inexistente", "inexistente", "inexistente") 
-      
-=======
         # O último elemento é sempre o estado
         estado = partes[-1].strip()
         
@@ -167,7 +127,6 @@ def parse_address(address):
               numero="inexistente"
     
     return (logradouro, numero, bairro, cidade, estado)
->>>>>>> e069563697bd4735b9850dedb8ba96714a64f597
 # Como usar & tipo de endereços     # 
 #logradouro, numero, bairro, cidade, estado = parse_address("Avenida Presidente Dutra, 1100 - Centro, Itaperuna - RJ")
 # AQUI SAO OS TIPOS DE ENDEREÇO como exemplo
