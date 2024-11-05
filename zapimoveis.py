@@ -268,6 +268,7 @@ if tipo_processo == 'lerlinks':
         numero=""
         precovenda=""
         precoaluguel=""
+        ipturecebe=""
         try:
             semaphore.acquire()
             service1 = Service(chrome_driver_path)
