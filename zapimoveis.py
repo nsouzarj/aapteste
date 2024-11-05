@@ -264,11 +264,16 @@ if tipo_processo == 'lerlinks':
         cepencontado=""
         preco=""
         data_cadastro = "" 
-        logradouro = "" # Inicializa data_cadastro como None
+        logradouro = ""
+        bairro="" 
+        cidade=""
+        estado=""  # Inicializa data_cadastro como None
         numero=""
         precovenda=""
         precoaluguel=""
         ipturecebe=""
+        condo_fee=""
+        soup=None
         try:
             semaphore.acquire()
             service1 = Service(chrome_driver_path)
@@ -283,23 +288,28 @@ if tipo_processo == 'lerlinks':
             driver1.get(link)  # Acessa a página do imóvel
             
             # ... (o restante do código para coletar dados do imóvel) ...
-            items_lista =  WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]'))                                                )
+            items_lista =  WebDriverWait(driver1,40).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]'))                                                )
             if items_lista is not None:
                driver1.implicitly_wait(0) 
             
             
             try:
+               driver1.implicitly_wait(0) 
+            
                html_content = items_lista.get_attribute('outerHTML')
                soup = BeautifulSoup(html_content, 'html.parser')       
                precos_imovel = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]')))
                preco= separar_precos(precos_imovel.text)
+               if tipo_de_filtro=="venda":
+                  precovenda=preco['Venda']
+               if tipo_de_filtro=="Aluguel":   
+                  precoaluguel=preco['Aluguel']
                    
             except Exception as e:
-               logging.error(f"Na busca de preço:  ---> {link}   -   {e} ")   
-               preco="" 
-              
-        
-              
+               logging.error(f"Na busca de preço mesmo assim sera adicionado na planilha:  ---> {link}   -   {e} ")   
+               precovenda=""
+               precoaluguel="" 
+               
             amenity_items = soup.find_all('p', class_='amenities-item')
     
             amenities_data = {}
@@ -441,11 +451,11 @@ if tipo_processo == 'lerlinks':
         except Exception as e:
        
             if tipo_de_filtro=="venda":       
-                precovenda=preco['Venda']  
+               
                 sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, iptu.text,anunciante_do_imovel.text,link, parte_zap])
             
             if  tipo_de_filtro=="aluguel":
-                precoaluguel=preco['Aluguel']  
+              
                 sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu.text, anunciante_do_imovel.text,link, parte_zap])           
             #driver1.quit()
             logging.warning(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}   -   {e} ")
@@ -482,6 +492,7 @@ if tipo_processo == 'lerlinks':
                 thread.join(timeout=60)
                 if thread.is_alive():
                     print(f"A thread para o link {link} não terminou em 60 segundos.")
+                    
 
             lote_atual += 1  # Incrementa o lote atual após o processamento do lote
         except Exception as e:

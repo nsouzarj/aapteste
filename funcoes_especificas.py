@@ -204,42 +204,42 @@ def extrair_e_formatar_data(texto):
 def separar_precos(texto):
     # Dividir o texto em linhas
     linhas = texto.split('\n')
+    
+    # Inicializar um dicionário para armazenar os preços
+    precos = {}
+
     # Verificar se o texto é "Sob consulta"
-   
-    if texto=='':
-       return {
+    if texto == '':
+        return {
             'Venda': "",
             'Aluguel': ""
         }
-   
+
     # Verificar se o texto é "Valor sob consulta"
     if texto.strip() == "Valor sob consulta":
         return {
             'Venda': "Valor sob consulta",
             'Aluguel': "Valor sob consulta"
         }
-        
-    
-    # Inicializar um dicionário para armazenar os preços
-    precos = {}
-    
+
     # Iterar sobre as linhas e extrair os preços
-    for i in range(0, len(linhas), 2):
-        tipo = linhas[i].strip()  # Tipo (Venda ou Aluguel)
-        valor = linhas[i + 1].strip() if i + 1 < len(linhas) else ""  # Valor correspondente
-        
-        # Verificar se o tipo é válido e se o valor não está vazio
-        if tipo in ["Venda", "Aluguel"] and valor:
-            # Remover o símbolo 'R$' e formatar o valor
-            valor_formatado = valor.replace('R$', '').strip()
-            # Armazenar no dicionário
-            precos[tipo] = valor_formatado
-    
+    tipo = None
+    for linha in linhas:
+        linha = linha.strip()
+        if linha in ["Venda", "Aluguel"]:
+            tipo = linha
+        elif tipo and linha.startswith("R$"):
+            precos[tipo] = linha.replace('R$', '').strip()
+            tipo = None
+
     # Retornar valores ou "" caso não existam
     return {
         'Venda': precos.get('Venda', ""),
         'Aluguel': precos.get('Aluguel', "")
     }
 
+
 # Exemplo de uso
-    
+#texto = 'Venda\nR$ 990.000\nCondomínio\nisento\nIPTU\nisento'
+#resultado = separar_precos(texto)
+#print(resultado)     

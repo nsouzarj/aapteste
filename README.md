@@ -53,6 +53,10 @@ zapimoveis.exe 'C:\Users\User\Documents\zapimoveis' 'C:\Program Files\Google\Chr
 
 - 5) Quinto parametro: Numero de theads para ser executada o ideal é 20
 
+- 5) Tipo para ler ou gerar arquivo "gerarlinks" "lerlinks" 
+
+- 7) Nomeda de cidade pode ser assim "rio_de_janeiro_rj"
+
 
 
 
