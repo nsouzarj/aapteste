@@ -447,7 +447,7 @@ if tipo_processo == 'lerlinks':
                 precoaluguel=preco['Aluguel']  
                 sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu.text, anunciante_do_imovel.text,link, parte_zap])           
             #driver1.quit()
-            logging.error(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}   -   {e} ")
+            logging.warn(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}   -   {e} ")
 
             semaphore.release()  
         #finally:
