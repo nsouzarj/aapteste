@@ -266,6 +266,8 @@ if tipo_processo == 'lerlinks':
         data_cadastro = "" 
         logradouro = "" # Inicializa data_cadastro como None
         numero=""
+        precovenda=""
+        precoaluguel=""
         try:
             semaphore.acquire()
             service1 = Service(chrome_driver_path)
@@ -336,7 +338,7 @@ if tipo_processo == 'lerlinks':
                     
                     iptu = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="iptu-price"]')))
                     if not iptu.text:
-                       iptu = "Isento"  # Assinala um valor padrão se vazi  
+                       ipturecebe = "Isento"  # Assinala um valor padrão se vazi  
                 
                     if isinstance(condo_fee, str):  # Verifica se condo_fee é uma string
                         condo_fee = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
@@ -360,7 +362,7 @@ if tipo_processo == 'lerlinks':
                 
                 iptu = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="iptu-price"]')))
                 if not iptu.text:
-                   iptu = "Isento"  # Assinala um valor padrão se vazio
+                   ipturecebe = "Isento"  # Assinala um valor padrão se vazio
                 
                 if isinstance(condo_fee, str):  # Verifica se condo_fee é uma string
                    condo_fee = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
@@ -368,9 +370,9 @@ if tipo_processo == 'lerlinks':
                    condo_fee = condo_fee.text  # Obtém o texto se for um WebElement
                 
                 if isinstance(iptu, str):  # Verifica se iptu é uma string
-                   iptu = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
+                   ipturecebe = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
                 else:
-                   iptu = iptu.text   
+                   ipturecebe = iptu.text   
             
                 area_valores=   WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]')))
                 if not area_valores.text:
@@ -421,11 +423,11 @@ if tipo_processo == 'lerlinks':
             time.sleep(2) 
             if tipo_de_filtro=="venda":       
                 precovenda=preco['Venda']  
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, iptu.text,anunciante_do_imovel.text,link, parte_zap])
+                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, ipturecebe,anunciante_do_imovel.text,link, parte_zap])
             
             if  tipo_de_filtro=="aluguel":
                 precoaluguel=preco['Aluguel']  
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu.text,anunciante_do_imovel.text,link, parte_zap])   
+                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, ipturecebe,anunciante_do_imovel.text,link, parte_zap])   
                 
             registro_atual += 1
             
