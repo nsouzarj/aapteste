@@ -206,12 +206,19 @@ def separar_precos(texto):
     linhas = texto.split('\n')
     # Verificar se o texto é "Sob consulta"
    
+    if texto=='':
+       return {
+            'Venda': "",
+            'Aluguel': ""
+        }
+   
     # Verificar se o texto é "Valor sob consulta"
     if texto.strip() == "Valor sob consulta":
         return {
             'Venda': "Valor sob consulta",
             'Aluguel': "Valor sob consulta"
         }
+        
     
     # Inicializar um dicionário para armazenar os preços
     precos = {}
