@@ -282,23 +282,20 @@ if tipo_processo == 'lerlinks':
             items_lista =  WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]'))                                                )
             if items_lista is not None:
                driver1.implicitly_wait(0) 
-               
-               try:
-                 html_content = items_lista.get_attribute('outerHTML')
-               except Exception as e:
-                 logging.error(f"No componente da tela:  ---> {link}   -   {e} ")    
-                     
-          
+            
             
             try:
+               html_content = items_lista.get_attribute('outerHTML')
+               soup = BeautifulSoup(html_content, 'html.parser')       
                precos_imovel = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]')))
                preco= separar_precos(precos_imovel.text)
                    
             except Exception:
-               preco=""
+               logging.error(f"Na busca de preço:  ---> {link}   -   {e} ")   
+               preco="" 
               
         
-            soup = BeautifulSoup(html_content, 'html.parser')       
+              
             amenity_items = soup.find_all('p', class_='amenities-item')
     
             amenities_data = {}
@@ -447,7 +444,7 @@ if tipo_processo == 'lerlinks':
                 precoaluguel=preco['Aluguel']  
                 sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu.text, anunciante_do_imovel.text,link, parte_zap])           
             #driver1.quit()
-            logging.error(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}   -   {e} ")
+            logging.warning(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}   -   {e} ")
 
             semaphore.release()  
         #finally:
