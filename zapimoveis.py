@@ -73,13 +73,13 @@ registro = 0
 totapagina=0
 print(f"HORA INICIAL {datetime.datetime.now()}")
 
-logging.basicConfig(filename=caminho_da_planilha+'\\zap_log_error.log', level=logging.WARNING ,format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename=caminho_da_planilha+'\\zap_log.log', level=logging.WARNING ,format='%(asctime)s - %(levelname)s - %(message)s')
 
 if  tipo_processo == "gerarlinks" :
     
     try:
         # Criando o arquivo de texto para armazenar os links
-        with open(caminho_da_planilha+'\\cidade_'+cidade_para_nome_arquivo+'.txt', 'w', encoding='utf-8') as arquivo_links:
+        with open(caminho_da_planilha+'\\cidade_'+cidade_para_nome_arquivo+'.data', 'w', encoding='utf-8') as arquivo_links:
             while pagina_atual >= 1:
                 
                 service = Service(chrome_driver_path)
@@ -136,6 +136,7 @@ if  tipo_processo == "gerarlinks" :
                             except Exception  as e:
                                 print(f"Erro - {e}") 
                                 
+                                
                             if link_imovel:
                                link_result = link_imovel.get_attribute('href')
                                print("IMOVEL COM ANÚNCIO")
@@ -176,7 +177,7 @@ if  tipo_processo == "gerarlinks" :
             
     except Exception as e:
         print(f"ERRO GERAL: {e}")
-        logging.error(f"Erro ao coletar link na geracao do linl: {e} - {link}")
+        logging.error(f"Erro ao coletar link para o arquivo texto: {e} - {link}")
         driver.quit()
     finally:
         print("Finalizando a coleta de dados.")
@@ -243,8 +244,8 @@ if tipo_processo == 'lerlinks':
     cont_link=0
 
     # Limite máximo de threads simultâneas
-    MAX_THREADS = 10 
-    semaphore = Semaphore(MAX_THREADS)  # Define um semáforo com o limite de threads
+    #MAX_THREADS = 10 
+    semaphore = Semaphore(int(maximo_theads))  # Define um semáforo com o limite de threads
 
     # Variável compartilhada para o contador de links
     cont_link = 0
@@ -290,7 +291,7 @@ if tipo_processo == 'lerlinks':
                precos_imovel = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]')))
                preco= separar_precos(precos_imovel.text)
                    
-            except Exception:
+            except Exception as e:
                logging.error(f"Na busca de preço:  ---> {link}   -   {e} ")   
                preco="" 
               
@@ -420,11 +421,11 @@ if tipo_processo == 'lerlinks':
             time.sleep(2) 
             if tipo_de_filtro=="venda":       
                 precovenda=preco['Venda']  
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])
+                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, iptu.text,anunciante_do_imovel.text,link, parte_zap])
             
             if  tipo_de_filtro=="aluguel":
                 precoaluguel=preco['Aluguel']  
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu,anunciante_do_imovel.text,link, parte_zap])   
+                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu.text,anunciante_do_imovel.text,link, parte_zap])   
                 
             registro_atual += 1
             
@@ -454,7 +455,7 @@ if tipo_processo == 'lerlinks':
     
     # Lê os links do arquivo texto
     links_imoveis = [] 
-    with open(caminho_da_planilha + '\\cidade_'+cidade_para_nome_arquivo+'.txt', 'r', encoding='utf-8') as arquivo_links:
+    with open(caminho_da_planilha + '\\cidade_'+cidade_para_nome_arquivo+'.data', 'r', encoding='utf-8') as arquivo_links:
         for link in arquivo_links:
             links_imoveis.append(link.strip()) 
 
