@@ -73,7 +73,7 @@ registro = 0
 totapagina=0
 print(f"HORA INICIAL {datetime.datetime.now()}")
 
-logging.basicConfig(filename=caminho_da_planilha+'\\zap_log_error.log', level=logging.ERROR ,format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename=caminho_da_planilha+'\\zap_log_error.log', level=logging.WARNING ,format='%(asctime)s - %(levelname)s - %(message)s')
 
 if  tipo_processo == "gerarlinks" :
     
