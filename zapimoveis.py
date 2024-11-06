@@ -277,29 +277,20 @@ if tipo_processo == 'lerlinks':
         try:
             semaphore.acquire()
             service1 = Service(chrome_driver_path)
-            driver1 = webdriver.Chrome(service=service1, options=chrome_options)
-                 
-            #time.sleep(1) 
+            driver1 = webdriver.Chrome(service=service1, options=chrome_options)     
+            time.sleep(1) 
             # Incrementa o contador de links com sincronização
             with cont_link_lock:  # Utiliza a trava para proteger o contador
                 cont_link += 1
                 print(f"PROCESSANDO O LINK: {cont_link} - {link}") 
-                
+            driver1.implicitly_wait(0)  
             driver1.get(link)  # Acessa a página do imóvel
-            
+          
             # ... (o restante do código para coletar dados do imóvel) ...
             items_lista =  WebDriverWait(driver1,40).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]')))
             precos_imovel = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]')))
             
-            if precos_imovel:
-               preco= separar_precos(precos_imovel.text) 
-               if tipo_de_filtro=="venda":
-                   precovenda=preco['Venda']
-               if tipo_de_filtro=="Aluguel":   
-                   precoaluguel=preco['Aluguel']
-            else:
-                precovenda=""
-                precoaluguel=""
+           
            
             html_content = items_lista.get_attribute('outerHTML')
             soup = BeautifulSoup(html_content, 'html.parser')       
@@ -415,7 +406,21 @@ if tipo_processo == 'lerlinks':
             try:    
                parte_zap = remover_parte_texto(zap_do_anunciante.text, "No Zap: ")
             except Exception:
-               parte_zap="inexistemte"    
+               parte_zap="inexistemte"   
+            
+            
+            if precos_imovel:
+               preco= separar_precos(precos_imovel.text) 
+               if tipo_de_filtro=="venda":
+                  precovenda=preco['Venda']
+               if tipo_de_filtro=="Aluguel":   
+                   precoaluguel=preco['Aluguel']
+            else:
+                precovenda=""
+                precoaluguel=""   
+               
+               
+                
         
             time.sleep(2) 
             if tipo_de_filtro=="venda":       
