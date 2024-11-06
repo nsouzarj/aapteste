@@ -453,7 +453,7 @@ if tipo_processo == 'lerlinks':
                 sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, ipturecebe, anunciante,link, parte_zap])           
             #driver1.quit()
             """ 
-            logging.warning(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link} - {e}")
+            logging.warning(f"Na coleta detalhes do imóvel dados faltando não foi adicionado na planilha:  ---> {link} - {e}")
 
             semaphore.release()  
         finally:
