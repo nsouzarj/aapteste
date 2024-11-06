@@ -240,8 +240,9 @@ if tipo_processo == 'lerlinks':
     cont_link=0
 
     # Limite máximo de threads simultâneas
-    MAX_THREADS = 10
+    MAX_THREADS = int(maximo_theads)
     semaphore = Semaphore(MAX_THREADS)  # Define um semáforo com o limite de threads
+   
 
     # Variável compartilhada para o contador de links
     cont_link = 0
@@ -278,16 +279,17 @@ if tipo_processo == 'lerlinks':
             semaphore.acquire()
             service1 = Service(chrome_driver_path)
             driver1 = webdriver.Chrome(service=service1, options=chrome_options)     
-            time.sleep(1) 
+            
             # Incrementa o contador de links com sincronização
             with cont_link_lock:  # Utiliza a trava para proteger o contador
                 cont_link += 1
                 print(f"PROCESSANDO O LINK: {cont_link} - {link}") 
-            driver1.implicitly_wait(0)  
-            driver1.get(link)  # Acessa a página do imóvel
+   
+            driver1.get(link)
+            time.sleep(1) # Acessa a página do imóvel
           
             # ... (o restante do código para coletar dados do imóvel) ...
-            items_lista =  WebDriverWait(driver1,40).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]')))
+            items_lista =  WebDriverWait(driver1,30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]')))
             precos_imovel = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]')))
             
            
@@ -413,15 +415,14 @@ if tipo_processo == 'lerlinks':
                preco= separar_precos(precos_imovel.text) 
                if tipo_de_filtro=="venda":
                   precovenda=preco['Venda']
-               if tipo_de_filtro=="Aluguel":   
+               if tipo_de_filtro=="aluguel":   
                    precoaluguel=preco['Aluguel']
             else:
                 precovenda=""
                 precoaluguel=""   
                
                
-                
-        
+            
             time.sleep(2) 
             if tipo_de_filtro=="venda":       
                 precovenda=preco['Venda']  
@@ -438,7 +439,7 @@ if tipo_processo == 'lerlinks':
                 workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
                 print(f"## PLANILHA SALVA COM REGISTROS (Registro {registro_atual}) ##")
 
-            driver1.quit()
+
             semaphore.release()  
             # Libera um espaço no semáforo após terminar
         except Exception as e:
@@ -452,10 +453,12 @@ if tipo_processo == 'lerlinks':
                 sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, ipturecebe, anunciante,link, parte_zap])           
             #driver1.quit()
             logging.warning(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link} ")
-            
-            driver1.quit()
+
             semaphore.release()  
         #finally:
+        
+        
+        
         #    semaphore.release()# Libera um espaço no semáforo após terminar
  
     
