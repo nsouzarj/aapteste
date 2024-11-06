@@ -455,7 +455,9 @@ if tipo_processo == 'lerlinks':
             logging.warning(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link} ")
 
             semaphore.release()  
-        #finally:
+        finally:
+            driver1.quit()
+            semaphore.release()
         
         
         
