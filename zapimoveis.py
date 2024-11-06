@@ -192,7 +192,7 @@ print("HORA FINAL DE LEITURA: ", horaatual.strftime("%H:%M:%S"))
 # Mostra os registros catalogados no  link_imoveis
 if tipo_processo == 'lerlinks':
     
-    print("CRIANDO A PLANILHDA DO EXCEL.") 
+    print("CRIANDO A PLANILHA DO EXCEL.") 
    #print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
 
 
@@ -301,21 +301,21 @@ if tipo_processo == 'lerlinks':
             for item in amenity_items:
                 property_name = item.get('itemprop')
         
-            if property_name=='floorSize':
-                property_value = item.find('span', class_='amenities-item-text').text.strip()    
-                area_total = extrair_numeros(property_value)   
-        
-            if property_name=='numberOfRooms':
-                property_value = item.find('span', class_='amenities-item-text').text.strip()        
-                num_dormitorios = extrair_numeros(property_value) 
+                if property_name=='floorSize':
+                    property_value = item.find('span', class_='amenities-item-text').text.strip()    
+                    area_total = extrair_numeros(property_value)   
+            
+                if property_name=='numberOfRooms':
+                    property_value = item.find('span', class_='amenities-item-text').text.strip()        
+                    num_dormitorios = extrair_numeros(property_value) 
 
-            if property_name=='numberOfSuites':
-                property_value = item.find('span', class_='amenities-item-text').text.strip()        
-                num_suites = extrair_numeros(property_value) 
-                
-            if property_name=='numberOfParkingSpaces':
-                property_value = item.find('span', class_='amenities-item-text').text.strip()        
-                num_vagas = extrair_numeros(property_value)           
+                if property_name=='numberOfSuites':
+                    property_value = item.find('span', class_='amenities-item-text').text.strip()        
+                    num_suites = extrair_numeros(property_value) 
+                    
+                if property_name=='numberOfParkingSpaces':
+                    property_value = item.find('span', class_='amenities-item-text').text.strip()        
+                    num_vagas = extrair_numeros(property_value)           
     
             title = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
             address = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
@@ -443,7 +443,7 @@ if tipo_processo == 'lerlinks':
             semaphore.release()  
             # Libera um espaço no semáforo após terminar
         except Exception as e:
-       
+            """       
             if tipo_de_filtro=="venda":       
                
                 sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, ipturecebe,anunciante,link, parte_zap])
@@ -452,7 +452,8 @@ if tipo_processo == 'lerlinks':
               
                 sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, ipturecebe, anunciante,link, parte_zap])           
             #driver1.quit()
-            logging.warning(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link} ")
+            """ 
+            logging.warning(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link} - {e}")
 
             semaphore.release()  
         finally:
