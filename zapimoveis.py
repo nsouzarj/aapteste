@@ -1,6 +1,3 @@
-"""--------------------------------------------------------"""
-""" Parte que ler os  link da listagem                     """
-"""--------------------------------------------------------"""
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -8,13 +5,12 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-import sys, os, random, time, datetime, traceback, requests_cache, logging
+import sys, os, random, time, datetime, traceback, requests_cache, logging, threading
 from openpyxl import Workbook, load_workbook  # Importe load_workbook
-from funcoes_especificas import get_ceps_por_logradouro,extrair_numeros,encontrar_tipo_imovel,parse_address,remover_parte_texto,extrair_e_formatar_data,separar_precos
+from funcoes_especificas import get_ceps_por_logradouro, extrair_numeros, encontrar_tipo_imovel, parse_address, remover_parte_texto, extrair_e_formatar_data, separar_precos
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
-from threading import Thread, Semaphore, Lock
-
+from threading import Thread, Semaphore, Lock, Event
 
 requests_cache.install_cache('cache')
 
@@ -197,7 +193,7 @@ print("HORA FINAL DE LEITURA: ", horaatual.strftime("%H:%M:%S"))
 if tipo_processo == 'lerlinks':
     
     print("CRIANDO A PLANILHDA DO EXCEL.") 
-    print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
+   #print(f"TOTAL DE REGISTRS COLETADOS: {len(links_imoveis)}")
 
 
     """ Array que contem os tipso de movel """
@@ -244,8 +240,8 @@ if tipo_processo == 'lerlinks':
     cont_link=0
 
     # Limite máximo de threads simultâneas
-    #MAX_THREADS = 10 
-    semaphore = Semaphore(int(maximo_theads))  # Define um semáforo com o limite de threads
+    MAX_THREADS = 10
+    semaphore = Semaphore(MAX_THREADS)  # Define um semáforo com o limite de threads
 
     # Variável compartilhada para o contador de links
     cont_link = 0
@@ -274,6 +270,10 @@ if tipo_processo == 'lerlinks':
         ipturecebe=""
         condo_fee=""
         soup=None
+        iptu=None
+        amenity_items=any
+        anunciante=""
+        parte_zap=""
         try:
             semaphore.acquire()
             service1 = Service(chrome_driver_path)
@@ -283,37 +283,28 @@ if tipo_processo == 'lerlinks':
             # Incrementa o contador de links com sincronização
             with cont_link_lock:  # Utiliza a trava para proteger o contador
                 cont_link += 1
-                print(f"LINK: {cont_link} - {link}") 
+                print(f"PROCESSANDO O LINK: {cont_link} - {link}") 
                 
             driver1.get(link)  # Acessa a página do imóvel
             
             # ... (o restante do código para coletar dados do imóvel) ...
-            items_lista =  WebDriverWait(driver1,40).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]'))                                                )
-            if items_lista is not None:
-               driver1.implicitly_wait(0) 
+            items_lista =  WebDriverWait(driver1,40).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]')))
+            precos_imovel = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]')))
             
-            
-            try:
-               driver1.implicitly_wait(0) 
-            
-               html_content = items_lista.get_attribute('outerHTML')
-               soup = BeautifulSoup(html_content, 'html.parser')       
-               precos_imovel = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]')))
-               preco= separar_precos(precos_imovel.text)
+            if precos_imovel:
+               preco= separar_precos(precos_imovel.text) 
                if tipo_de_filtro=="venda":
-                  precovenda=preco['Venda']
+                   precovenda=preco['Venda']
                if tipo_de_filtro=="Aluguel":   
-                  precoaluguel=preco['Aluguel']
-                   
-            except Exception as e:
-               logging.error(f"Na busca de preço mesmo assim sera adicionado na planilha:  ---> {link}   -   {e} ")   
-               precovenda=""
-               precoaluguel="" 
-               
+                   precoaluguel=preco['Aluguel']
+            else:
+                precovenda=""
+                precoaluguel=""
+           
+            html_content = items_lista.get_attribute('outerHTML')
+            soup = BeautifulSoup(html_content, 'html.parser')       
             amenity_items = soup.find_all('p', class_='amenities-item')
-    
-            amenities_data = {}
-        
+                   
             for item in amenity_items:
                 property_name = item.get('itemprop')
         
@@ -339,8 +330,7 @@ if tipo_processo == 'lerlinks':
             tipo_valor_venda=WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="business-type-info"]')))   
             if tipo_valor_venda.text == "Venda":
                 valor_venda = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//p[@data-testid="price-info-value"]')))    
-                valor_venda_limpo=valor_venda.text;
-                valor_aluguel_limpo=""
+             
                 if valor_venda.text != "Sob consulta":
             
                     condo_fee = WebDriverWait(driver1,10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
@@ -356,16 +346,11 @@ if tipo_processo == 'lerlinks':
                     else:
                         condo_fee = condo_fee.text  # Obtém o texto se for um WebElement
                 
-                    #if isinstance(iptu, str):  # Verifica se iptu é uma string
-                     #   iptu = "Não foi possível recuperar"  # Assinala um valor padrão se vazio
-                    #else:
-                    #    iptu = iptu.text 
                         
             elif tipo_valor_venda.text == "Aluguel":
                                                                                                         
                 valor_aluguel = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div/div[1]/div[1]/p[2]')))
-                valor_aluguel_limpo=valor_aluguel.text
-                valor_venda_limpo=""
+             
                 
                 condo_fee = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
                 if not condo_fee.text:
@@ -407,6 +392,7 @@ if tipo_processo == 'lerlinks':
                time.sleep(3)
             
                anunciante_do_imovel = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[1]/div/p[1]')))
+               anunciante=anunciante_do_imovel.text
                zap_do_anunciante = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div[2]/div/section/section/div[2]/p[3]')))
                logradouro, numero, bairro, cidade, estado = parse_address(address.text)
             
@@ -434,11 +420,11 @@ if tipo_processo == 'lerlinks':
             time.sleep(2) 
             if tipo_de_filtro=="venda":       
                 precovenda=preco['Venda']  
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, ipturecebe,anunciante_do_imovel.text,link, parte_zap])
+                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, ipturecebe,anunciante,link, parte_zap])
             
             if  tipo_de_filtro=="aluguel":
                 precoaluguel=preco['Aluguel']  
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, ipturecebe,anunciante_do_imovel.text,link, parte_zap])   
+                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, ipturecebe,anunciante,link, parte_zap])   
                 
             registro_atual += 1
             
@@ -447,24 +433,26 @@ if tipo_processo == 'lerlinks':
                 workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx")) 
                 print(f"## PLANILHA SALVA COM REGISTROS (Registro {registro_atual}) ##")
 
-            semaphore.release()  # Libera um espaço no semáforo após terminar
+            driver1.quit()
+            semaphore.release()  
+            # Libera um espaço no semáforo após terminar
         except Exception as e:
        
             if tipo_de_filtro=="venda":       
                
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, iptu.text,anunciante_do_imovel.text,link, parte_zap])
+                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, ipturecebe,anunciante,link, parte_zap])
             
             if  tipo_de_filtro=="aluguel":
               
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, iptu.text, anunciante_do_imovel.text,link, parte_zap])           
+                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, ipturecebe, anunciante,link, parte_zap])           
             #driver1.quit()
-            logging.warning(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link}   -   {e} ")
-
+            logging.warning(f"Na coleta detalhes do imóvel dados faltando mas foi adicionado na planilha:  ---> {link} ")
+            
+            driver1.quit()
             semaphore.release()  
         #finally:
         #    semaphore.release()# Libera um espaço no semáforo após terminar
-    # Cria threads para processar cada link
-    # Cria threads para processar cada link em lotes de 5
+ 
     
     # Lê os links do arquivo texto
     links_imoveis = [] 
@@ -483,16 +471,16 @@ if tipo_processo == 'lerlinks':
                 # Tempo de espera aleatório
                 time.sleep(random.uniform(2, 5))  # Espere entre 2 e 5 segundos
 
+                #stop_event = Event()  # Cria um evento para interromper a thread
                 thread = Thread(target=processar_imovel, args=(link, tipo_de_filtro))
                 threads.append(thread)
                 thread.start()
 
             # Aguarda todas as threads do lote terminarem
             for thread in threads:
-                thread.join(timeout=60)
+                thread.join(timeout=120)
                 if thread.is_alive():
-                    print(f"A thread para o link {link} não terminou em 60 segundos.")
-                    
+                    print(f"A thread para o link {link} não terminou em 120 segundos. Interrompendo...")
 
             lote_atual += 1  # Incrementa o lote atual após o processamento do lote
         except Exception as e:
@@ -501,6 +489,7 @@ if tipo_processo == 'lerlinks':
             logging.error(f"Erro ao coletar link: {e}")
         finally:
             print(f"Terminando lote {lote_atual}")
+            
     # Salva a planilha final
     os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't exist
     workbook.save(os.path.join(output_dir, "listadeimoveis.xlsx"))
@@ -512,4 +501,4 @@ horafinal=datetime.datetime.now()
 print("HORA FINAL DE LEITURA: ", horafinal.strftime("%H:%M:%S")) 
 
 time.sleep(10)
-sys.exit()
+sys.exit()    
