@@ -248,6 +248,7 @@ if tipo_processo == 'lerlinks':
     cont_link = 0
     cont_link_lock = Lock()  # Cria uma trava para proteger a variável
 
+
     """-----------------------------------------------"""
     """ Funçao que traz os detalhes e esta nas theads """
     """-----------------------------------------------"""
@@ -269,7 +270,9 @@ if tipo_processo == 'lerlinks':
         precovenda=""
         precoaluguel=""
         ipturecebe=""
+        iptuatual=""
         condo_fee=""
+        condomioimovel=""
         soup=None
         iptu=None
         amenity_items=any
@@ -297,6 +300,13 @@ if tipo_processo == 'lerlinks':
             html_content = items_lista.get_attribute('outerHTML')
             soup = BeautifulSoup(html_content, 'html.parser')       
             amenity_items = soup.find_all('p', class_='amenities-item')
+            condomioimovel = soup.find('span', id='condo-fee-price').text.strip().replace('\xa0', ' ')
+            iptuatual = soup.find('span', id='iptu-price').text.strip().replace('\xa0', ' ')
+            
+           
+            
+       
+            
                    
             for item in amenity_items:
                 property_name = item.get('itemprop')
@@ -315,7 +325,9 @@ if tipo_processo == 'lerlinks':
                     
                 if property_name=='numberOfParkingSpaces':
                     property_value = item.find('span', class_='amenities-item-text').text.strip()        
-                    num_vagas = extrair_numeros(property_value)           
+                    num_vagas = extrair_numeros(property_value)   
+                    
+                           
     
             title = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
             address = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
@@ -414,9 +426,11 @@ if tipo_processo == 'lerlinks':
             if precos_imovel:
                preco= separar_precos(precos_imovel.text) 
                if tipo_de_filtro=="venda":
-                  precovenda=preco['Venda']
+                  precovenda='R$ '+preco['Venda']
+                  
                if tipo_de_filtro=="aluguel":   
-                   precoaluguel=preco['Aluguel']
+                   precoaluguel='R$ '+preco['Aluguel']
+                  
             else:
                 precovenda=""
                 precoaluguel=""   
@@ -425,12 +439,10 @@ if tipo_processo == 'lerlinks':
             
             time.sleep(2) 
             if tipo_de_filtro=="venda":       
-                precovenda=preco['Venda']  
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, ipturecebe,anunciante,link, parte_zap])
+                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condomioimovel, iptuatual,anunciante,link, parte_zap])
             
             if  tipo_de_filtro=="aluguel":
-                precoaluguel=preco['Aluguel']  
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, ipturecebe,anunciante,link, parte_zap])   
+                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condomioimovel, iptuatual,anunciante,link, parte_zap])   
                 
             registro_atual += 1
             
@@ -459,8 +471,6 @@ if tipo_processo == 'lerlinks':
         finally:
             driver1.quit()
             semaphore.release()
-        
-        
         
         #    semaphore.release()# Libera um espaço no semáforo após terminar
  

@@ -231,15 +231,16 @@ def separar_precos(texto):
         elif tipo and linha.startswith("R$"):
             precos[tipo] = linha.replace('R$', '').strip()
             tipo = None
-
+        
     # Retornar valores ou "" caso não existam
     return {
         'Venda': precos.get('Venda', ""),
         'Aluguel': precos.get('Aluguel', "")
+        
     }
 
 
 # Exemplo de uso
-#texto = 'Venda\nR$ 990.000\nCondomínio\nisento\nIPTU\nisento'
+#texto = 'Aluguel\nR$ 4.500/mês\nCondomínio\nisento\nIPTU\nR$ 6.193'
 #resultado = separar_precos(texto)
 #print(resultado)     
