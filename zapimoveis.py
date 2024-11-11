@@ -296,18 +296,11 @@ if tipo_processo == 'lerlinks':
             # ... (o restante do código para coletar dados do imóvel) ...
             items_lista =  WebDriverWait(driver1,30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]')))
             precos_imovel = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]')))
-            
-           
-           
             html_content = items_lista.get_attribute('outerHTML')
             soup = BeautifulSoup(html_content, 'html.parser')       
             amenity_items = soup.find_all('p', class_='amenities-item')
             condomioimovel = soup.find('span', id='condo-fee-price').text.strip().replace('\xa0', ' ')
             iptuatual = soup.find('span', id='iptu-price').text.strip().replace('\xa0', ' ')
-            
-           
-            
-       
             
                    
             for item in amenity_items:
@@ -329,8 +322,6 @@ if tipo_processo == 'lerlinks':
                     property_value = item.find('span', class_='amenities-item-text').text.strip()        
                     num_vagas = extrair_numeros(property_value)   
                     
-                           
-    
             title = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[2]/section/div[1]/h1')))
             address = WebDriverWait(driver1, 30).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/p')))
         
