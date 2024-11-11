@@ -12,8 +12,8 @@
 - Instale o python mas recente na sua maquina do site https://www.python.org/downloads
 
 
-
- do zapimoveis.py dever ser alterada conforme onde você descompactou o arquivo zip.  
+Baixa  do git o projeto do git 
+https://www.zapimoveis.com.br/imovel/aluguel-casa-de-condominio-3-quartos-cachambi-rio-de-janeiro-130m2-id-2749365313/
 
 - Instale as seguinte libs do python usando pip 
     - pip install selenium
