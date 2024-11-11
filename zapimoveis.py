@@ -46,6 +46,7 @@ chrome_options.add_argument("--incognito")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-gpu")  # Desativa a aceleração de hardware
 chrome_options.add_argument("--disable-extensions") 
+chrome_options.add_argument('--log-level=1')
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
 #requests_cache.install_cache('cache')
 # Inicializando o ChromeDriver
@@ -240,7 +241,7 @@ if tipo_processo == 'lerlinks':
     cont_link=0
 
     # Limite máximo de threads simultâneas
-    MAX_THREADS = int(maximo_theads)
+    MAX_THREADS = int("4")
     semaphore = Semaphore(MAX_THREADS)  # Define um semáforo com o limite de threads
    
 
@@ -279,9 +280,10 @@ if tipo_processo == 'lerlinks':
         anunciante=""
         parte_zap=""
         try:
-            semaphore.acquire()
+           
             service1 = Service(chrome_driver_path)
-            driver1 = webdriver.Chrome(service=service1, options=chrome_options)     
+            driver1 = webdriver.Chrome(service=service1, options=chrome_options)  
+            semaphore.acquire()   
             
             # Incrementa o contador de links com sincronização
             with cont_link_lock:  # Utiliza a trava para proteger o contador
@@ -476,7 +478,7 @@ if tipo_processo == 'lerlinks':
  
     
     # Lê os links do arquivo texto
-    links_imoveis = [] 
+    links_imoveis = []
     with open(caminho_da_planilha + '\\cidade_'+cidade_para_nome_arquivo+'.data', 'r', encoding='utf-8') as arquivo_links:
         for link in arquivo_links:
             links_imoveis.append(link.strip()) 
@@ -490,7 +492,7 @@ if tipo_processo == 'lerlinks':
             threads = []
             for link in lote:
                 # Tempo de espera aleatório
-                time.sleep(random.uniform(2, 5))  # Espere entre 2 e 5 segundos
+                time.sleep(random.uniform(1, 3))  # Espere entre 2 e 5 segundos
 
                 #stop_event = Event()  # Cria um evento para interromper a thread
                 thread = Thread(target=processar_imovel, args=(link, tipo_de_filtro))
