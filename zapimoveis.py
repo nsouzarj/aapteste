@@ -448,16 +448,7 @@ if tipo_processo == 'lerlinks':
             semaphore.release()  
             # Libera um espaço no semáforo após terminar
         except Exception as e:
-            """       
-            if tipo_de_filtro=="venda":       
-               
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condo_fee, ipturecebe,anunciante,link, parte_zap])
-            
-            if  tipo_de_filtro=="aluguel":
-              
-                sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,"",precoaluguel, condo_fee, ipturecebe, anunciante,link, parte_zap])           
-            #driver1.quit()
-            """ 
+
             logging.warning(f"Na coleta detalhes do imóvel dados faltando não foi adicionado na planilha:  ---> {link} - {e}")
 
             semaphore.release()  
