@@ -20,26 +20,27 @@ caminho_da_planilha = sys.argv[1]
 # Caminho do webchorme 
 caminho_do_webchrome = sys.argv[2]
 
-#filtro pro cidade
+# Filtro pro cidade
 caminho_do_filtro=sys.argv[3]
 
-#tipo de filtro pode ser venda 
+# Tipo de filtro pode ser "venda" ou "aluguel" 
 tipo_de_filtro=sys.argv[4]
 
-#maximo de theads
-
+# Máximo de theads
 maximo_theads=sys.argv[5]
 
-tipo_processo=sys.argv[6] # gerarlink pra gerar arquivo texto lerlinks para gerar a ´pal
+# Gerarlink pra gerar arquivo texto lerlinks para gerar a ´pal
+tipo_processo=sys.argv[6] 
 
-cidade_para_nome_arquivo=sys.argv[7]  # Aqui  vai o nome do arquivo que será gerado exe:  aquivo_niteroi.tct
+# Aqui  vai o nome do arquivo que será gerado exe:  aquivo_niteroi.tct
+cidade_para_nome_arquivo=sys.argv[7]  
 
 
 # Configurando opções do Chrome
 chrome_options = Options()
 chrome_options.page_load_strategy="normal"
 chrome_options.set_capability('goog:logginPrefs',{'performance': 'ALL'})
-## Comente esta linha para ver o navegador
+# Comente esta linha para ver o navegador
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--incognito")
@@ -53,8 +54,8 @@ chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64
 # Caminho para o ChromeDriver
 chrome_driver_path = caminho_do_webchrome
 #"C:\Users\User\ChromeWithDriver\chromedriver.exe"
-# Inicializando um conjunto para armazenar links únicos
-links_imoveis = set()
+# Inicializando um conjunto para armazenar links únicos não mais usado
+# links_imoveis = set()
 # Número da página inicial
 pagina_atual = 1
 cont = 0 
