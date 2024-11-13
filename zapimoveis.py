@@ -349,7 +349,6 @@ if tipo_processo == 'lerlinks':
             elif tipo_valor_venda.text == "Aluguel":
                                                                                                         
                 valor_aluguel = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/div[1]/div[3]/div/div[1]/div[1]/p[2]')))
-             
                 
                 condo_fee = WebDriverWait(driver1, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="condo-fee-price"]')))
                 if not condo_fee.text:
@@ -429,8 +428,6 @@ if tipo_processo == 'lerlinks':
                 precovenda=""
                 precoaluguel=""   
                
-               
-            
             time.sleep(2) 
             if tipo_de_filtro=="venda":       
                 sheet.append([data_cadastro,tipo_movel,cepencontado, logradouro, numero,bairro,estado,cidade, num_dormitorios ,num_suites ,num_vagas ,area_total,precovenda,"", condomioimovel, iptuatual,anunciante,link, parte_zap])
@@ -484,15 +481,16 @@ if tipo_processo == 'lerlinks':
 
             # Aguarda todas as threads do lote terminarem
             for thread in threads:
+                
                 thread.join(timeout=120)
                 if thread.is_alive():
                     print(f"A thread para o link {link} não terminou em 120 segundos. Interrompendo...")
 
             lote_atual += 1  # Incrementa o lote atual após o processamento do lote
         except Exception as e:
-            #print(f"ERROR: {e}")
-            #traceback.print_exc()
+            
             logging.error(f"Erro ao coletar link: {e}")
+        
         finally:
             print(f"Terminando lote {lote_atual}")
             
