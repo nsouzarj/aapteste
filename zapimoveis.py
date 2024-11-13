@@ -140,17 +140,13 @@ if  tipo_processo == "gerarlinks" :
                                print("IMOVEL COM ANÚNCIO")
                                print(f"{cont} - {link_result}")
                                contreg+=1
-                               links_imoveis.add(link_result)
                                driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE) # Fechando o anúncio
-                                
-                                # Adicionando o link ao arquivo de texto
+                               # Adicionando o link ao arquivo de texto
                                arquivo_links.write(link_result + '\n')
                                 
                         # Coleta o link do imóvel (se não houver anúncio)
                         if link_element and len(link_element) > 0:
                            link = link_element[0].get_attribute('href')
-                           links_imoveis.add(link)
-                            
                            print(f"LINK: {cont} - {link}")
                            arquivo_links.write(link + '\n')
                            contreg+=1
@@ -255,6 +251,7 @@ if tipo_processo == 'lerlinks':
     """ Funçao que traz os detalhes e esta nas theads """
     """-----------------------------------------------"""
     def processar_imovel(link,tipo_de_filtro):
+        # Variaveis usadas 
         global registro_atual, cont_link
         area_total=""
         num_dormitorios=""
@@ -454,8 +451,6 @@ if tipo_processo == 'lerlinks':
             driver1.quit()
             semaphore.release()
         
-        #    semaphore.release()# Libera um espaço no semáforo após terminar
- 
     
     # Lê os links do arquivo texto
     links_imoveis = []
